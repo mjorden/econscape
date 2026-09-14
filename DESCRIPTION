@@ -1,6 +1,6 @@
 Package: econscape
 Title: Economics in R: FRED Data, Textbook Theory and Two House Styles
-Version: 0.13.0
+Version: 0.14.0
 Authors@R:
     person("Matthew", "Jorden", email = "matthew.jorden@gmail.com",
            role = c("aut", "cre"))

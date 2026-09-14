@@ -16,7 +16,8 @@
 #' periods ahead that could not be forecast from its recent past. The first
 #' `h + p - 1` observations have no cycle value. Defaults `h = 8, p = 4` are
 #' the paper's quarterly recommendation; use `h = 24, p = 12` for monthly
-#' data.
+#' data. The series must be longer than `h + 2p + 2` so the forecasting
+#' regression has a few residual degrees of freedom.
 #'
 #' @param x A numeric vector, or a data frame from [fred_series()] with
 #'   `date` and `value` columns (a single series).
@@ -102,15 +103,66 @@ hp_filter <- function(x, lambda = NULL, frequency = c("quarterly", "annual", "mo
   if (n < 4L) {
     cli::cli_abort("Need at least 4 observations; got {n}.")
   }
-  # K is the (n-2) x n second-difference operator; the trend solves
-  # (I + lambda K'K) tau = y.
-  K <- matrix(0, n - 2, n)
-  for (i in seq_len(n - 2)) {
-    K[i, i:(i + 2)] <- c(1, -2, 1)
-  }
-  A <- diag(n) + lambda * crossprod(K)
-  trend <- as.numeric(solve(A, s$value))
+  trend <- hp_trend(s$value, lambda)
   new_trend_cycle(s, trend, s$value - trend, method = "hp", lambda = lambda)
+}
+
+#' Solve the Hodrick-Prescott system in O(n)
+#'
+#' The trend solves (I + lambda K'K) tau = y with K the second-difference
+#' operator. K'K is pentadiagonal with a fixed stencil (6 on the diagonal,
+#' -4 and 1 on the off-diagonals, with the four edge entries reduced), so
+#' the system is symmetric positive definite with bandwidth 2. A banded
+#' LDL' factorisation and two substitutions solve it in linear time and
+#' memory; a dense solve() was cubic and took minutes at a few thousand
+#' observations.
+#'
+#' @param y Numeric vector, length at least 4.
+#' @param lambda Smoothing parameter.
+#' @return The trend, a numeric vector the length of `y`.
+#' @noRd
+hp_trend <- function(y, lambda) {
+  n <- length(y)
+  d0 <- rep(6, n); d0[c(1L, n)] <- 1; d0[c(2L, n - 1L)] <- 5
+  d1 <- rep(-4, n - 1L); d1[c(1L, n - 1L)] <- -2
+  d2 <- rep(1, n - 2L)
+  d0 <- 1 + lambda * d0
+  d1 <- lambda * d1
+  d2 <- lambda * d2
+
+  # A = L D L' with unit lower-triangular L carrying bands l1 (offset 1)
+  # and l2 (offset 2).
+  D <- numeric(n); l1 <- numeric(n - 1L); l2 <- numeric(n - 2L)
+  for (i in seq_len(n)) {
+    s <- d0[i]
+    if (i > 1L) s <- s - l1[i - 1L]^2 * D[i - 1L]
+    if (i > 2L) s <- s - l2[i - 2L]^2 * D[i - 2L]
+    D[i] <- s
+    if (i < n) {
+      t1 <- d1[i]
+      if (i > 1L) t1 <- t1 - l1[i - 1L] * l2[i - 1L] * D[i - 1L]
+      l1[i] <- t1 / s
+    }
+    if (i < n - 1L) l2[i] <- d2[i] / s
+  }
+  # Forward: L z = y
+  z <- numeric(n)
+  for (i in seq_len(n)) {
+    v <- y[i]
+    if (i > 1L) v <- v - l1[i - 1L] * z[i - 1L]
+    if (i > 2L) v <- v - l2[i - 2L] * z[i - 2L]
+    z[i] <- v
+  }
+  # Diagonal, then backward: L' tau = z / D
+  z <- z / D
+  tau <- numeric(n)
+  for (i in n:1L) {
+    v <- z[i]
+    if (i < n) v <- v - l1[i] * tau[i + 1L]
+    if (i < n - 1L) v <- v - l2[i] * tau[i + 2L]
+    tau[i] <- v
+  }
+  tau
 }
 
 #' @rdname trend_cycle
@@ -121,13 +173,19 @@ hamilton_filter <- function(x, h = 8L, p = 4L) {
   p <- as.integer(check_positive(p))
   y <- s$value
   n <- length(y)
-  if (n <= h + p + 1L) {
-    cli::cli_abort("Need more than {h + p + 1} observations for h = {h}, p = {p}; got {n}.")
+  # The regression has p + 1 parameters on n - (h + p) + 1 rows; insist on
+  # a few residual degrees of freedom or lm.fit() returns a rank-deficient
+  # fit whose zero residuals would masquerade as a flat cycle.
+  if (n - (h + p) + 1L < p + 4L) {
+    cli::cli_abort("Need more than {h + 2 * p + 2} observations for h = {h}, p = {p}; got {n}.")
   }
   # Rows t = h + p, ..., n: y[t] on y[t-h], y[t-h-1], ..., y[t-h-p+1].
   t_idx <- (h + p):n
   X <- cbind(1, vapply(0:(p - 1), function(j) y[t_idx - h - j], numeric(length(t_idx))))
   fit <- stats::lm.fit(X, y[t_idx])
+  if (fit$rank < ncol(X)) {
+    cli::cli_abort("The forecasting regression is rank-deficient (h = {h}, p = {p}, {length(t_idx)} rows).")
+  }
   trend <- rep(NA_real_, n)
   cycle <- rep(NA_real_, n)
   trend[t_idx] <- fit$fitted.values

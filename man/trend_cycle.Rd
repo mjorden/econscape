@@ -47,7 +47,8 @@ lags, and call the residual the cycle -- the part of the series \code{h}
 periods ahead that could not be forecast from its recent past. The first
 \code{h + p - 1} observations have no cycle value. Defaults \verb{h = 8, p = 4} are
 the paper's quarterly recommendation; use \verb{h = 24, p = 12} for monthly
-data.
+data. The series must be longer than \verb{h + 2p + 2} so the forecasting
+regression has a few residual degrees of freedom.
 }
 \examples{
 econ <- ggplot2::economics

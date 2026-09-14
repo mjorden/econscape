@@ -25,14 +25,20 @@ plot_coefficients <- function(fit, level = 0.95, intercept = FALSE, terms = NULL
                               title = NULL, subtitle = NULL, source = NULL,
                               panel = NULL) {
   tab <- coef_table(fit, level = level)
-  if (!intercept) tab <- tab[tab$term != "(Intercept)", , drop = FALSE]
   if (!is.null(terms)) {
     missing <- setdiff(terms, tab$term)
     if (length(missing) > 0L) {
       cli::cli_abort("Unknown term{?s}: {.val {missing}}.")
     }
+    if (!intercept && "(Intercept)" %in% terms) {
+      cli::cli_abort(c(
+        "{.val (Intercept)} is excluded by {.code intercept = FALSE}.",
+        "i" = "Pass {.code intercept = TRUE} to plot it."
+      ))
+    }
     tab <- tab[match(terms, tab$term), , drop = FALSE]
   }
+  if (!intercept) tab <- tab[tab$term != "(Intercept)", , drop = FALSE]
   if (nrow(tab) == 0L) {
     cli::cli_abort("Nothing to plot: no terms left after dropping the intercept.")
   }

@@ -15,12 +15,16 @@ ols(formula, data, se = c("classical", "hc1", "hac"), lags = NULL, ...)
 
 \item{lags}{Bandwidth for \code{"hac"}. Ignored otherwise.}
 
-\item{...}{Passed to \code{\link[stats:lm]{stats::lm()}}, e.g. \code{subset} or \code{weights}.}
+\item{...}{Passed to \code{\link[stats:lm]{stats::lm()}}, e.g. \code{subset} or \code{weights}. Both are
+evaluated in \code{data} the way \code{lm()} evaluates them.}
 }
 \value{
 An object of class \code{econ_fit}: a list with \code{fit} (the \code{lm}),
 \code{vcov}, \code{se_type}, \code{lags}, \code{nobs} and \code{df}. \code{\link[=coef_table]{coef_table()}} gives the
-coefficient table; \code{\link[=plot_coefficients]{plot_coefficients()}} draws it.
+coefficient table; \code{\link[=plot_coefficients]{plot_coefficients()}} draws it. The usual generics
+work: \code{\link[=coef]{coef()}}, \code{\link[=vcov]{vcov()}}, \code{\link[=confint]{confint()}} (t intervals, matching
+\code{coef_table()}), \code{\link[=predict]{predict()}}, \code{\link[=residuals]{residuals()}}, \code{\link[=fitted]{fitted()}},
+\code{\link[=model.matrix]{model.matrix()}}, \code{\link[=formula]{formula()}}, \code{\link[=nobs]{nobs()}}.
 }
 \description{
 \code{\link[stats:lm]{stats::lm()}} underneath, with the covariance matrix replaced by one that
@@ -39,9 +43,16 @@ the score up to \code{lags}. With \code{lags = NULL} the bandwidth is
 uses. No small-sample adjustment is applied.
 }
 
-Both robust estimators are computed directly from the design matrix and
-residuals -- a dozen lines of linear algebra -- rather than through a
-dependency, and the tests pin them against hand-computed sandwich matrices.
+Both robust estimators are computed directly from the design matrix,
+residuals and (if any) weights -- a dozen lines of linear algebra --
+rather than through a dependency, and the tests pin them against
+hand-computed sandwich matrices. With \code{weights}, every estimator uses the
+weighted bread \eqn{(X'WX)^{-1}} and weighted scores \eqn{w_t x_t e_t}.
+
+The HAC estimator lags observations by their row position in the fitted
+sample. If \code{subset} or \code{lm()}'s default \code{na.action} drops interior rows,
+"one lag" no longer means one period; check that the fitted sample is
+contiguous in time before trusting \code{"hac"} on gappy data.
 }
 \examples{
 econ <- ggplot2::economics
@@ -51,4 +62,9 @@ econ$unemp_rate <- 100 * econ$unemploy / econ$pop
 fit <- ols(psavert ~ unemp_rate, econ, se = "hac")
 fit
 coef_table(fit)
+confint(fit)
+
+# Weighted least squares with robust errors
+econ$w <- seq_len(nrow(econ))
+ols(psavert ~ unemp_rate, econ, se = "hc1", weights = w)
 }
