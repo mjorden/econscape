@@ -297,6 +297,15 @@ mrs.utility_table <- function(u, x, y, ...) {
 #' @param b A [budget()]; prices may be [price_schedule()]s, in which case
 #'   each unit is priced at its own tier.
 #'
+#' The order is the textbook's constrained greedy: at each step buy the
+#' next unit of whichever good gives more utility per dollar, never skipping
+#' ahead within a good, and stop at the first unit the income cannot cover.
+#' That rule finds the optimum only when marginal utility is diminishing and
+#' the income is spent exactly; otherwise (a table that is not concave, or
+#' leftover cash that would have bought a cheaper unit further down the
+#' list) the affordable set can differ from [optimal_bundle()]. When it does,
+#' a warning is issued and the result carries a `note` attribute saying so.
+#'
 #' @return A data frame with one row per unit: `good`, `unit`, `price`,
 #'   `mu`, `mu_per_dollar`, `cumulative_cost`, `affordable`.
 #'
@@ -322,15 +331,46 @@ mu_per_dollar <- function(u, b) {
                mu = diff(attr(u, "tu_y")), stringsAsFactors = FALSE)
   )
   out$mu_per_dollar <- out$mu / out$price
-  # Within a good, units must be bought in order; sort by value per dollar but
-  # never let a later unit jump ahead of an earlier one of the same good.
-  out <- out[order(-out$mu_per_dollar, out$good, out$unit), ]
-  for (gg in unique(out$good)) {
-    idx <- which(out$good == gg)
-    out[idx, ] <- out[idx, ][order(out$unit[idx]), ]
+  # Constrained greedy: units of a good are bought in order, so at each step
+  # only the *next* unit of each good is a candidate. A global sort by value
+  # per dollar is not the same thing -- it lets a cheap-looking later unit
+  # pull its predecessors forward.
+  ix <- which(out$good == g[1])
+  iy <- which(out$good == g[2])
+  pick <- integer(0)
+  i <- 1L
+  j <- 1L
+  while (i <= length(ix) || j <= length(iy)) {
+    take_x <- if (i > length(ix)) {
+      FALSE
+    } else if (j > length(iy)) {
+      TRUE
+    } else {
+      out$mu_per_dollar[ix[i]] >= out$mu_per_dollar[iy[j]]
+    }
+    if (take_x) {
+      pick <- c(pick, ix[i]); i <- i + 1L
+    } else {
+      pick <- c(pick, iy[j]); j <- j + 1L
+    }
   }
+  out <- out[pick, , drop = FALSE]
   out$cumulative_cost <- cumsum(out$price)
   out$affordable <- out$cumulative_cost <= b$income + 1e-9
   rownames(out) <- NULL
+
+  # The greedy rule is only optimal under diminishing marginal utility; say
+  # so when it disagrees with the exhaustive search.
+  bought <- out[out$affordable, , drop = FALSE]
+  greedy <- c(sum(bought$good == g[1]), sum(bought$good == g[2]))
+  opt <- optimal_bundle(u, b)
+  if (!isTRUE(all.equal(greedy, c(opt$x, opt$y)))) {
+    note <- sprintf(
+      "the marginal-utility-per-dollar rule buys (%s = %d, %s = %d), but the utility-maximising bundle is (%s = %d, %s = %d); the rule is only guaranteed under diminishing marginal utility with the income spent exactly",
+      g[1], greedy[1], g[2], greedy[2], g[1], round(opt$x), g[2], round(opt$y)
+    )
+    cli::cli_warn(c("!" = "The MU-per-dollar order is not the optimum here.", "i" = note))
+    attr(out, "note") <- note
+  }
   out
 }

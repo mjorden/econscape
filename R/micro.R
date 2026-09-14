@@ -113,7 +113,9 @@ print.cobb_douglas <- function(x, ...) {
 #'   `x_max` and `y_max` (the most of each good the income buys on its own),
 #'   `slope` (`-px / py`, or `NA` when a price is a schedule), `kinked`
 #'   (`TRUE` when either price is a schedule) and the cost functions `cost_x`
-#'   and `cost_y`.
+#'   and `cost_y`. Because it carries functions, two budgets built from the
+#'   same arguments are equal under [all.equal()] but not [identical()];
+#'   compare the fields if you need a strict test.
 #'
 #' @seealso [budget_line()] to get plottable coordinates, [optimal_bundle()]
 #'   to solve against a utility function.

@@ -219,10 +219,14 @@ test_that("plot_market() builds for each structure and shades the right areas", 
 test_that("maximise_on() never returns a profit minimum", {
   # Net benefit negative then positive: the integral is minimised at the
   # crossing and maximised at an endpoint. The old rule returned 5.
-  g <- function(q) if (q <= 5) -1 else 1
+  g <- function(q) if (q <= 4) -1 else 1
   expect_equal(maximise_on(g, 10), 10)
   g2 <- function(q) if (q <= 8) -1 else 1
   expect_equal(maximise_on(g2, 10), 0)
+  # An exact tie between the endpoints (integral zero at both) is an
+  # endpoint, never the crossing, and the same one on every platform.
+  g_tie <- function(q) if (q <= 5) -1 else 1
+  expect_equal(maximise_on(g_tie, 10), 0)
 })
 
 test_that("maximise_on() picks the best of several downward crossings", {
@@ -271,4 +275,12 @@ test_that("marginal cost of a custom production function is usable near zero", {
   # At zero: the cost of the first sliver, finite and positive, same for both.
   expect_true(is.finite(marginal_cost(a, 0)) && marginal_cost(a, 0) > 0)
   expect_equal(marginal_cost(b, 0), marginal_cost(a, 0), tolerance = 1e-3)
+})
+
+
+test_that("maximise_on() sees a marginal feature narrower than the old grid", {
+  # -1 everywhere except +5000 on a 0.05-wide window near 8: the integral
+  # peaks at 8.05, which a 200-point grid on [0, 20] (spacing 0.1) missed.
+  g <- function(q) if (q >= 8 && q <= 8.05) 5000 else -1
+  expect_equal(maximise_on(g, 20), 8.05, tolerance = 1e-6)
 })

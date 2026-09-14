@@ -463,19 +463,46 @@ scan_marginal <- function(g, upper, n_grid = 200L) {
 #' (`g` runs -, +, -), several crossings, and a `g` that only ever crosses
 #' upward (a profit minimum, never returned -- one of the endpoints is).
 #'
+#' The grid is much finer here than in [find_crossing()] because the
+#' *integral* is what is scored: a feature narrower than one grid step (a
+#' capacity kink, a block tariff in a cost function) is invisible to the
+#' trapezoid sum, so the resolution is `upper / n_grid`. A thousand
+#' evaluations of a closed-form marginal function cost a few milliseconds;
+#' an aggregate demand's inverse (a root-find per point) is the expensive
+#' case, which is why this is not finer.
+#'
+#' Candidates whose scores tie within rounding resolve to the smallest
+#' quantity, so a step function whose integral is exactly zero at both
+#' endpoints gives the same answer on every platform.
+#'
 #' @noRd
-maximise_on <- function(g, upper, n_grid = 200L) {
+maximise_on <- function(g, upper, n_grid = 1000L) {
   s <- scan_marginal(g, upper, n_grid)
   if (length(s$g) == 0L) return(0)
-  # Cumulative integral of g from 0, treating g as 0 on [0, q[1]].
-  cum <- c(0, cumsum(diff(s$q) * (utils::head(s$g, -1) + utils::tail(s$g, -1)) / 2))
-  candidates <- c(0, upper)
-  scores <- c(0, cum[length(cum)])
+  # Trapezoid areas of each grid interval, treating g as 0 on [0, q[1]].
+  areas <- diff(s$q) * (utils::head(s$g, -1) + utils::tail(s$g, -1)) / 2
+  roots <- numeric(0)
+  slivers <- numeric(0)
   for (i in s$down) {
-    candidates <- c(candidates, s$polish(i))
-    scores <- c(scores, cum[i])
+    root <- s$polish(i)
+    g_root <- g(root)
+    if (!is.finite(g_root)) g_root <- 0
+    # Split the interval that holds the crossing at the root: the part up to
+    # it belongs to the crossing candidate, the part after it to everything
+    # downstream. For a smooth g both are thin triangles; for a step the
+    # trapezoid would otherwise smear the step across the whole interval and
+    # credit the endpoint with area the crossing never had.
+    sliver <- (root - s$q[i]) * (s$g[i] + max(g_root, 0)) / 2
+    areas[i] <- sliver + (s$q[i + 1L] - root) * (min(g_root, 0) + s$g[i + 1L]) / 2
+    roots <- c(roots, root)
+    slivers <- c(slivers, sliver)
   }
-  candidates[which.max(scores)]
+  cum <- c(0, cumsum(areas))
+  candidates <- c(0, upper, roots)
+  scores <- c(0, cum[length(cum)], cum[s$down] + slivers)
+  best <- max(scores)
+  tied <- abs(scores - best) <= 1e-9 * max(1, abs(best))
+  min(candidates[tied])
 }
 
 #' Find where a decreasing-then-increasing gap function last crosses zero

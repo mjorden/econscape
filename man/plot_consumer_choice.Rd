@@ -10,7 +10,7 @@ plot_consumer_choice(
   levels = NULL,
   xlim = NULL,
   ylim = NULL,
-  goods = c("Good x", "Good y"),
+  goods = NULL,
   title = NULL,
   subtitle = NULL,
   source = NULL,
@@ -28,7 +28,8 @@ curves either side of it.}
 
 \item{xlim, ylim}{Panel limits. Default to a little beyond each intercept.}
 
-\item{goods}{Axis labels for \code{x} and \code{y}.}
+\item{goods}{Axis labels for \code{x} and \code{y}. \code{NULL} uses the names a
+\code{\link[=utility_table]{utility_table()}} carries, or \code{"Good x"} and \code{"Good y"}.}
 
 \item{title, subtitle, source}{Passed to \code{\link[=labs_econ]{labs_econ()}}. Sensible defaults
 are filled in from \code{u} and \code{b}.}

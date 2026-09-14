@@ -20,9 +20,11 @@ transform_series(
 the dates when \code{NULL}.}
 }
 \value{
-The same frame with \code{value} transformed. Observations that need
-an earlier one that does not exist become \code{NA} rather than being
-dropped, so the rows still line up with the original.
+The same frame with \code{value} transformed, rows in the order they
+arrived. Observations that need an earlier one that does not exist
+become \code{NA} rather than being dropped, so the rows still line up with
+the original. "Previous" and "a year ago" are found by date within each
+series, so the input need not be sorted.
 }
 \description{
 \code{\link[=fred_series]{fred_series()}} can ask the API for a transformed series through \code{units};

@@ -185,7 +185,8 @@ geom_optimum <- function(u, b, colour = style_colour("ink"),
 #' @param levels Curve levels. Defaults to the optimum's utility and two
 #'   curves either side of it.
 #' @param xlim,ylim Panel limits. Default to a little beyond each intercept.
-#' @param goods Axis labels for `x` and `y`.
+#' @param goods Axis labels for `x` and `y`. `NULL` uses the names a
+#'   [utility_table()] carries, or `"Good x"` and `"Good y"`.
 #' @param title,subtitle,source Passed to [labs_econ()]. Sensible defaults
 #'   are filled in from `u` and `b`.
 #' @param label_levels Print each curve's level at its right-hand end?
@@ -205,7 +206,7 @@ plot_consumer_choice <- function(u, b,
                                  levels = NULL,
                                  xlim = NULL,
                                  ylim = NULL,
-                                 goods = c("Good x", "Good y"),
+                                 goods = NULL,
                                  title = NULL,
                                  subtitle = NULL,
                                  source = NULL,
@@ -214,6 +215,7 @@ plot_consumer_choice <- function(u, b,
   if (!inherits(b, "budget")) {
     cli::cli_abort("{.arg b} must be a {.fn budget} object.")
   }
+  goods <- goods %||% attr(u, "goods") %||% c("Good x", "Good y")
   if (!is.character(goods) || length(goods) != 2L) {
     cli::cli_abort("{.arg goods} must be two labels.")
   }

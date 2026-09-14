@@ -37,6 +37,7 @@ econ_hex <- c(
   # The academic style: parchment surfaces and brown ink
   panel_parchment = "#F4EEE2",
   grid_parchment  = "#E3D9C6",
+  brown           = "#5C4033",
   ink_brown       = "#2E2622",
   muted_brown     = "#7A6B5D",
   rust            = "#8B3A2F"

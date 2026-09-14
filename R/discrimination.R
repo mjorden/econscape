@@ -124,7 +124,10 @@ first_degree <- function(demand, cost) {
 #' Quantity at which a segment's marginal revenue equals m
 #' @noRd
 quantity_at_mr <- function(d, m) {
-  maximise_on(function(q) marginal_revenue(d, q) - m, d$q_max)
+  # Nested inside find_crossing(): a segment's MR - m is smooth and
+  # monotone, so the coarse grid is enough and the fine one would cost
+  # 200 x 1000 evaluations per solve.
+  maximise_on(function(q) marginal_revenue(d, q) - m, d$q_max, n_grid = 200L)
 }
 
 #' @rdname price_discrimination

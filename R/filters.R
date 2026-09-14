@@ -31,6 +31,8 @@
 #' @return An object of class `trend_cycle`: a data frame with columns
 #'   `date` (if `x` had one), `value`, `trend` and `cycle`, plus attributes
 #'   `method` and the tuning parameters. [plot_trend_cycle()] draws it.
+#'   Subsetting rows keeps the class and attributes; dropping any of the
+#'   three value columns returns a plain data frame.
 #'
 #' @references
 #' Hodrick, R. J. and Prescott, E. C. (1997). Postwar U.S. business cycles:
@@ -193,8 +195,34 @@ hamilton_filter <- function(x, h = 8L, p = 4L) {
   new_trend_cycle(s, trend, cycle, method = "hamilton", h = h, p = p)
 }
 
+#' Check that a trend_cycle still has its columns and attributes
+#' @noRd
+check_trend_cycle <- function(x, arg = "x") {
+  needed <- c("value", "trend", "cycle")
+  if (!all(needed %in% names(x)) || is.null(attr(x, "method"))) {
+    cli::cli_abort(c(
+      "{.arg {arg}} is not a complete {.cls trend_cycle}.",
+      "i" = "It needs the columns {.field {needed}} and the attributes set by {.fn hp_filter} or {.fn hamilton_filter}."
+    ))
+  }
+  invisible(x)
+}
+
+#' @export
+`[.trend_cycle` <- function(x, ...) {
+  attrs <- attributes(x)[c("method", "lambda", "h", "p")]
+  out <- NextMethod()
+  if (is.data.frame(out) && all(c("value", "trend", "cycle") %in% names(out))) {
+    for (a in names(attrs)) if (!is.null(attrs[[a]])) attr(out, a) <- attrs[[a]]
+  } else if (is.data.frame(out)) {
+    class(out) <- setdiff(class(out), "trend_cycle")
+  }
+  out
+}
+
 #' @export
 print.trend_cycle <- function(x, ...) {
+  check_trend_cycle(x)
   method <- attr(x, "method")
   desc <- if (method == "hp") {
     sprintf("Hodrick-Prescott, lambda = %s", format(attr(x, "lambda")))
@@ -232,6 +260,7 @@ plot_trend_cycle <- function(tc, title = NULL, subtitle = NULL, source = NULL,
   if (!inherits(tc, "trend_cycle")) {
     cli::cli_abort("{.arg tc} must come from {.fn hp_filter} or {.fn hamilton_filter}.")
   }
+  check_trend_cycle(tc, "tc")
   has_date <- "date" %in% names(tc)
   x <- if (has_date) tc$date else seq_len(nrow(tc))
   method <- attr(tc, "method")
