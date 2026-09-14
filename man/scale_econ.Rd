@@ -8,7 +8,7 @@
 \alias{scale_colour_econ_c}
 \alias{scale_color_econ_c}
 \alias{scale_fill_econ_c}
-\title{Economist-style colour and fill scales}
+\title{House-style colour and fill scales}
 \usage{
 scale_colour_econ(palette = NULL, reverse = FALSE, ...)
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/theme.R
 \name{labs_econ}
 \alias{labs_econ}
-\title{Economist-style labels}
+\title{House-style labels}
 \usage{
 labs_econ(
   title = NULL,

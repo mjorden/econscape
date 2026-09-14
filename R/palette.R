@@ -126,7 +126,7 @@ econ_pal <- function(palette = NULL, reverse = FALSE) {
   }
 }
 
-#' Economist-style colour and fill scales
+#' House-style colour and fill scales
 #'
 #' Discrete scales draw from the categorical palette in order; continuous
 #' scales interpolate a sequential or diverging ramp.

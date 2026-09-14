@@ -203,7 +203,7 @@ scale_x_econ_date <- function(..., expand = ggplot2::expansion(mult = c(0, 0))) 
   ggplot2::scale_x_date(..., expand = expand)
 }
 
-#' Economist-style labels
+#' House-style labels
 #'
 #' A thin wrapper over [ggplot2::labs()] that drops both axis titles (the units
 #' belong in the subtitle) and formats `source` into the caption the way the
