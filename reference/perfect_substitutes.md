@@ -7,7 +7,10 @@ p_x = b / p_y\\ exactly, when every point on the budget line is equally
 good. In that knife-edge case
 [`optimal_bundle()`](https://mjorden.github.io/fredscape/reference/optimal_bundle.md)
 returns the midpoint of the budget line and flags the result with an
-`indeterminate` attribute set to `TRUE`.
+`indeterminate` attribute set to `TRUE`. "Exactly" means within
+[`all.equal()`](https://rdrr.io/r/base/all.equal.html)'s default
+tolerance, about 1.5e-8 relative: two utilities-per-dollar that differ
+only in the ninth significant figure count as a tie.
 
 ## Usage
 
@@ -19,7 +22,10 @@ perfect_substitutes(a = 1, b = 1, A = 1, kind = c("utility", "production"))
 
 - a, b:
 
-  Marginal utility of `x` and `y`. Positive.
+  Marginal utility of `x` and `y`. Positive. (`b` here is the textbook
+  coefficient, not a
+  [`budget()`](https://mjorden.github.io/fredscape/reference/budget.md)
+  – the letter is kept because that is how the formula is written.)
 
 - A:
 

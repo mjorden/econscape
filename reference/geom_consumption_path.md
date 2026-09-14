@@ -14,7 +14,7 @@ given the matching list of budgets to show the lines the bundles sit on.
 ``` r
 geom_consumption_path(
   data,
-  colour = unname(econ_hex["ink"]),
+  colour = style_colour("ink"),
   linewidth = 0.6,
   size = 2,
   ...

@@ -11,7 +11,7 @@ annotate_recessions(
   data = nber_recessions,
   from = NULL,
   to = NULL,
-  fill = "#8FA5B0",
+  fill = NULL,
   alpha = 0.35
 )
 ```
@@ -35,7 +35,8 @@ annotate_recessions(
 
 - fill:
 
-  Band colour.
+  Band colour. `NULL` follows the current style
+  ([`set_style()`](https://mjorden.github.io/fredscape/reference/set_style.md)).
 
 - alpha:
 

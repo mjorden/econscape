@@ -5,7 +5,7 @@ Build a fredscape palette function
 ## Usage
 
 ``` r
-econ_pal(palette = "main", reverse = FALSE)
+econ_pal(palette = NULL, reverse = FALSE)
 ```
 
 ## Arguments
@@ -13,7 +13,10 @@ econ_pal(palette = "main", reverse = FALSE)
 - palette:
 
   One of `"main"` (7 categorical hues), `"cool"`, `"contrast"`,
-  `"blues"` (sequential) or `"redblue"` (diverging).
+  `"academic"` (7 tans and browns), `"blues"` or `"browns"` (sequential)
+  or `"redblue"` (diverging). `NULL` means the current style's
+  categorical palette, see
+  [`set_style()`](https://mjorden.github.io/fredscape/reference/set_style.md).
 
 - reverse:
 

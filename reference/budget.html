@@ -13,7 +13,7 @@ line, with income read as total outlay and the prices as input prices."></head><
 
     <a class="navbar-brand me-2" href="../index.html">fredscape</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.11.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,13 +58,19 @@ line, with <code>income</code> read as total outlay and the prices as input pric
 
 
 <dt id="arg-px-py">px, py<a class="anchor" aria-label="anchor" href="#arg-px-py"></a></dt>
-<dd><p>Prices of <code>x</code> and <code>y</code>. Positive.</p></dd>
+<dd><p>Prices of <code>x</code> and <code>y</code>: a positive number, or a
+<code><a href="price_schedule.html">price_schedule()</a></code> for a good whose unit price changes with the quantity
+bought (quantity discounts, block tariffs). A schedule makes the budget
+line kinked; see <code><a href="price_schedule.html">price_schedule()</a></code> for what that changes.</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>A list of class <code>budget</code> with the inputs plus the derived
-<code>x_max</code> (<code>income / px</code>), <code>y_max</code> (<code>income / py</code>) and <code>slope</code> (<code>-px / py</code>).</p>
+<code>x_max</code> and <code>y_max</code> (the most of each good the income buys on its own),
+<code>slope</code> (<code>-px / py</code>, or <code>NA</code> when a price is a schedule), <code>kinked</code>
+(<code>TRUE</code> when either price is a schedule) and the cost functions <code>cost_x</code>
+and <code>cost_y</code>.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>

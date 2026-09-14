@@ -13,7 +13,7 @@ textbook case is f = log."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">fredscape</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.11.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -73,6 +73,9 @@ otherwise it is approximated numerically and the root is found with
 <code><a href="https://rdrr.io/r/stats/uniroot.html" class="external-link">stats::uniroot()</a></code>. Either way the corners are checked: if even the first
 unit of <code>x</code> is not worth its price the consumer buys none, and if the last
 affordable unit still is, the consumer buys nothing but <code>x</code>.</p>
+<p>Unlike the other constructors this one has no <code>kind</code> argument: a function
+linear in one input has no sensible reading as a technology, so it is
+always a utility function.</p>
     </div>
 
     <div class="section level2">

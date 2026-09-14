@@ -10,8 +10,8 @@ off the plot edge rather than the panel.
 ``` r
 theme_econ(
   base_size = 12,
-  base_family = "",
-  panel = c("blue", "white", "dark"),
+  base_family = NULL,
+  panel = NULL,
   grid = c("y", "x", "both", "none"),
   legend_position = "top"
 )
@@ -25,12 +25,14 @@ theme_econ(
 
 - base_family:
 
-  Base font family. `""` uses the device default.
+  Base font family. `""` uses the device default; `NULL` follows the
+  current style
+  ([`set_style()`](https://mjorden.github.io/fredscape/reference/set_style.md)).
 
 - panel:
 
-  Panel style: `"blue"` (the classic printed panel, the default),
-  `"white"`, or `"dark"`.
+  Panel style: `"blue"` (the classic printed panel), `"white"`, `"dark"`
+  or `"parchment"`. `NULL` follows the current style.
 
 - grid:
 

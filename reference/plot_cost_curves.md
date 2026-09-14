@@ -18,7 +18,7 @@ plot_cost_curves(
   title = NULL,
   subtitle = NULL,
   source = NULL,
-  panel = "blue"
+  panel = NULL
 )
 ```
 

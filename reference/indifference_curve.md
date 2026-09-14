@@ -19,6 +19,9 @@ along its vertical arm.
 ## Usage
 
 ``` r
+# S3 method for class 'utility_table'
+indifference_curve(u, level, x, ...)
+
 indifference_curve(u, level, x, ...)
 
 # S3 method for class 'cobb_douglas'

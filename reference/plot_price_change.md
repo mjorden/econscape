@@ -22,7 +22,7 @@ plot_price_change(
   source = NULL,
   xlim = NULL,
   ylim = NULL,
-  panel = "blue"
+  panel = NULL
 )
 ```
 

@@ -4,9 +4,12 @@ The same diagram as
 [`plot_consumer_choice()`](https://mjorden.github.io/fredscape/reference/plot_consumer_choice.md)
 with the producer's vocabulary: isoquants, an isocost line, and the
 input bundle that produces the most for the outlay. Works for any
-production function, including a plain `function(x, y)`; the `kind`
-attribute of the constructors is set to `"production"` for the labels
-regardless of how it was built.
+production function, including a plain `function(x, y)`. The `kind`
+attribute is set to `"production"` on a copy for the labels regardless
+of how the function was built – so a `cobb_douglas(0.5)` constructed
+with the default `kind = "utility"` draws as a technology here without
+complaint. That is deliberate: the maths is identical and the
+constructor default should not force a keystroke.
 
 ## Usage
 
@@ -22,7 +25,7 @@ plot_producer_choice(
   subtitle = NULL,
   source = NULL,
   label_levels = TRUE,
-  panel = "blue"
+  panel = NULL
 )
 ```
 

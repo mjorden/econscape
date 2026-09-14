@@ -28,6 +28,7 @@
 <url><loc>https://mjorden.github.io/fredscape/reference/fred_search.html</loc></url>
 <url><loc>https://mjorden.github.io/fredscape/reference/fred_series.html</loc></url>
 <url><loc>https://mjorden.github.io/fredscape/reference/fred_series_info.html</loc></url>
+<url><loc>https://mjorden.github.io/fredscape/reference/fredscape-extending.html</loc></url>
 <url><loc>https://mjorden.github.io/fredscape/reference/fredscape-package.html</loc></url>
 <url><loc>https://mjorden.github.io/fredscape/reference/geom_consumption_path.html</loc></url>
 <url><loc>https://mjorden.github.io/fredscape/reference/geom_demand.html</loc></url>
@@ -38,6 +39,7 @@
 <url><loc>https://mjorden.github.io/fredscape/reference/leontief.html</loc></url>
 <url><loc>https://mjorden.github.io/fredscape/reference/market_structure.html</loc></url>
 <url><loc>https://mjorden.github.io/fredscape/reference/mrs.html</loc></url>
+<url><loc>https://mjorden.github.io/fredscape/reference/mu_per_dollar.html</loc></url>
 <url><loc>https://mjorden.github.io/fredscape/reference/nber_recessions.html</loc></url>
 <url><loc>https://mjorden.github.io/fredscape/reference/ols.html</loc></url>
 <url><loc>https://mjorden.github.io/fredscape/reference/optimal_bundle.html</loc></url>
@@ -52,14 +54,17 @@
 <url><loc>https://mjorden.github.io/fredscape/reference/plot_two_part_tariff.html</loc></url>
 <url><loc>https://mjorden.github.io/fredscape/reference/price_change.html</loc></url>
 <url><loc>https://mjorden.github.io/fredscape/reference/price_discrimination.html</loc></url>
+<url><loc>https://mjorden.github.io/fredscape/reference/price_schedule.html</loc></url>
 <url><loc>https://mjorden.github.io/fredscape/reference/print.econ_plot.html</loc></url>
 <url><loc>https://mjorden.github.io/fredscape/reference/producer.html</loc></url>
 <url><loc>https://mjorden.github.io/fredscape/reference/quasilinear.html</loc></url>
 <url><loc>https://mjorden.github.io/fredscape/reference/scale_econ.html</loc></url>
 <url><loc>https://mjorden.github.io/fredscape/reference/scale_econ_axis.html</loc></url>
+<url><loc>https://mjorden.github.io/fredscape/reference/set_style.html</loc></url>
 <url><loc>https://mjorden.github.io/fredscape/reference/theme_econ.html</loc></url>
 <url><loc>https://mjorden.github.io/fredscape/reference/transform_series.html</loc></url>
 <url><loc>https://mjorden.github.io/fredscape/reference/trend_cycle.html</loc></url>
 <url><loc>https://mjorden.github.io/fredscape/reference/two_part_tariff.html</loc></url>
+<url><loc>https://mjorden.github.io/fredscape/reference/utility_table.html</loc></url>
 </urlset>
 

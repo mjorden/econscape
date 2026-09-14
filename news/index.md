@@ -1,5 +1,99 @@
 # Changelog
 
+## fredscape 0.11.0
+
+Two things the introductory course asks for that the package could not
+do, and a second look.
+
+- `utility_table(tu_x, tu_y)` – preferences given as a table of total
+  utility from 1, 2, … units of each good.
+  [`optimal_bundle()`](https://mjorden.github.io/fredscape/reference/optimal_bundle.md)
+  searches whole bundles,
+  [`indifference_curve()`](https://mjorden.github.io/fredscape/reference/indifference_curve.md)
+  interpolates the table so the curves can be drawn,
+  [`mrs()`](https://mjorden.github.io/fredscape/reference/mrs.md) uses
+  the marginal utilities at the table rows, and
+  [`mu_per_dollar()`](https://mjorden.github.io/fredscape/reference/mu_per_dollar.md)
+  prints the purchase order the textbook argument walks through, with
+  the running cost so the answer for any income is read off directly.
+- [`price_schedule()`](https://mjorden.github.io/fredscape/reference/price_schedule.md)
+  – a unit price that changes with the quantity bought (quantity
+  discounts, block tariffs).
+  [`budget()`](https://mjorden.github.io/fredscape/reference/budget.md)
+  accepts one in place of a number and the budget line is then kinked:
+  [`budget_line()`](https://mjorden.github.io/fredscape/reference/budget_line.md)
+  traces the frontier through the kinks,
+  [`geom_budget()`](https://mjorden.github.io/fredscape/reference/geom_micro.md)
+  draws it as a path,
+  [`optimal_bundle()`](https://mjorden.github.io/fredscape/reference/optimal_bundle.md)
+  searches along the frontier (the kink is a candidate), and
+  [`expenditure()`](https://mjorden.github.io/fredscape/reference/expenditure.md)
+  and the Hicks/Slutsky decomposition search over income.
+- [`set_style()`](https://mjorden.github.io/fredscape/reference/set_style.md)
+  – the house styles. `"economist"` is the default and is unchanged.
+  `"academic"` is a fork for papers and lecture notes: a parchment
+  panel, a serif face, a tan-to-espresso categorical palette
+  (`econ_pal("academic")`), a `"browns"` sequential ramp, a rust
+  masthead and matching recession bands. Every `plot_*()` helper, the
+  colour scales,
+  [`theme_econ()`](https://mjorden.github.io/fredscape/reference/theme_econ.md)
+  and
+  [`econ_masthead()`](https://mjorden.github.io/fredscape/reference/econ_masthead.md)
+  follow the style unless told otherwise;
+  [`style_colour()`](https://mjorden.github.io/fredscape/reference/set_style.md)
+  exposes the role colours for your own layers.
+
+## fredscape 0.10.0
+
+Naming and API decisions from the code review
+([\#18](https://github.com/mjorden/fredscape/issues/18)), settled before
+a 1.0.
+
+Breaking:
+
+- [`geom_indifference()`](https://mjorden.github.io/fredscape/reference/geom_micro.md),
+  [`budget_line()`](https://mjorden.github.io/fredscape/reference/budget_line.md)
+  and the internal grid helpers take `n_points`, not `n`: `n` is a
+  number of firms in
+  [`cournot()`](https://mjorden.github.io/fredscape/reference/market_structure.md)
+  and
+  [`perfect_competition()`](https://mjorden.github.io/fredscape/reference/market_structure.md)
+  and a number of consumers in
+  [`two_part_tariff()`](https://mjorden.github.io/fredscape/reference/two_part_tariff.md),
+  and a grid size has nothing to do with either. Old calls keep working
+  through R’s partial argument matching (`n` resolves to `n_points`),
+  but `n_points` is the documented name.
+
+Decided and documented rather than changed:
+
+- `b` stays a
+  [`budget()`](https://mjorden.github.io/fredscape/reference/budget.md)
+  in the consumer functions and a scalar coefficient in
+  [`quadratic_cost()`](https://mjorden.github.io/fredscape/reference/cost.md),
+  [`leontief()`](https://mjorden.github.io/fredscape/reference/leontief.md)
+  and
+  [`perfect_substitutes()`](https://mjorden.github.io/fredscape/reference/perfect_substitutes.md),
+  because the latter are the textbook letters; each of those pages now
+  says so.
+- Validation before
+  [`UseMethod()`](https://rdrr.io/r/base/UseMethod.html) in the generics
+  stays, and the extension contract it implies – subclass `demand`,
+  `cost` or `budget`, or supply any callable for a utility – is written
+  down on `?fredscape-extending`.
+- [`quasilinear()`](https://mjorden.github.io/fredscape/reference/quasilinear.md)
+  has no `kind` because `f(x) + y` has no production reading; its
+  documentation says so.
+- [`plot_producer_choice()`](https://mjorden.github.io/fredscape/reference/plot_producer_choice.md)
+  documents that it relabels whatever `kind` the function was built
+  with, and the perfect-substitutes tie test documents its tolerance.
+
+Internal: `market_outcome()`’s override arguments no longer shadow the
+[`consumer_surplus()`](https://mjorden.github.io/fredscape/reference/demand_curve_values.md)
+/ `producer_surplus` names, and the producer-side marginal-cost helper
+is `mc_from_production()`, so it cannot be mistaken for the public
+[`marginal_cost()`](https://mjorden.github.io/fredscape/reference/cost_values.md)
+generic on cost objects.
+
 ## fredscape 0.9.1
 
 Numerical robustness, from the code review

@@ -13,7 +13,7 @@ edge rather than the panel."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">fredscape</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.11.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,8 +48,8 @@ edge rather than the panel.</p>
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">theme_econ</span><span class="op">(</span></span>
 <span>  base_size <span class="op">=</span> <span class="fl">12</span>,</span>
-<span>  base_family <span class="op">=</span> <span class="st">""</span>,</span>
-<span>  panel <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"blue"</span>, <span class="st">"white"</span>, <span class="st">"dark"</span><span class="op">)</span>,</span>
+<span>  base_family <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  panel <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  grid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"y"</span>, <span class="st">"x"</span>, <span class="st">"both"</span>, <span class="st">"none"</span><span class="op">)</span>,</span>
 <span>  legend_position <span class="op">=</span> <span class="st">"top"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -64,12 +64,13 @@ edge rather than the panel.</p>
 
 
 <dt id="arg-base-family">base_family<a class="anchor" aria-label="anchor" href="#arg-base-family"></a></dt>
-<dd><p>Base font family. <code>""</code> uses the device default.</p></dd>
+<dd><p>Base font family. <code>""</code> uses the device default;
+<code>NULL</code> follows the current style (<code><a href="set_style.html">set_style()</a></code>).</p></dd>
 
 
 <dt id="arg-panel">panel<a class="anchor" aria-label="anchor" href="#arg-panel"></a></dt>
-<dd><p>Panel style: <code>"blue"</code> (the classic printed panel, the default),
-<code>"white"</code>, or <code>"dark"</code>.</p></dd>
+<dd><p>Panel style: <code>"blue"</code> (the classic printed panel), <code>"white"</code>,
+<code>"dark"</code> or <code>"parchment"</code>. <code>NULL</code> follows the current style.</p></dd>
 
 
 <dt id="arg-grid">grid<a class="anchor" aria-label="anchor" href="#arg-grid"></a></dt>

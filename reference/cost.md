@@ -28,7 +28,9 @@ production_cost(f, w, r, fixed = 0)
 
 - b:
 
-  Quadratic coefficient. Non-negative.
+  Quadratic coefficient. Non-negative. (The textbook letter, not a
+  [`budget()`](https://mjorden.github.io/fredscape/reference/budget.md);
+  see `?fredscape-extending` for the naming conventions.)
 
 - f:
 

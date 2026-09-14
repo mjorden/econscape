@@ -21,6 +21,10 @@ A small client that returns tidy data frames.
 
 Theme, palettes, labels and the red masthead block.
 
+- [`set_style()`](https://mjorden.github.io/fredscape/reference/set_style.md)
+  [`get_style()`](https://mjorden.github.io/fredscape/reference/set_style.md)
+  [`style_colour()`](https://mjorden.github.io/fredscape/reference/set_style.md)
+  : Choose the house style
 - [`theme_econ()`](https://mjorden.github.io/fredscape/reference/theme_econ.md)
   : An Economist-style ggplot2 theme
 - [`scale_colour_econ()`](https://mjorden.github.io/fredscape/reference/scale_econ.md)
@@ -71,6 +75,14 @@ Utility and production functions that carry their parameters.
   : A budget constraint
 - [`budget_line()`](https://mjorden.github.io/fredscape/reference/budget_line.md)
   : Coordinates of a budget line
+- [`price_schedule()`](https://mjorden.github.io/fredscape/reference/price_schedule.md)
+  [`schedule_cost()`](https://mjorden.github.io/fredscape/reference/price_schedule.md)
+  [`schedule_quantity()`](https://mjorden.github.io/fredscape/reference/price_schedule.md)
+  : A unit price that changes with the quantity bought
+- [`utility_table()`](https://mjorden.github.io/fredscape/reference/utility_table.md)
+  : Preferences given as a total-utility table
+- [`mu_per_dollar()`](https://mjorden.github.io/fredscape/reference/mu_per_dollar.md)
+  : The marginal-utility-per-dollar purchase order
 - [`indifference_curve()`](https://mjorden.github.io/fredscape/reference/indifference_curve.md)
   : Indifference curves and isoquants
 - [`optimal_bundle()`](https://mjorden.github.io/fredscape/reference/optimal_bundle.md)
@@ -186,3 +198,9 @@ Textbook figures in the house style, and the layers to build your own.
   : Draw a demand or Engel curve
 - [`geom_consumption_path()`](https://mjorden.github.io/fredscape/reference/geom_consumption_path.md)
   : Draw the locus of optimal bundles
+
+## Extending
+
+- [`fredscape-extending`](https://mjorden.github.io/fredscape/reference/fredscape-extending.md)
+  [`extending`](https://mjorden.github.io/fredscape/reference/fredscape-extending.md)
+  : Extending fredscape with your own preferences, demand and cost

@@ -24,7 +24,7 @@
 
     <a class="navbar-brand me-2" href="index.html">fredscape</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.11.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -120,10 +120,33 @@
 <p><img src="reference/figures/README-index.png" width="100%" alt="Three indexed US economic series in the Economist categorical palette"></p>
 </div>
 <div class="section level2">
+<h2 id="problem-sets">Problem sets<a class="anchor" aria-label="anchor" href="#problem-sets"></a>
+</h2>
+<p>The introductory course does not hand you a Cobb-Douglas function. It hands you a table of total utility and a store with a sale on, and both now work directly.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># "Number of movies: TU 20, 37, 50, 60, 65. Bags of popcorn: TU 16, 30, 40, 46, 48."</span></span>
+<span><span class="va">u</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/utility_table.html">utility_table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">37</span>, <span class="fl">50</span>, <span class="fl">60</span>, <span class="fl">65</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">16</span>, <span class="fl">30</span>, <span class="fl">40</span>, <span class="fl">46</span>, <span class="fl">48</span><span class="op">)</span>, goods <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"movies"</span>, <span class="st">"popcorn"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/optimal_bundle.html">optimal_bundle</a></span><span class="op">(</span><span class="va">u</span>, <span class="fu"><a href="reference/budget.html">budget</a></span><span class="op">(</span><span class="fl">35</span>, px <span class="op">=</span> <span class="fl">7.5</span>, py <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span>     <span class="co"># 3 movies, 4 bags: the whole-unit optimum</span></span>
+<span><span class="fu"><a href="reference/mu_per_dollar.html">mu_per_dollar</a></span><span class="op">(</span><span class="va">u</span>, <span class="fu"><a href="reference/budget.html">budget</a></span><span class="op">(</span><span class="fl">35</span>, px <span class="op">=</span> <span class="fl">7.5</span>, py <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span>      <span class="co"># the purchase order, with the running cost</span></span>
+<span><span class="fu"><a href="reference/plot_consumer_choice.html">plot_consumer_choice</a></span><span class="op">(</span><span class="va">u</span>, <span class="fu"><a href="reference/budget.html">budget</a></span><span class="op">(</span><span class="fl">35</span>, <span class="fl">7.5</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span>         <span class="co"># interpolated curves, kinks and all</span></span>
+<span></span>
+<span><span class="co"># "$20 a painting, but after you buy two every painting is 25% off"</span></span>
+<span><span class="va">paintings</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/price_schedule.html">price_schedule</a></span><span class="op">(</span><span class="fl">20</span>, discount <span class="op">=</span> <span class="fl">0.25</span>, after <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/budget.html">budget</a></span><span class="op">(</span><span class="fl">100</span>, px <span class="op">=</span> <span class="fl">10</span>, py <span class="op">=</span> <span class="va">paintings</span><span class="op">)</span>           <span class="co"># a kinked budget line</span></span>
+<span><span class="fu"><a href="reference/budget_line.html">budget_line</a></span><span class="op">(</span><span class="va">b</span><span class="op">)</span>                                      <span class="co"># the frontier, through the kink at (6, 2)</span></span>
+<span><span class="fu"><a href="reference/optimal_bundle.html">optimal_bundle</a></span><span class="op">(</span><span class="fu"><a href="reference/cobb_douglas.html">cobb_douglas</a></span><span class="op">(</span><span class="fl">0.5</span><span class="op">)</span>, <span class="va">b</span><span class="op">)</span>                <span class="co"># searched along the frontier</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="two-looks">Two looks<a class="anchor" aria-label="anchor" href="#two-looks"></a>
+</h2>
+<p><code>set_style("academic")</code> swaps the newspaper look for one that belongs in a paper or a set of lecture notes — parchment panel, serif face, a tan-to-brown palette, rust masthead. Every <code>plot_*()</code> helper, the colour scales, <code><a href="reference/theme_econ.html">theme_econ()</a></code> and <code><a href="reference/econ_masthead.html">econ_masthead()</a></code> follow it; <code>set_style("economist")</code> is the default.</p>
+<p><img src="reference/figures/README-academic.png" width="80%" alt="The consumer-choice diagram in the academic style: parchment panel, serif type, brown curves and a rust budget line"></p>
+</div>
+<div class="section level2">
 <h2 id="estimating-things">Estimating things<a class="anchor" aria-label="anchor" href="#estimating-things"></a>
 </h2>
 <p>Once a series is in a data frame, the usual first questions have answers in the same house style. All of it is base R and <code>stats</code> — the robust covariance matrices are a dozen lines of linear algebra each, and the tests pin them against sandwich matrices built by hand.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">econ</span> <span class="op">&lt;-</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="va"><a href="https://ggplot2.tidyverse.org/reference/economics.html" class="external-link">economics</a></span>                     <span class="co"># five FRED series, bundled</span></span>
 <span><span class="va">econ</span><span class="op">$</span><span class="va">unemp_rate</span> <span class="op">&lt;-</span> <span class="fl">100</span> <span class="op">*</span> <span class="va">econ</span><span class="op">$</span><span class="va">unemploy</span> <span class="op">/</span> <span class="va">econ</span><span class="op">$</span><span class="va">pop</span></span>
 <span></span>
@@ -148,7 +171,7 @@
 <h2 id="theory-not-just-data">Theory, not just data<a class="anchor" aria-label="anchor" href="#theory-not-just-data"></a>
 </h2>
 <p>The same style works for the textbook diagrams. <code><a href="reference/cobb_douglas.html">cobb_douglas()</a></code> builds a utility (or production) function that remembers its parameters, <code><a href="reference/budget.html">budget()</a></code> describes a budget constraint (or isocost line), and the closed-form results follow: indifference curves, the optimal bundle, the marginal rate of substitution.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">u</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/cobb_douglas.html">cobb_douglas</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.4</span><span class="op">)</span>          <span class="co"># U = x^0.4 * y^0.6</span></span>
 <span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/budget.html">budget</a></span><span class="op">(</span>income <span class="op">=</span> <span class="fl">120</span>, px <span class="op">=</span> <span class="fl">3</span>, py <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
 <span></span>
@@ -163,7 +186,7 @@
 <p><code><a href="reference/plot_consumer_choice.html">plot_consumer_choice()</a></code> composes the whole chart; <code><a href="reference/geom_micro.html">geom_indifference()</a></code>, <code><a href="reference/geom_micro.html">geom_budget()</a></code> and <code><a href="reference/geom_micro.html">geom_optimum()</a></code> are the pieces if you’d rather build it up yourself.</p>
 <p><img src="reference/figures/README-choice.png" width="80%" alt="Three Cobb-Douglas indifference curves, a budget line, and the tangency point, in Economist style"></p>
 <p>The other textbook preferences come with the same closed forms:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/ces.html">ces</a></span><span class="op">(</span>rho <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, alpha <span class="op">=</span> <span class="fl">0.4</span><span class="op">)</span>                       <span class="co"># constant elasticity of substitution</span></span>
 <span><span class="fu"><a href="reference/leontief.html">leontief</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fl">1</span>, b <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>                           <span class="co"># perfect complements: one x per two y</span></span>
 <span><span class="fu"><a href="reference/perfect_substitutes.html">perfect_substitutes</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fl">1</span>, b <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>                <span class="co"># linear; picks a corner</span></span>
@@ -172,14 +195,14 @@
 <p><img src="reference/figures/README-leontief.png" width="80%" alt="Leontief L-shaped indifference curves with a budget line and the optimum at the kink"></p>
 <p>Anything that isn’t one of these still works: pass any function of <code>x</code> and <code>y</code> and the contours are found by bisection, the optimum by a line search along the budget line — and every closed form above is tested against that generic path.</p>
 <p>Ask the optimum the same question many times and you get the derived curves:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/derived_curves.html">demand_curve</a></span><span class="op">(</span><span class="va">u</span>, <span class="va">b</span>, prices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">12</span>, by <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span>     <span class="co"># (price, quantity)</span></span>
 <span><span class="fu"><a href="reference/derived_curves.html">engel_curve</a></span><span class="op">(</span><span class="va">u</span>, <span class="va">b</span>, incomes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">40</span>, <span class="fl">400</span>, by <span class="op">=</span> <span class="fl">40</span><span class="op">)</span><span class="op">)</span>      <span class="co"># (income, quantity)</span></span>
 <span><span class="fu"><a href="reference/derived_curves.html">income_consumption_path</a></span><span class="op">(</span><span class="va">u</span>, <span class="va">b</span>, incomes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">60</span>, <span class="fl">120</span>, <span class="fl">180</span><span class="op">)</span><span class="op">)</span> <span class="co"># the bundles themselves</span></span></code></pre></div>
 <p><code><a href="reference/geom_demand.html">geom_demand()</a></code> draws price against quantity the way the textbooks do; <code><a href="reference/geom_micro.html">geom_budget()</a></code> takes a list of budgets so the family of lines behind a path is one layer.</p>
 <p><img src="reference/figures/README-demand.png" width="80%" alt="A downward-sloping demand curve for a Cobb-Douglas consumer, price on the vertical axis"></p>
 <p>And the diagram every intermediate course draws: what a price change does, split into the part that is about relative prices and the part that is about being poorer.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pc</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/price_change.html">hicks</a></span><span class="op">(</span><span class="va">u</span>, <span class="va">b</span>, new_px <span class="op">=</span> <span class="fl">6</span><span class="op">)</span>     <span class="co"># or slutsky()</span></span>
 <span><span class="va">pc</span><span class="op">$</span><span class="va">effects</span></span>
 <span><span class="co">#&gt;         effect     dx     dy</span></span>
@@ -191,13 +214,13 @@
 <p>Hicks compensation holds utility fixed; Slutsky holds purchasing power fixed. Both rest on <code><a href="reference/expenditure.html">expenditure()</a></code>, the expenditure function, which has a dedicated method for every constructor and doubles as the total-cost function on the producer side.</p>
 <p><img src="reference/figures/README-price-change.png" width="80%" alt="Hicks decomposition of a price rise: two budget lines, a dashed compensated line, three bundles, and bracketed substitution and income effects"></p>
 <p>The producer’s side is the same mathematics with different names — a production function is a utility function over inputs, an isocost line is a budget line, the expenditure function is the total-cost function — so it comes for free:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">f</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/cobb_douglas.html">cobb_douglas</a></span><span class="op">(</span><span class="fl">0.3</span>, <span class="fl">0.5</span>, A <span class="op">=</span> <span class="fl">2</span>, kind <span class="op">=</span> <span class="st">"production"</span><span class="op">)</span>   <span class="co"># decreasing returns</span></span>
 <span><span class="fu"><a href="reference/plot_producer_choice.html">plot_producer_choice</a></span><span class="op">(</span><span class="va">f</span>, <span class="fu"><a href="reference/budget.html">budget</a></span><span class="op">(</span><span class="fl">600</span>, <span class="fl">20</span>, <span class="fl">30</span><span class="op">)</span><span class="op">)</span>               <span class="co"># isoquants + isocost</span></span>
 <span><span class="fu"><a href="reference/producer.html">cost_curves</a></span><span class="op">(</span><span class="va">f</span>, w <span class="op">=</span> <span class="fl">20</span>, r <span class="op">=</span> <span class="fl">30</span>, q <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">40</span>, fixed <span class="op">=</span> <span class="fl">150</span><span class="op">)</span>      <span class="co"># total, average, marginal</span></span></code></pre></div>
 <p><img src="reference/figures/README-cost.png" width="80%" alt="Average and marginal cost curves, marginal crossing average at its minimum"></p>
 <p>Put a demand curve in front of those costs and you have a market:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">d</span>   <span class="op">&lt;-</span> <span class="fu"><a href="reference/demand.html">linear_demand</a></span><span class="op">(</span>intercept <span class="op">=</span> <span class="fl">100</span>, slope <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>   <span class="co"># P = 100 - Q</span></span>
 <span><span class="va">cst</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/cost.html">quadratic_cost</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>                       <span class="co"># constant marginal cost</span></span>
 <span></span>
@@ -210,7 +233,7 @@
 <p>Every structure returns the same <code>market_outcome</code> — price, quantities, profit, consumer and producer surplus, deadweight loss against the <code>P = MC</code> benchmark, the Lerner index — and <code><a href="reference/plot_market.html">plot_market()</a></code> draws it with the welfare areas shaded. Costs can also come straight from a production function via <code><a href="reference/cost.html">production_cost()</a></code>, and any decreasing <code>function(q)</code> works as demand.</p>
 <p><img src="reference/figures/README-monopoly.png" width="80%" alt="A monopoly outcome: demand, marginal revenue and marginal cost, with consumer surplus, producer surplus and the deadweight-loss triangle shaded"></p>
 <p>A monopolist with more than one price:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/price_discrimination.html">first_degree</a></span><span class="op">(</span><span class="va">d</span>, <span class="va">cst</span><span class="op">)</span>                                  <span class="co"># every unit at willingness to pay</span></span>
 <span><span class="fu"><a href="reference/price_discrimination.html">third_degree</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>students <span class="op">=</span> <span class="fu"><a href="reference/demand.html">linear_demand</a></span><span class="op">(</span><span class="fl">60</span>, <span class="fl">0.5</span><span class="op">)</span>,  <span class="co"># segment by elasticity</span></span>
 <span>                  others   <span class="op">=</span> <span class="va">d</span><span class="op">)</span>, <span class="va">cst</span><span class="op">)</span></span>
@@ -225,7 +248,7 @@
 </h2>
 <p><img src="reference/figures/README-palette.png" width="100%" alt="Swatches of the five fredscape palettes"></p>
 <p>The categorical hues (<code>main</code>, <code>cool</code>, <code>contrast</code>) follow the data palette <em>The Economist</em> publishes for its own charts. The sequential (<code>blues</code>) and diverging (<code>redblue</code>) ramps are built from those hues rather than copied from a published ramp — Economist-flavoured rather than Economist-official.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/econ_colours.html">econ_colours</a></span><span class="op">(</span><span class="st">"red"</span>, <span class="st">"blue"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/econ_pal.html">econ_pal</a></span><span class="op">(</span><span class="st">"blues"</span><span class="op">)</span><span class="op">(</span><span class="fl">9</span><span class="op">)</span></span>
 <span></span>
@@ -410,7 +433,7 @@
 <div class="section level2">
 <h2 id="testing">Testing<a class="anchor" aria-label="anchor" href="#testing"></a>
 </h2>
-<div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="ex">Rscript</span> <span class="at">-e</span> <span class="st">'devtools::test()'</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="ex">Rscript</span> <span class="at">-e</span> <span class="st">'devtools::test()'</span></span></code></pre></div>
 <p>The full suite runs with no network. The API parsers run against saved payloads in <code>tests/testthat/fixtures/</code>; the argument validators are checked to fire before any request is built; the recession logic is round-tripped through a reconstructed <code>USREC</code> indicator.</p>
 <p>The figures above are rendered by <code>data-raw/readme_figures.R</code> from ggplot2’s bundled <code>economics</code> data set — itself an extract of five FRED series — so the README can be rebuilt with no key and no network.</p>
 <p>Each feature PR was put through an adversarial review before merging (generalist and security reviewers, then a meta-critic curating the findings). The run records live in <code>adversarial-review-log/</code> on purpose — they are the review trail, and several of the fixes in <code>NEWS.md</code> cite them by ID.</p>

@@ -15,7 +15,9 @@ leontief(a = 1, b = 1, A = 1, kind = c("utility", "production"))
 
 - a, b:
 
-  Units of `x` and `y` needed per unit of output. Positive.
+  Units of `x` and `y` needed per unit of output. Positive. (`b` here is
+  the textbook coefficient, not a
+  [`budget()`](https://mjorden.github.io/fredscape/reference/budget.md).)
 
 - A:
 

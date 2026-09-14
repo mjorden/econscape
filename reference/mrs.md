@@ -14,6 +14,9 @@ utilities return `NaN`.
 ## Usage
 
 ``` r
+# S3 method for class 'utility_table'
+mrs(u, x, y, ...)
+
 mrs(u, x, y, ...)
 
 # S3 method for class 'cobb_douglas'

@@ -11,7 +11,7 @@ new row aligned with the title.
 ``` r
 econ_masthead(
   plot,
-  colour = unname(econ_hex["red"]),
+  colour = NULL,
   width = grid::unit(0.55, "cm"),
   height = grid::unit(0.13, "cm"),
   gap = grid::unit(0.3, "cm")
@@ -28,7 +28,8 @@ econ_masthead(
 
 - colour:
 
-  Block colour. Defaults to the Economist red.
+  Block colour. `NULL` follows the current style: Economist red, or rust
+  for the academic style.
 
 - width, height:
 

@@ -12,6 +12,9 @@ usual textbook cases.
 ## Usage
 
 ``` r
+# S3 method for class 'utility_table'
+optimal_bundle(u, b, ...)
+
 optimal_bundle(u, b, ...)
 
 # S3 method for class 'cobb_douglas'

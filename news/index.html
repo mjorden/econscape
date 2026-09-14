@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">fredscape</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.11.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,6 +30,32 @@
       <small>Source: <a href="https://github.com/mjorden/fredscape/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.11.0" id="fredscape-0110">fredscape 0.11.0<a class="anchor" aria-label="anchor" href="#fredscape-0110"></a></h2>
+<p>Two things the introductory course asks for that the package could not do, and a second look.</p>
+<ul><li>
+<code>utility_table(tu_x, tu_y)</code> – preferences given as a table of total utility from 1, 2, … units of each good. <code><a href="../reference/optimal_bundle.html">optimal_bundle()</a></code> searches whole bundles, <code><a href="../reference/indifference_curve.html">indifference_curve()</a></code> interpolates the table so the curves can be drawn, <code><a href="../reference/mrs.html">mrs()</a></code> uses the marginal utilities at the table rows, and <code><a href="../reference/mu_per_dollar.html">mu_per_dollar()</a></code> prints the purchase order the textbook argument walks through, with the running cost so the answer for any income is read off directly.</li>
+<li>
+<code><a href="../reference/price_schedule.html">price_schedule()</a></code> – a unit price that changes with the quantity bought (quantity discounts, block tariffs). <code><a href="../reference/budget.html">budget()</a></code> accepts one in place of a number and the budget line is then kinked: <code><a href="../reference/budget_line.html">budget_line()</a></code> traces the frontier through the kinks, <code><a href="../reference/geom_micro.html">geom_budget()</a></code> draws it as a path, <code><a href="../reference/optimal_bundle.html">optimal_bundle()</a></code> searches along the frontier (the kink is a candidate), and <code><a href="../reference/expenditure.html">expenditure()</a></code> and the Hicks/Slutsky decomposition search over income.</li>
+<li>
+<code><a href="../reference/set_style.html">set_style()</a></code> – the house styles. <code>"economist"</code> is the default and is unchanged. <code>"academic"</code> is a fork for papers and lecture notes: a parchment panel, a serif face, a tan-to-espresso categorical palette (<code>econ_pal("academic")</code>), a <code>"browns"</code> sequential ramp, a rust masthead and matching recession bands. Every <code>plot_*()</code> helper, the colour scales, <code><a href="../reference/theme_econ.html">theme_econ()</a></code> and <code><a href="../reference/econ_masthead.html">econ_masthead()</a></code> follow the style unless told otherwise; <code><a href="../reference/set_style.html">style_colour()</a></code> exposes the role colours for your own layers.</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.10.0" id="fredscape-0100">fredscape 0.10.0<a class="anchor" aria-label="anchor" href="#fredscape-0100"></a></h2>
+<p>Naming and API decisions from the code review (<a href="https://github.com/mjorden/fredscape/issues/18" class="external-link">#18</a>), settled before a 1.0.</p>
+<p>Breaking:</p>
+<ul><li>
+<code><a href="../reference/geom_micro.html">geom_indifference()</a></code>, <code><a href="../reference/budget_line.html">budget_line()</a></code> and the internal grid helpers take <code>n_points</code>, not <code>n</code>: <code>n</code> is a number of firms in <code><a href="../reference/market_structure.html">cournot()</a></code> and <code><a href="../reference/market_structure.html">perfect_competition()</a></code> and a number of consumers in <code><a href="../reference/two_part_tariff.html">two_part_tariff()</a></code>, and a grid size has nothing to do with either. Old calls keep working through R’s partial argument matching (<code>n</code> resolves to <code>n_points</code>), but <code>n_points</code> is the documented name.</li>
+</ul><p>Decided and documented rather than changed:</p>
+<ul><li>
+<code>b</code> stays a <code><a href="../reference/budget.html">budget()</a></code> in the consumer functions and a scalar coefficient in <code><a href="../reference/cost.html">quadratic_cost()</a></code>, <code><a href="../reference/leontief.html">leontief()</a></code> and <code><a href="../reference/perfect_substitutes.html">perfect_substitutes()</a></code>, because the latter are the textbook letters; each of those pages now says so.</li>
+<li>Validation before <code><a href="https://rdrr.io/r/base/UseMethod.html" class="external-link">UseMethod()</a></code> in the generics stays, and the extension contract it implies – subclass <code>demand</code>, <code>cost</code> or <code>budget</code>, or supply any callable for a utility – is written down on <code>?fredscape-extending</code>.</li>
+<li>
+<code><a href="../reference/quasilinear.html">quasilinear()</a></code> has no <code>kind</code> because <code>f(x) + y</code> has no production reading; its documentation says so.</li>
+<li>
+<code><a href="../reference/plot_producer_choice.html">plot_producer_choice()</a></code> documents that it relabels whatever <code>kind</code> the function was built with, and the perfect-substitutes tie test documents its tolerance.</li>
+</ul><p>Internal: <code>market_outcome()</code>’s override arguments no longer shadow the <code><a href="../reference/demand_curve_values.html">consumer_surplus()</a></code> / <code>producer_surplus</code> names, and the producer-side marginal-cost helper is <code>mc_from_production()</code>, so it cannot be mistaken for the public <code><a href="../reference/cost_values.html">marginal_cost()</a></code> generic on cost objects.</p>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.9.1" id="fredscape-091">fredscape 0.9.1<a class="anchor" aria-label="anchor" href="#fredscape-091"></a></h2>
 <p>Numerical robustness, from the code review (<a href="https://github.com/mjorden/fredscape/issues/17" class="external-link">#17</a>). No API changes.</p>

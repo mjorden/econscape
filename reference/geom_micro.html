@@ -13,7 +13,7 @@ combined with other data."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">fredscape</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.11.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -50,15 +50,15 @@ combined with other data.</p>
 <span>  <span class="va">u</span>,</span>
 <span>  <span class="va">levels</span>,</span>
 <span>  <span class="va">xlim</span>,</span>
-<span>  n <span class="op">=</span> <span class="fl">200L</span>,</span>
-<span>  colour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unname.html" class="external-link">unname</a></span><span class="op">(</span><span class="va">econ_hex</span><span class="op">[</span><span class="st">"blue"</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>  n_points <span class="op">=</span> <span class="fl">200L</span>,</span>
+<span>  colour <span class="op">=</span> <span class="fu"><a href="set_style.html">style_colour</a></span><span class="op">(</span><span class="st">"primary"</span><span class="op">)</span>,</span>
 <span>  linewidth <span class="op">=</span> <span class="fl">0.8</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">geom_budget</span><span class="op">(</span></span>
 <span>  <span class="va">b</span>,</span>
-<span>  colour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unname.html" class="external-link">unname</a></span><span class="op">(</span><span class="va">econ_hex</span><span class="op">[</span><span class="st">"red"</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>  colour <span class="op">=</span> <span class="fu"><a href="set_style.html">style_colour</a></span><span class="op">(</span><span class="st">"secondary"</span><span class="op">)</span>,</span>
 <span>  linewidth <span class="op">=</span> <span class="fl">0.8</span>,</span>
 <span>  linetype <span class="op">=</span> <span class="st">"solid"</span>,</span>
 <span>  <span class="va">...</span></span>
@@ -67,7 +67,7 @@ combined with other data.</p>
 <span><span class="fu">geom_optimum</span><span class="op">(</span></span>
 <span>  <span class="va">u</span>,</span>
 <span>  <span class="va">b</span>,</span>
-<span>  colour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unname.html" class="external-link">unname</a></span><span class="op">(</span><span class="va">econ_hex</span><span class="op">[</span><span class="st">"ink"</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>  colour <span class="op">=</span> <span class="fu"><a href="set_style.html">style_colour</a></span><span class="op">(</span><span class="st">"ink"</span><span class="op">)</span>,</span>
 <span>  size <span class="op">=</span> <span class="fl">2.5</span>,</span>
 <span>  drop_lines <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  <span class="va">...</span></span>
@@ -90,8 +90,10 @@ combined with other data.</p>
 <dd><p>Range of <code>x</code> over which to draw the curves.</p></dd>
 
 
-<dt id="arg-n">n<a class="anchor" aria-label="anchor" href="#arg-n"></a></dt>
-<dd><p>Number of points per curve.</p></dd>
+<dt id="arg-n-points">n_points<a class="anchor" aria-label="anchor" href="#arg-n-points"></a></dt>
+<dd><p>Number of points per curve. (Named <code>n_points</code>, not <code>n</code>,
+because <code>n</code> means a number of firms or consumers elsewhere in the
+package.)</p></dd>
 
 
 <dt id="arg-colour">colour<a class="anchor" aria-label="anchor" href="#arg-colour"></a></dt>
@@ -139,7 +141,8 @@ Leontief L). Both add with <code>+</code> identically.</p>
 <ul><li><p><code>geom_indifference()</code> draws one path per <code>level</code>.</p></li>
 <li><p><code>geom_budget()</code> draws the budget (or isocost) line between its two
 intercepts. Given a list of budgets it draws one line each, which is how
-a price or income change is shown.</p></li>
+a price or income change is shown. A kinked budget (one built with a
+<code><a href="price_schedule.html">price_schedule()</a></code>) is drawn as a path through its kinks.</p></li>
 <li><p><code>geom_optimum()</code> marks the chosen bundle, with dashed lines dropping to
 each axis.</p></li>
 </ul></div>

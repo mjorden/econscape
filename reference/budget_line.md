@@ -5,7 +5,7 @@ Coordinates of a budget line
 ## Usage
 
 ``` r
-budget_line(b, n = 2L)
+budget_line(b, n_points = NULL)
 ```
 
 ## Arguments
@@ -15,15 +15,16 @@ budget_line(b, n = 2L)
   A
   [`budget()`](https://mjorden.github.io/fredscape/reference/budget.md).
 
-- n:
+- n_points:
 
-  Number of points. Two is enough for a straight line; more is useful if
-  you want to attach a colour or size aesthetic along it.
+  Number of points. Two is enough for a straight line (the default); a
+  kinked budget defaults to 200 and always includes its kinks.
 
 ## Value
 
 A data frame with `x` and `y` columns running from the `y` intercept to
-the `x` intercept.
+the `x` intercept. For a kinked budget the rows trace the frontier
+through every kink.
 
 ## Examples
 

@@ -25,12 +25,16 @@ A named character vector of hex colours.
 
 ``` r
 econ_colours()
-#>       blue       cyan      green     yellow      olive     purple        tan 
-#>  "#006BA2"  "#3EBCD2"  "#379A8B"  "#EBB434"  "#B4BA39"  "#9A607F"  "#D1B07C" 
-#>        red panel_blue panel_dark  grid_blue grid_white  grid_dark        ink 
-#>  "#E3120B"  "#D5E4EB"  "#1C2B36"  "#FFFFFF"  "#D5E4EB"  "#3B4C5A"  "#1A1A1A" 
-#>  ink_light      muted muted_dark      white 
-#>  "#F2F2F2"  "#5A6E78"  "#A8B6BF"  "#FFFFFF" 
+#>            blue            cyan           green          yellow           olive 
+#>       "#006BA2"       "#3EBCD2"       "#379A8B"       "#EBB434"       "#B4BA39" 
+#>          purple             tan             red      panel_blue      panel_dark 
+#>       "#9A607F"       "#D1B07C"       "#E3120B"       "#D5E4EB"       "#1C2B36" 
+#>       grid_blue      grid_white       grid_dark             ink       ink_light 
+#>       "#FFFFFF"       "#D5E4EB"       "#3B4C5A"       "#1A1A1A"       "#F2F2F2" 
+#>           muted      muted_dark           white panel_parchment  grid_parchment 
+#>       "#5A6E78"       "#A8B6BF"       "#FFFFFF"       "#F4EEE2"       "#E3D9C6" 
+#>       ink_brown     muted_brown            rust 
+#>       "#2E2622"       "#7A6B5D"       "#8B3A2F" 
 econ_colours("red", "blue")
 #>       red      blue 
 #> "#E3120B" "#006BA2" 

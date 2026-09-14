@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">fredscape</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.11.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,7 +37,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">budget_line</span><span class="op">(</span><span class="va">b</span>, n <span class="op">=</span> <span class="fl">2L</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">budget_line</span><span class="op">(</span><span class="va">b</span>, n_points <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -48,15 +48,16 @@
 <dd><p>A <code><a href="budget.html">budget()</a></code>.</p></dd>
 
 
-<dt id="arg-n">n<a class="anchor" aria-label="anchor" href="#arg-n"></a></dt>
-<dd><p>Number of points. Two is enough for a straight line; more is
-useful if you want to attach a colour or size aesthetic along it.</p></dd>
+<dt id="arg-n-points">n_points<a class="anchor" aria-label="anchor" href="#arg-n-points"></a></dt>
+<dd><p>Number of points. Two is enough for a straight line (the
+default); a kinked budget defaults to 200 and always includes its kinks.</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>A data frame with <code>x</code> and <code>y</code> columns running from the <code>y</code>
-intercept to the <code>x</code> intercept.</p>
+intercept to the <code>x</code> intercept. For a kinked budget the rows trace the
+frontier through every kink.</p>
     </div>
 
     <div class="section level2">

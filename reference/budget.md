@@ -19,12 +19,21 @@ budget(income, px, py)
 
 - px, py:
 
-  Prices of `x` and `y`. Positive.
+  Prices of `x` and `y`: a positive number, or a
+  [`price_schedule()`](https://mjorden.github.io/fredscape/reference/price_schedule.md)
+  for a good whose unit price changes with the quantity bought (quantity
+  discounts, block tariffs). A schedule makes the budget line kinked;
+  see
+  [`price_schedule()`](https://mjorden.github.io/fredscape/reference/price_schedule.md)
+  for what that changes.
 
 ## Value
 
-A list of class `budget` with the inputs plus the derived `x_max`
-(`income / px`), `y_max` (`income / py`) and `slope` (`-px / py`).
+A list of class `budget` with the inputs plus the derived `x_max` and
+`y_max` (the most of each good the income buys on its own), `slope`
+(`-px / py`, or `NA` when a price is a schedule), `kinked` (`TRUE` when
+either price is a schedule) and the cost functions `cost_x` and
+`cost_y`.
 
 ## See also
 

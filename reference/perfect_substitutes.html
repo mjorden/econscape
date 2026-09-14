@@ -5,13 +5,17 @@ utility per unit of money, so the optimum is a corner unless
 \(a / p_x = b / p_y\) exactly, when every point on the budget line is
 equally good. In that knife-edge case optimal_bundle() returns the
 midpoint of the budget line and flags the result with an indeterminate
-attribute set to TRUE."><meta property="og:description" content="Builds \(f(x, y) = A (a x + b y)\): straight-line contours with constant
+attribute set to TRUE. &quot;Exactly&quot; means within all.equal()'s default
+tolerance, about 1.5e-8 relative: two utilities-per-dollar that differ
+only in the ninth significant figure count as a tie."><meta property="og:description" content="Builds \(f(x, y) = A (a x + b y)\): straight-line contours with constant
 MRS \(a / b\). The consumer spends everything on whichever good gives more
 utility per unit of money, so the optimum is a corner unless
 \(a / p_x = b / p_y\) exactly, when every point on the budget line is
 equally good. In that knife-edge case optimal_bundle() returns the
 midpoint of the budget line and flags the result with an indeterminate
-attribute set to TRUE."></head><body>
+attribute set to TRUE. &quot;Exactly&quot; means within all.equal()'s default
+tolerance, about 1.5e-8 relative: two utilities-per-dollar that differ
+only in the ninth significant figure count as a tie."></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -19,7 +23,7 @@ attribute set to TRUE."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">fredscape</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.11.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -50,7 +54,9 @@ utility per unit of money, so the optimum is a corner unless
 \(a / p_x = b / p_y\) exactly, when every point on the budget line is
 equally good. In that knife-edge case <code><a href="optimal_bundle.html">optimal_bundle()</a></code> returns the
 midpoint of the budget line and flags the result with an <code>indeterminate</code>
-attribute set to <code>TRUE</code>.</p>
+attribute set to <code>TRUE</code>. "Exactly" means within <code><a href="https://rdrr.io/r/base/all.equal.html" class="external-link">all.equal()</a></code>'s default
+tolerance, about 1.5e-8 relative: two utilities-per-dollar that differ
+only in the ninth significant figure count as a tie.</p>
     </div>
 
     <div class="section level2">
@@ -63,7 +69,9 @@ attribute set to <code>TRUE</code>.</p>
 
 
 <dl><dt id="arg-a-b">a, b<a class="anchor" aria-label="anchor" href="#arg-a-b"></a></dt>
-<dd><p>Marginal utility of <code>x</code> and <code>y</code>. Positive.</p></dd>
+<dd><p>Marginal utility of <code>x</code> and <code>y</code>. Positive. (<code>b</code> here is the
+textbook coefficient, not a <code><a href="budget.html">budget()</a></code> – the letter is kept because
+that is how the formula is written.)</p></dd>
 
 
 <dt id="arg-a">A<a class="anchor" aria-label="anchor" href="#arg-a"></a></dt>

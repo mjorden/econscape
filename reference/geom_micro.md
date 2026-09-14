@@ -17,15 +17,15 @@ geom_indifference(
   u,
   levels,
   xlim,
-  n = 200L,
-  colour = unname(econ_hex["blue"]),
+  n_points = 200L,
+  colour = style_colour("primary"),
   linewidth = 0.8,
   ...
 )
 
 geom_budget(
   b,
-  colour = unname(econ_hex["red"]),
+  colour = style_colour("secondary"),
   linewidth = 0.8,
   linetype = "solid",
   ...
@@ -34,7 +34,7 @@ geom_budget(
 geom_optimum(
   u,
   b,
-  colour = unname(econ_hex["ink"]),
+  colour = style_colour("ink"),
   size = 2.5,
   drop_lines = TRUE,
   ...
@@ -56,9 +56,10 @@ geom_optimum(
 
   Range of `x` over which to draw the curves.
 
-- n:
+- n_points:
 
-  Number of points per curve.
+  Number of points per curve. (Named `n_points`, not `n`, because `n`
+  means a number of firms or consumers elsewhere in the package.)
 
 - colour:
 
@@ -109,7 +110,10 @@ Leontief L). Both add with `+` identically.
 
 - `geom_budget()` draws the budget (or isocost) line between its two
   intercepts. Given a list of budgets it draws one line each, which is
-  how a price or income change is shown.
+  how a price or income change is shown. A kinked budget (one built with
+  a
+  [`price_schedule()`](https://mjorden.github.io/fredscape/reference/price_schedule.md))
+  is drawn as a path through its kinks.
 
 - `geom_optimum()` marks the chosen bundle, with dashed lines dropping
   to each axis.

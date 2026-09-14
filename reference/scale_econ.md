@@ -6,17 +6,17 @@ scales interpolate a sequential or diverging ramp.
 ## Usage
 
 ``` r
-scale_colour_econ(palette = "main", reverse = FALSE, ...)
+scale_colour_econ(palette = NULL, reverse = FALSE, ...)
 
-scale_color_econ(palette = "main", reverse = FALSE, ...)
+scale_color_econ(palette = NULL, reverse = FALSE, ...)
 
-scale_fill_econ(palette = "main", reverse = FALSE, ...)
+scale_fill_econ(palette = NULL, reverse = FALSE, ...)
 
-scale_colour_econ_c(palette = "blues", reverse = FALSE, ...)
+scale_colour_econ_c(palette = NULL, reverse = FALSE, ...)
 
-scale_color_econ_c(palette = "blues", reverse = FALSE, ...)
+scale_color_econ_c(palette = NULL, reverse = FALSE, ...)
 
-scale_fill_econ_c(palette = "blues", reverse = FALSE, ...)
+scale_fill_econ_c(palette = NULL, reverse = FALSE, ...)
 ```
 
 ## Arguments
@@ -25,6 +25,8 @@ scale_fill_econ_c(palette = "blues", reverse = FALSE, ...)
 
   Palette name, see
   [`econ_pal()`](https://mjorden.github.io/fredscape/reference/econ_pal.md).
+  `NULL` follows
+  [`set_style()`](https://mjorden.github.io/fredscape/reference/set_style.md).
 
 - reverse:
 

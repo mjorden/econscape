@@ -14,7 +14,7 @@ plot_two_part_tariff(
   title = NULL,
   subtitle = NULL,
   source = NULL,
-  panel = "blue"
+  panel = NULL
 )
 ```
 

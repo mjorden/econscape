@@ -10,9 +10,9 @@ with income along the x-axis.
 ## Usage
 
 ``` r
-geom_demand(data, colour = unname(econ_hex["blue"]), linewidth = 0.8, ...)
+geom_demand(data, colour = style_colour("primary"), linewidth = 0.8, ...)
 
-geom_engel(data, colour = unname(econ_hex["blue"]), linewidth = 0.8, ...)
+geom_engel(data, colour = style_colour("primary"), linewidth = 0.8, ...)
 ```
 
 ## Arguments

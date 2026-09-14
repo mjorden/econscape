@@ -12,7 +12,7 @@ plot_trend_cycle(
   subtitle = NULL,
   source = NULL,
   recessions = TRUE,
-  panel = "blue"
+  panel = NULL
 )
 ```
 

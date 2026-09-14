@@ -35,6 +35,10 @@ the corners are checked: if even the first unit of `x` is not worth its
 price the consumer buys none, and if the last affordable unit still is,
 the consumer buys nothing but `x`.
 
+Unlike the other constructors this one has no `kind` argument: a
+function linear in one input has no sensible reading as a technology, so
+it is always a utility function.
+
 ## Examples
 
 ``` r
