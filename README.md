@@ -119,13 +119,14 @@ optimal_bundle(cobb_douglas(0.5), b)                # searched along the frontie
 
 ## Two looks
 
-`set_style("academic")` swaps the newspaper look for one that belongs in a
-paper or a set of lecture notes — parchment panel, serif face, a tan-to-brown
-palette, rust masthead. Every `plot_*()` helper, the colour scales,
-`theme_econ()` and `econ_masthead()` follow it; `set_style("economist")` is
-the default.
+The default style is **academic** — parchment panel, serif face, a tan-to-
+espresso palette, rust masthead — the look of a paper or a set of lecture
+notes, and what every figure on this page is drawn in. `set_style("economist")`
+switches to the newspaper's blue-grey panel, red masthead and data palette;
+every `plot_*()` helper, the colour scales, `theme_econ()` and
+`econ_masthead()` follow whichever is set.
 
-<img src="man/figures/README-academic.png" width="80%" alt="The consumer-choice diagram in the academic style: parchment panel, serif type, brown curves and a rust budget line" />
+<img src="man/figures/README-economist.png" width="80%" alt="The consumer-choice diagram in the Economist style: blue-grey panel, sans type, blue curves and a red budget line" />
 
 ## Estimating things
 

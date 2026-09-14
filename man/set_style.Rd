@@ -6,7 +6,7 @@
 \alias{style_colour}
 \title{Choose the house style}
 \usage{
-set_style(style = c("economist", "academic"))
+set_style(style = c("academic", "economist"))
 
 get_style()
 
@@ -15,7 +15,7 @@ style_colour(
 )
 }
 \arguments{
-\item{style}{\code{"economist"} or \code{"academic"}.}
+\item{style}{\code{"academic"} or \code{"economist"}.}
 
 \item{role}{\code{"primary"}, \code{"secondary"}, \code{"tertiary"}, \code{"ink"}, \code{"muted"} or
 \code{"band"} (recession shading).}
@@ -26,10 +26,11 @@ be restored; \code{get_style()} returns the current one; \code{style_colour()}
 returns one of the current style's role colours.
 }
 \description{
-Two looks ship with the package. \code{"economist"} (the default) is the
-blue-grey panel, red masthead and the newspaper's data palette.
-\code{"academic"} is a fork for papers and lecture notes: a parchment panel,
-a serif face, a tan-to-espresso palette and a rust masthead. Setting the
+Two looks ship with the package. \code{"academic"} (the default) is for papers
+and lecture notes: a parchment panel, a serif face, a tan-to-espresso
+palette and a rust masthead. \code{"economist"} is the blue-grey panel, red
+masthead and data palette of the newspaper's charts, with the device's
+default sans face. Setting the
 style changes the defaults of \code{\link[=theme_econ]{theme_econ()}}, the \verb{scale_*_econ()} colour
 scales, \code{\link[=econ_masthead]{econ_masthead()}} and every \verb{plot_*()} helper; any argument you
 pass explicitly still wins.
@@ -41,7 +42,7 @@ a ggplot constructed under one style keeps that style if you switch
 afterwards, so set the style first and construct the plot second.
 }
 \examples{
-old <- set_style("academic")
+old <- set_style("economist")
 get_style()
 style_colour("primary")
 plot_consumer_choice(cobb_douglas(0.4), budget(120, 3, 4))

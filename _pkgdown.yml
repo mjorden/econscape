@@ -3,7 +3,7 @@ url: https://mjorden.github.io/econscape/
 template:
   bootstrap: 5
   bslib:
-    primary: "#006BA2"
+    primary: "#5C4033"
     base_font: {google: "Source Sans 3"}
     heading_font: {google: "Source Serif 4"}
 
@@ -22,8 +22,8 @@ reference:
   - fred_recessions
   - fred_key
 
-- title: The Economist style
-  desc: Theme, palettes, labels and the red masthead block.
+- title: House styles
+  desc: Theme, palettes, labels and the masthead block, in the academic or Economist style.
   contents:
   - set_style
   - theme_econ

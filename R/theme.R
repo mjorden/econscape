@@ -43,28 +43,30 @@ econ_surface <- function(panel = NULL) {
   )
 }
 
-#' An Economist-style ggplot2 theme
+#' The house ggplot2 theme
 #'
-#' Reproduces the chart furniture of The Economist: a flat blue-grey panel with
-#' no border, horizontal gridlines only, a solid baseline with ticks on the
+#' The chart furniture of a well-set economics chart: a flat panel with no
+#' border, horizontal gridlines only, a solid baseline with ticks on the
 #' x-axis, and left-aligned title, subtitle and caption that hang off the plot
-#' edge rather than the panel.
+#' edge rather than the panel. In the default academic style the panel is
+#' parchment and the face serif; under `set_style("economist")` it is the
+#' newspaper's blue-grey panel in the device's sans face.
 #'
 #' Two conventions are left to the caller because they depend on the data
 #' rather than the style: put the units in the subtitle and drop the axis
 #' titles with `labs(x = NULL, y = NULL)`, and move the y-axis labels to the
 #' right with [scale_y_econ()]. [labs_econ()] does the first for you.
 #'
-#' The Economist sets in a proprietary face (Officina Sans / EconSans). This
-#' theme does not ship or assume a font: `base_family = ""` means the device
-#' default. Pass a family you actually have installed if you want to get
-#' closer.
+#' No font ships with the package. The academic style asks for `"serif"`,
+#' the economist style for `""` (the device default -- The Economist's own
+#' face is proprietary); pass a family you actually have installed to get
+#' closer to either.
 #'
 #' @param base_size Base font size in points.
 #' @param base_family Base font family. `""` uses the device default;
 #'   `NULL` follows the current style ([set_style()]).
-#' @param panel Panel style: `"blue"` (the classic printed panel), `"white"`,
-#'   `"dark"` or `"parchment"`. `NULL` follows the current style.
+#' @param panel Panel style: `"parchment"`, `"blue"` (the newspaper's printed
+#'   panel), `"white"` or `"dark"`. `NULL` follows the current style.
 #' @param grid Which major gridlines to draw: `"y"` (the default), `"x"`,
 #'   `"both"` or `"none"`.
 #' @param legend_position Passed to [ggplot2::theme()]. Defaults to `"top"`,

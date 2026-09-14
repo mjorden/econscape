@@ -29,10 +29,11 @@ econ_styles <- list(
 
 #' Choose the house style
 #'
-#' Two looks ship with the package. `"economist"` (the default) is the
-#' blue-grey panel, red masthead and the newspaper's data palette.
-#' `"academic"` is a fork for papers and lecture notes: a parchment panel,
-#' a serif face, a tan-to-espresso palette and a rust masthead. Setting the
+#' Two looks ship with the package. `"academic"` (the default) is for papers
+#' and lecture notes: a parchment panel, a serif face, a tan-to-espresso
+#' palette and a rust masthead. `"economist"` is the blue-grey panel, red
+#' masthead and data palette of the newspaper's charts, with the device's
+#' default sans face. Setting the
 #' style changes the defaults of [theme_econ()], the `scale_*_econ()` colour
 #' scales, [econ_masthead()] and every `plot_*()` helper; any argument you
 #' pass explicitly still wins.
@@ -42,20 +43,20 @@ econ_styles <- list(
 #' a ggplot constructed under one style keeps that style if you switch
 #' afterwards, so set the style first and construct the plot second.
 #'
-#' @param style `"economist"` or `"academic"`.
+#' @param style `"academic"` or `"economist"`.
 #'
 #' @return `set_style()` invisibly returns the previous style name so it can
 #'   be restored; `get_style()` returns the current one; `style_colour()`
 #'   returns one of the current style's role colours.
 #'
 #' @examples
-#' old <- set_style("academic")
+#' old <- set_style("economist")
 #' get_style()
 #' style_colour("primary")
 #' plot_consumer_choice(cobb_douglas(0.4), budget(120, 3, 4))
 #' set_style(old)
 #' @export
-set_style <- function(style = c("economist", "academic")) {
+set_style <- function(style = c("academic", "economist")) {
   style <- match.arg(style)
   old <- get_style()
   options(econscape.style = style)
@@ -65,7 +66,7 @@ set_style <- function(style = c("economist", "academic")) {
 #' @rdname set_style
 #' @export
 get_style <- function() {
-  style <- getOption("econscape.style", default = "economist")
+  style <- getOption("econscape.style", default = "academic")
   if (!style %in% names(econ_styles)) {
     cli::cli_abort("Unknown style {.val {style}} in option {.code econscape.style}.")
   }

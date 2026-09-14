@@ -2,7 +2,7 @@
 % Please edit documentation in R/theme.R
 \name{theme_econ}
 \alias{theme_econ}
-\title{An Economist-style ggplot2 theme}
+\title{The house ggplot2 theme}
 \usage{
 theme_econ(
   base_size = 12,
@@ -18,8 +18,8 @@ theme_econ(
 \item{base_family}{Base font family. \code{""} uses the device default;
 \code{NULL} follows the current style (\code{\link[=set_style]{set_style()}}).}
 
-\item{panel}{Panel style: \code{"blue"} (the classic printed panel), \code{"white"},
-\code{"dark"} or \code{"parchment"}. \code{NULL} follows the current style.}
+\item{panel}{Panel style: \code{"parchment"}, \code{"blue"} (the newspaper's printed
+panel), \code{"white"} or \code{"dark"}. \code{NULL} follows the current style.}
 
 \item{grid}{Which major gridlines to draw: \code{"y"} (the default), \code{"x"},
 \code{"both"} or \code{"none"}.}
@@ -31,10 +31,12 @@ left-justified and without a legend title.}
 A ggplot2 theme object.
 }
 \description{
-Reproduces the chart furniture of The Economist: a flat blue-grey panel with
-no border, horizontal gridlines only, a solid baseline with ticks on the
+The chart furniture of a well-set economics chart: a flat panel with no
+border, horizontal gridlines only, a solid baseline with ticks on the
 x-axis, and left-aligned title, subtitle and caption that hang off the plot
-edge rather than the panel.
+edge rather than the panel. In the default academic style the panel is
+parchment and the face serif; under \code{set_style("economist")} it is the
+newspaper's blue-grey panel in the device's sans face.
 }
 \details{
 Two conventions are left to the caller because they depend on the data
@@ -42,10 +44,10 @@ rather than the style: put the units in the subtitle and drop the axis
 titles with \code{labs(x = NULL, y = NULL)}, and move the y-axis labels to the
 right with \code{\link[=scale_y_econ]{scale_y_econ()}}. \code{\link[=labs_econ]{labs_econ()}} does the first for you.
 
-The Economist sets in a proprietary face (Officina Sans / EconSans). This
-theme does not ship or assume a font: \code{base_family = ""} means the device
-default. Pass a family you actually have installed if you want to get
-closer.
+No font ships with the package. The academic style asks for \code{"serif"},
+the economist style for \code{""} (the device default -- The Economist's own
+face is proprietary); pass a family you actually have installed to get
+closer to either.
 }
 \examples{
 library(ggplot2)
