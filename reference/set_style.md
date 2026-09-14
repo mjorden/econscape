@@ -1,10 +1,11 @@
 # Choose the house style
 
-Two looks ship with the package. `"economist"` (the default) is the
-blue-grey panel, red masthead and the newspaper's data palette.
-`"academic"` is a fork for papers and lecture notes: a parchment panel,
-a serif face, a tan-to-espresso palette and a rust masthead. Setting the
-style changes the defaults of
+Two looks ship with the package. `"academic"` (the default) is for
+papers and lecture notes: a parchment panel, a serif face, a
+tan-to-espresso palette and a rust masthead. `"economist"` is the
+blue-grey panel, red masthead and data palette of the newspaper's
+charts, with the device's default sans face. Setting the style changes
+the defaults of
 [`theme_econ()`](https://mjorden.github.io/econscape/reference/theme_econ.md),
 the `scale_*_econ()` colour scales,
 [`econ_masthead()`](https://mjorden.github.io/econscape/reference/econ_masthead.md)
@@ -14,7 +15,7 @@ wins.
 ## Usage
 
 ``` r
-set_style(style = c("economist", "academic"))
+set_style(style = c("academic", "economist"))
 
 get_style()
 
@@ -27,7 +28,7 @@ style_colour(
 
 - style:
 
-  `"economist"` or `"academic"`.
+  `"academic"` or `"economist"`.
 
 - role:
 
@@ -50,11 +51,11 @@ switch afterwards, so set the style first and construct the plot second.
 ## Examples
 
 ``` r
-old <- set_style("academic")
+old <- set_style("economist")
 get_style()
-#> [1] "academic"
+#> [1] "economist"
 style_colour("primary")
-#> [1] "#5C4033"
+#> [1] "#006BA2"
 plot_consumer_choice(cobb_douglas(0.4), budget(120, 3, 4))
 
 set_style(old)

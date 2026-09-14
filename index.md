@@ -3,35 +3,37 @@
 *Formerly `fredscape`. The old name described the FRED client this
 started as; the package outgrew it. Every function keeps its name.*
 
-Pull economic series from [FRED](https://fred.stlouisfed.org/) into tidy
-data frames, and plot them in the house style of *The Economist* —
-without hand- theming every chart.
+Economics in R, drawn properly. Four parts that work on their own:
 
-Two halves that work on their own:
-
-- **A FRED client.**
+- **Data.**
   [`fred_series()`](https://mjorden.github.io/econscape/reference/fred_series.md),
   [`fred_series_info()`](https://mjorden.github.io/econscape/reference/fred_series_info.md)
   and
   [`fred_search()`](https://mjorden.github.io/econscape/reference/fred_search.md)
-  return plain data frames. One row per series per date, so a
-  multi-series chart is one
-  [`ggplot()`](https://ggplot2.tidyverse.org/reference/ggplot.html)
-  call.
-- **A chart style.**
+  pull [FRED](https://fred.stlouisfed.org/) series into plain data
+  frames, one row per series per date.
+- **Theory.** Utility and production functions that carry their
+  parameters, budgets (straight or kinked), indifference curves, demand,
+  Hicks and Slutsky, cost curves, monopoly, Cournot, competition, price
+  discrimination — closed forms where they exist, tested numerical
+  fallbacks where they do not, and every textbook diagram in one call.
+- **Econometrics.**
+  [`ols()`](https://mjorden.github.io/econscape/reference/ols.md) with
+  robust and Newey-West errors, trend-cycle filters, unit-root tests,
+  FRED’s transformations applied locally.
+- **Two house styles.** An academic parchment-and-serif look (the
+  default) and a fork of *The Economist*’s chart style;
   [`theme_econ()`](https://mjorden.github.io/econscape/reference/theme_econ.md),
-  [`scale_colour_econ()`](https://mjorden.github.io/econscape/reference/scale_econ.md),
+  the colour scales,
   [`labs_econ()`](https://mjorden.github.io/econscape/reference/labs_econ.md),
   [`annotate_recessions()`](https://mjorden.github.io/econscape/reference/annotate_recessions.md)
   and
   [`econ_masthead()`](https://mjorden.github.io/econscape/reference/econ_masthead.md)
-  reproduce the printed chart furniture: blue-grey panel, horizontal
-  gridlines only, right-hand y-axis, left-hung title, red masthead
-  block.
+  follow whichever is set.
 
 ![A line chart of median US unemployment duration with NBER recessions
-shaded, styled like an Economist
-chart](reference/figures/README-recessions.png)
+shaded, in the academic house
+style](reference/figures/README-recessions.png)
 
 ## Installation
 
@@ -110,7 +112,7 @@ ggplot(inflation, aes(date, value, colour = series_id)) +
 Don’t know the series ID? `fred_search("real median household income")`
 returns titles, units, frequency and coverage for the matches.
 
-![Three indexed US economic series in the Economist categorical
+![Three indexed US economic series in the academic categorical
 palette](reference/figures/README-index.png)
 
 ## Problem sets
@@ -136,18 +138,20 @@ optimal_bundle(cobb_douglas(0.5), b)                # searched along the frontie
 
 ## Two looks
 
-`set_style("academic")` swaps the newspaper look for one that belongs in
-a paper or a set of lecture notes — parchment panel, serif face, a
-tan-to-brown palette, rust masthead. Every `plot_*()` helper, the colour
+The default style is **academic** — parchment panel, serif face, a
+tan-to- espresso palette, rust masthead — the look of a paper or a set
+of lecture notes, and what every figure on this page is drawn in.
+`set_style("economist")` switches to the newspaper’s blue-grey panel,
+red masthead and data palette; every `plot_*()` helper, the colour
 scales,
 [`theme_econ()`](https://mjorden.github.io/econscape/reference/theme_econ.md)
 and
 [`econ_masthead()`](https://mjorden.github.io/econscape/reference/econ_masthead.md)
-follow it; `set_style("economist")` is the default.
+follow whichever is set.
 
-![The consumer-choice diagram in the academic style: parchment panel,
-serif type, brown curves and a rust budget
-line](reference/figures/README-academic.png)
+![The consumer-choice diagram in the Economist style: blue-grey panel,
+sans type, blue curves and a red budget
+line](reference/figures/README-economist.png)
 
 ## Estimating things
 
@@ -218,7 +222,8 @@ and
 are the pieces if you’d rather build it up yourself.
 
 ![Three Cobb-Douglas indifference curves, a budget line, and the
-tangency point, in Economist style](reference/figures/README-choice.png)
+tangency point, in the academic house
+style](reference/figures/README-choice.png)
 
 The other textbook preferences come with the same closed forms:
 

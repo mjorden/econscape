@@ -1,9 +1,11 @@
-# An Economist-style ggplot2 theme
+# The house ggplot2 theme
 
-Reproduces the chart furniture of The Economist: a flat blue-grey panel
-with no border, horizontal gridlines only, a solid baseline with ticks
-on the x-axis, and left-aligned title, subtitle and caption that hang
-off the plot edge rather than the panel.
+The chart furniture of a well-set economics chart: a flat panel with no
+border, horizontal gridlines only, a solid baseline with ticks on the
+x-axis, and left-aligned title, subtitle and caption that hang off the
+plot edge rather than the panel. In the default academic style the panel
+is parchment and the face serif; under `set_style("economist")` it is
+the newspaper's blue-grey panel in the device's sans face.
 
 ## Usage
 
@@ -31,8 +33,8 @@ theme_econ(
 
 - panel:
 
-  Panel style: `"blue"` (the classic printed panel), `"white"`, `"dark"`
-  or `"parchment"`. `NULL` follows the current style.
+  Panel style: `"parchment"`, `"blue"` (the newspaper's printed panel),
+  `"white"` or `"dark"`. `NULL` follows the current style.
 
 - grid:
 
@@ -59,10 +61,10 @@ the right with
 [`labs_econ()`](https://mjorden.github.io/econscape/reference/labs_econ.md)
 does the first for you.
 
-The Economist sets in a proprietary face (Officina Sans / EconSans).
-This theme does not ship or assume a font: `base_family = ""` means the
-device default. Pass a family you actually have installed if you want to
-get closer.
+No font ships with the package. The academic style asks for `"serif"`,
+the economist style for `""` (the device default – The Economist's own
+face is proprietary); pass a family you actually have installed to get
+closer to either.
 
 ## See also
 

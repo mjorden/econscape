@@ -32,7 +32,7 @@ the palette holds; continuous palettes interpolate.
 
 ``` r
 econ_pal()(3)
-#> [1] "#006BA2" "#3EBCD2" "#379A8B"
+#> [1] "#5C4033" "#A47551" "#C9A87C"
 econ_pal("blues")(9)
 #> [1] "#EBF3F7" "#CDE2EB" "#B0D2E0" "#92C2D5" "#6DAFC8" "#479BBB" "#2787AC"
 #> [8] "#10709C" "#00588D"

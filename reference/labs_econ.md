@@ -1,4 +1,4 @@
-# Economist-style labels
+# House-style labels
 
 A thin wrapper over
 [`ggplot2::labs()`](https://ggplot2.tidyverse.org/reference/labs.html)

@@ -17,28 +17,29 @@ A small client that returns tidy data frames.
   [`fred_set_key()`](https://mjorden.github.io/econscape/reference/fred_key.md)
   : Manage the FRED API key
 
-## The Economist style
+## House styles
 
-Theme, palettes, labels and the red masthead block.
+Theme, palettes, labels and the masthead block, in the academic or
+Economist style.
 
 - [`set_style()`](https://mjorden.github.io/econscape/reference/set_style.md)
   [`get_style()`](https://mjorden.github.io/econscape/reference/set_style.md)
   [`style_colour()`](https://mjorden.github.io/econscape/reference/set_style.md)
   : Choose the house style
 - [`theme_econ()`](https://mjorden.github.io/econscape/reference/theme_econ.md)
-  : An Economist-style ggplot2 theme
+  : The house ggplot2 theme
 - [`scale_colour_econ()`](https://mjorden.github.io/econscape/reference/scale_econ.md)
   [`scale_color_econ()`](https://mjorden.github.io/econscape/reference/scale_econ.md)
   [`scale_fill_econ()`](https://mjorden.github.io/econscape/reference/scale_econ.md)
   [`scale_colour_econ_c()`](https://mjorden.github.io/econscape/reference/scale_econ.md)
   [`scale_color_econ_c()`](https://mjorden.github.io/econscape/reference/scale_econ.md)
   [`scale_fill_econ_c()`](https://mjorden.github.io/econscape/reference/scale_econ.md)
-  : Economist-style colour and fill scales
+  : House-style colour and fill scales
 - [`scale_y_econ()`](https://mjorden.github.io/econscape/reference/scale_econ_axis.md)
   [`scale_x_econ_date()`](https://mjorden.github.io/econscape/reference/scale_econ_axis.md)
   : Axis scales that follow the house conventions
 - [`labs_econ()`](https://mjorden.github.io/econscape/reference/labs_econ.md)
-  : Economist-style labels
+  : House-style labels
 - [`econ_masthead()`](https://mjorden.github.io/econscape/reference/econ_masthead.md)
   : Add the red masthead block above a chart
 - [`print(`*`<econ_plot>`*`)`](https://mjorden.github.io/econscape/reference/print.econ_plot.md)

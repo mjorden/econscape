@@ -5,16 +5,16 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Tidy Access to FRED Economic Data with Economist-Style Charts • econscape</title>
+<title>Economics in R: FRED Data, Textbook Theory and Two House Styles • econscape</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="deps/Source_Sans_3-0.4.10/font.css" rel="stylesheet">
 <link href="deps/Source_Serif_4-0.4.10/font.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Tidy Access to FRED Economic Data with Economist-Style Charts">
-<meta name="description" content="A small, dependency-light client for the Federal Reserve Bank of St. Louis FRED API that returns tidy data frames, paired with a ggplot2 theme and colour scales built to match the house style of The Economist. Series observations, series metadata and full-text search are covered; charts get a blue-grey panel, right-hand y-axis labels, the red masthead block and NBER recession shading without any manual theming.">
-<meta property="og:description" content="A small, dependency-light client for the Federal Reserve Bank of St. Louis FRED API that returns tidy data frames, paired with a ggplot2 theme and colour scales built to match the house style of The Economist. Series observations, series metadata and full-text search are covered; charts get a blue-grey panel, right-hand y-axis labels, the red masthead block and NBER recession shading without any manual theming.">
+<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Economics in R: FRED Data, Textbook Theory and Two House Styles">
+<meta name="description" content="A dependency-light client for the Federal Reserve Bank of St. Louis FRED API that returns tidy data frames; consumer, producer and market theory with closed forms where they exist and tested numerical fallbacks where they do not; price discrimination; an econometrics toolkit (robust OLS, trend-cycle filters, unit-root tests); and ggplot2 themes in two house styles -- an academic parchment-and-serif look (the default) and a fork of the style of The Economist -- with masthead blocks, recession shading and every textbook diagram drawn in one call.">
+<meta property="og:description" content="A dependency-light client for the Federal Reserve Bank of St. Louis FRED API that returns tidy data frames; consumer, producer and market theory with closed forms where they exist and tested numerical fallbacks where they do not; price discrimination; an econometrics toolkit (robust OLS, trend-cycle filters, unit-root tests); and ggplot2 themes in two house styles -- an academic parchment-and-serif look (the default) and a fork of the style of The Economist -- with masthead blocks, recession shading and every textbook diagram drawn in one call.">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -24,7 +24,7 @@
 
     <a class="navbar-brand me-2" href="index.html">econscape</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.12.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.13.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,15 +51,18 @@
 <p><em>Formerly <code>fredscape</code>. The old name described the FRED client this started as; the package outgrew it. Every function keeps its name.</em></p>
 <!-- badges: start -->
 
-<p>Pull economic series from <a href="https://fred.stlouisfed.org/" class="external-link">FRED</a> into tidy data frames, and plot them in the house style of <em>The Economist</em> — without hand- theming every chart.</p>
-<p>Two halves that work on their own:</p>
+<p>Economics in R, drawn properly. Four parts that work on their own:</p>
 <ul>
 <li>
-<strong>A FRED client.</strong> <code><a href="reference/fred_series.html">fred_series()</a></code>, <code><a href="reference/fred_series_info.html">fred_series_info()</a></code> and <code><a href="reference/fred_search.html">fred_search()</a></code> return plain data frames. One row per series per date, so a multi-series chart is one <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot()</a></code> call.</li>
+<strong>Data.</strong> <code><a href="reference/fred_series.html">fred_series()</a></code>, <code><a href="reference/fred_series_info.html">fred_series_info()</a></code> and <code><a href="reference/fred_search.html">fred_search()</a></code> pull <a href="https://fred.stlouisfed.org/" class="external-link">FRED</a> series into plain data frames, one row per series per date.</li>
 <li>
-<strong>A chart style.</strong> <code><a href="reference/theme_econ.html">theme_econ()</a></code>, <code><a href="reference/scale_econ.html">scale_colour_econ()</a></code>, <code><a href="reference/labs_econ.html">labs_econ()</a></code>, <code><a href="reference/annotate_recessions.html">annotate_recessions()</a></code> and <code><a href="reference/econ_masthead.html">econ_masthead()</a></code> reproduce the printed chart furniture: blue-grey panel, horizontal gridlines only, right-hand y-axis, left-hung title, red masthead block.</li>
+<strong>Theory.</strong> Utility and production functions that carry their parameters, budgets (straight or kinked), indifference curves, demand, Hicks and Slutsky, cost curves, monopoly, Cournot, competition, price discrimination — closed forms where they exist, tested numerical fallbacks where they do not, and every textbook diagram in one call.</li>
+<li>
+<strong>Econometrics.</strong> <code><a href="reference/ols.html">ols()</a></code> with robust and Newey-West errors, trend-cycle filters, unit-root tests, FRED’s transformations applied locally.</li>
+<li>
+<strong>Two house styles.</strong> An academic parchment-and-serif look (the default) and a fork of <em>The Economist</em>’s chart style; <code><a href="reference/theme_econ.html">theme_econ()</a></code>, the colour scales, <code><a href="reference/labs_econ.html">labs_econ()</a></code>, <code><a href="reference/annotate_recessions.html">annotate_recessions()</a></code> and <code><a href="reference/econ_masthead.html">econ_masthead()</a></code> follow whichever is set.</li>
 </ul>
-<p><img src="reference/figures/README-recessions.png" width="100%" alt="A line chart of median US unemployment duration with NBER recessions shaded, styled like an Economist chart"></p>
+<p><img src="reference/figures/README-recessions.png" width="100%" alt="A line chart of median US unemployment duration with NBER recessions shaded, in the academic house style"></p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -118,7 +121,7 @@
 <span>  <span class="fu"><a href="reference/scale_econ_axis.html">scale_y_econ</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="reference/theme_econ.html">theme_econ</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Don’t know the series ID? <code>fred_search("real median household income")</code> returns titles, units, frequency and coverage for the matches.</p>
-<p><img src="reference/figures/README-index.png" width="100%" alt="Three indexed US economic series in the Economist categorical palette"></p>
+<p><img src="reference/figures/README-index.png" width="100%" alt="Three indexed US economic series in the academic categorical palette"></p>
 </div>
 <div class="section level2">
 <h2 id="problem-sets">Problem sets<a class="anchor" aria-label="anchor" href="#problem-sets"></a>
@@ -140,8 +143,8 @@
 <div class="section level2">
 <h2 id="two-looks">Two looks<a class="anchor" aria-label="anchor" href="#two-looks"></a>
 </h2>
-<p><code>set_style("academic")</code> swaps the newspaper look for one that belongs in a paper or a set of lecture notes — parchment panel, serif face, a tan-to-brown palette, rust masthead. Every <code>plot_*()</code> helper, the colour scales, <code><a href="reference/theme_econ.html">theme_econ()</a></code> and <code><a href="reference/econ_masthead.html">econ_masthead()</a></code> follow it; <code>set_style("economist")</code> is the default.</p>
-<p><img src="reference/figures/README-academic.png" width="80%" alt="The consumer-choice diagram in the academic style: parchment panel, serif type, brown curves and a rust budget line"></p>
+<p>The default style is <strong>academic</strong> — parchment panel, serif face, a tan-to- espresso palette, rust masthead — the look of a paper or a set of lecture notes, and what every figure on this page is drawn in. <code>set_style("economist")</code> switches to the newspaper’s blue-grey panel, red masthead and data palette; every <code>plot_*()</code> helper, the colour scales, <code><a href="reference/theme_econ.html">theme_econ()</a></code> and <code><a href="reference/econ_masthead.html">econ_masthead()</a></code> follow whichever is set.</p>
+<p><img src="reference/figures/README-economist.png" width="80%" alt="The consumer-choice diagram in the Economist style: blue-grey panel, sans type, blue curves and a red budget line"></p>
 </div>
 <div class="section level2">
 <h2 id="estimating-things">Estimating things<a class="anchor" aria-label="anchor" href="#estimating-things"></a>
@@ -185,7 +188,7 @@
 <span></span>
 <span><span class="fu"><a href="reference/indifference_curve.html">indifference_curve</a></span><span class="op">(</span><span class="va">u</span>, level <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">15</span><span class="op">)</span>, x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">10</span>, <span class="fl">20</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><code><a href="reference/plot_consumer_choice.html">plot_consumer_choice()</a></code> composes the whole chart; <code><a href="reference/geom_micro.html">geom_indifference()</a></code>, <code><a href="reference/geom_micro.html">geom_budget()</a></code> and <code><a href="reference/geom_micro.html">geom_optimum()</a></code> are the pieces if you’d rather build it up yourself.</p>
-<p><img src="reference/figures/README-choice.png" width="80%" alt="Three Cobb-Douglas indifference curves, a budget line, and the tangency point, in Economist style"></p>
+<p><img src="reference/figures/README-choice.png" width="80%" alt="Three Cobb-Douglas indifference curves, a budget line, and the tangency point, in the academic house style"></p>
 <p>The other textbook preferences come with the same closed forms:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/ces.html">ces</a></span><span class="op">(</span>rho <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, alpha <span class="op">=</span> <span class="fl">0.4</span><span class="op">)</span>                       <span class="co"># constant elasticity of substitution</span></span>
