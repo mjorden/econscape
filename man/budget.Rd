@@ -19,7 +19,9 @@ A list of class \code{budget} with the inputs plus the derived
 \code{x_max} and \code{y_max} (the most of each good the income buys on its own),
 \code{slope} (\code{-px / py}, or \code{NA} when a price is a schedule), \code{kinked}
 (\code{TRUE} when either price is a schedule) and the cost functions \code{cost_x}
-and \code{cost_y}.
+and \code{cost_y}. Because it carries functions, two budgets built from the
+same arguments are equal under \code{\link[=all.equal]{all.equal()}} but not \code{\link[=identical]{identical()}};
+compare the fields if you need a strict test.
 }
 \description{
 Describes the set of bundles affordable at income \code{income} when the two

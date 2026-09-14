@@ -159,6 +159,41 @@ test_that("a utility table on a kinked budget searches whole bundles", {
   opt <- optimal_bundle(movies, disc)
   expect_true(disc$cost_x(opt$x) + disc$cost_y(opt$y) <= 35)
   expect_equal(opt$x, round(opt$x))
-  order <- mu_per_dollar(movies, disc)
+  # Leftover cash: the rule stops at a $7.50 movie it cannot afford while a
+  # $3 bag is still within reach, so it says so.
+  expect_warning(order <- mu_per_dollar(movies, disc), "not the optimum")
   expect_equal(order$price[order$good == "movies"], c(10, 10, 7.5, 7.5, 7.5))
+})
+
+
+## Review follow-ups (2026-09-14) ----------------------------------------------
+
+test_that("mu_per_dollar() is a constrained greedy, and says when that is not optimal", {
+  # x: 10, 1, 100 utils per unit; y: 5 each. At prices 1/1 the greedy rule
+  # buys y, y, y, x... a global sort put x's cheap second unit first.
+  u <- utility_table(c(10, 11, 111), c(5, 10, 15), goods = c("x", "y"))
+  expect_warning(order <- mu_per_dollar(u, budget(3, 1, 1)), "not the optimum")
+  expect_identical(order$good[1:4], c("x", "y", "y", "y"))
+  expect_identical(order$unit[order$good == "x"], 1:3)
+  expect_match(attr(order, "note"), "diminishing marginal utility")
+  expect_match(attr(order, "note"), "x = 1, y = 2.*x = 3, y = 0")
+  # Diminishing MU: no warning, no note, same answer as the exhaustive search.
+  movies <- utility_table(c(20, 37, 50, 60, 65), c(16, 30, 40, 46, 48),
+                          goods = c("movies", "popcorn"))
+  expect_no_warning(o2 <- mu_per_dollar(movies, budget(55, 7.5, 3)))
+  expect_null(attr(o2, "note"))
+  bought <- o2[o2$affordable, ]
+  expect_equal(c(sum(bought$good == "movies"), sum(bought$good == "popcorn")), c(5, 5))
+})
+
+test_that("plot_consumer_choice() takes goods from a utility table", {
+  movies <- utility_table(c(20, 37, 50, 60, 65), c(16, 30, 40, 46, 48),
+                          goods = c("movies", "popcorn"))
+  p <- plot_consumer_choice(movies, budget(35, 7.5, 3))
+  expect_identical(p$labels$x, "movies")
+  expect_identical(p$labels$y, "popcorn")
+  q <- plot_consumer_choice(movies, budget(35, 7.5, 3), goods = c("Films", "Snacks"))
+  expect_identical(q$labels$x, "Films")
+  r <- plot_consumer_choice(cobb_douglas(0.5), budget(10, 1, 1))
+  expect_identical(r$labels$x, "Good x")
 })

@@ -10,7 +10,16 @@ mu_per_dollar(u, b)
 \item{u}{A \code{\link[=utility_table]{utility_table()}}.}
 
 \item{b}{A \code{\link[=budget]{budget()}}; prices may be \code{\link[=price_schedule]{price_schedule()}}s, in which case
-each unit is priced at its own tier.}
+each unit is priced at its own tier.
+
+The order is the textbook's constrained greedy: at each step buy the
+next unit of whichever good gives more utility per dollar, never skipping
+ahead within a good, and stop at the first unit the income cannot cover.
+That rule finds the optimum only when marginal utility is diminishing and
+the income is spent exactly; otherwise (a table that is not concave, or
+leftover cash that would have bought a cheaper unit further down the
+list) the affordable set can differ from \code{\link[=optimal_bundle]{optimal_bundle()}}. When it does,
+a warning is issued and the result carries a \code{note} attribute saying so.}
 }
 \value{
 A data frame with one row per unit: \code{good}, \code{unit}, \code{price},

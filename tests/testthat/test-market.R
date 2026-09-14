@@ -272,3 +272,11 @@ test_that("marginal cost of a custom production function is usable near zero", {
   expect_true(is.finite(marginal_cost(a, 0)) && marginal_cost(a, 0) > 0)
   expect_equal(marginal_cost(b, 0), marginal_cost(a, 0), tolerance = 1e-3)
 })
+
+
+test_that("maximise_on() sees a marginal feature narrower than the old grid", {
+  # -1 everywhere except +5000 on a 0.05-wide window near 40: the integral
+  # peaks at 40.05, which a 200-point grid on [0, 100] (spacing 0.5) missed.
+  g <- function(q) if (q >= 40 && q <= 40.05) 5000 else -1
+  expect_equal(maximise_on(g, 100), 40.05, tolerance = 1e-6)
+})

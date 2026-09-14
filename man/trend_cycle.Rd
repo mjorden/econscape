@@ -28,6 +28,8 @@ current value).}
 An object of class \code{trend_cycle}: a data frame with columns
 \code{date} (if \code{x} had one), \code{value}, \code{trend} and \code{cycle}, plus attributes
 \code{method} and the tuning parameters. \code{\link[=plot_trend_cycle]{plot_trend_cycle()}} draws it.
+Subsetting rows keeps the class and attributes; dropping any of the
+three value columns returns a plain data frame.
 }
 \description{
 Two ways of splitting a series into a slow-moving trend and the cycle

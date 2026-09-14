@@ -463,8 +463,14 @@ scan_marginal <- function(g, upper, n_grid = 200L) {
 #' (`g` runs -, +, -), several crossings, and a `g` that only ever crosses
 #' upward (a profit minimum, never returned -- one of the endpoints is).
 #'
+#' The grid is much finer here than in [find_crossing()] because the
+#' *integral* is what is scored: a feature narrower than one grid step (a
+#' capacity kink, a block tariff in a cost function) is invisible to the
+#' trapezoid sum, so the resolution is `upper / n_grid`. Four thousand
+#' evaluations of a closed-form marginal function cost a few milliseconds.
+#'
 #' @noRd
-maximise_on <- function(g, upper, n_grid = 200L) {
+maximise_on <- function(g, upper, n_grid = 4000L) {
   s <- scan_marginal(g, upper, n_grid)
   if (length(s$g) == 0L) return(0)
   # Cumulative integral of g from 0, treating g as 0 on [0, q[1]].
@@ -472,8 +478,14 @@ maximise_on <- function(g, upper, n_grid = 200L) {
   candidates <- c(0, upper)
   scores <- c(0, cum[length(cum)])
   for (i in s$down) {
-    candidates <- c(candidates, s$polish(i))
-    scores <- c(scores, cum[i])
+    root <- s$polish(i)
+    # Integral from the last positive grid point to the root. For a smooth g
+    # that is a thin right triangle; for a step it is the rest of the step.
+    g_root <- g(root)
+    if (!is.finite(g_root)) g_root <- 0
+    sliver <- (root - s$q[i]) * (s$g[i] + max(g_root, 0)) / 2
+    candidates <- c(candidates, root)
+    scores <- c(scores, cum[i] + sliver)
   }
   candidates[which.max(scores)]
 }

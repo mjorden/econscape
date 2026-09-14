@@ -374,3 +374,34 @@ test_that("fred_recessions() collapses the USREC indicator into intervals", {
   expect_identical(out$peak, as.Date("2007-12-01"))
   expect_identical(out$trough, as.Date("2009-06-01"))
 })
+
+
+test_that("transform_series() keeps the caller's row order", {
+  dates <- seq(as.Date("2020-01-01"), by = "month", length.out = 4)
+  # Interleaved series, dates out of order.
+  df <- data.frame(series_id = rep(c("A", "B"), 4), date = rep(dates[c(3, 1, 2, 4)], each = 2),
+                   value = c(30, 300, 10, 100, 20, 200, 40, 400))
+  out <- transform_series(df, "chg", frequency = 12)
+  expect_identical(out$series_id, df$series_id)
+  expect_identical(out$date, df$date)
+  expect_equal(out$value, c(10, 100, NA, NA, 10, 100, 10, 100))
+  expect_identical(nrow(out), 8L)
+  # No series_id column at all
+  one <- transform_series(data.frame(date = dates[c(2, 1, 3, 4)], value = c(2, 1, 4, 8)), "pch", frequency = 12)
+  expect_equal(one$value, c(100, NA, 100, 100))
+})
+
+test_that("a trend_cycle survives row subsetting and degrades honestly", {
+  hp <- hp_filter(cumsum(rnorm(50)), lambda = 100)
+  rows <- hp[1:10, ]
+  expect_s3_class(rows, "trend_cycle")
+  expect_equal(attr(rows, "lambda"), 100)
+  expect_output(print(rows), "10 observations")
+  cols <- hp[, c("value", "trend")]
+  expect_false(inherits(cols, "trend_cycle"))
+  expect_s3_class(cols, "data.frame")
+  broken <- structure(data.frame(value = 1:3), class = c("trend_cycle", "data.frame"))
+  expect_error(print(broken), "not a complete")
+  expect_error(plot_trend_cycle(broken), "not a complete")
+  expect_s3_class(ggplot2::ggplot_build(plot_trend_cycle(rows)), "ggplot_built")
+})

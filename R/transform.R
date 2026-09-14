@@ -37,9 +37,11 @@ infer_frequency <- function(date) {
 #' @param frequency Observations per year (1, 4, 12, 52, 260). Inferred from
 #'   the dates when `NULL`.
 #'
-#' @return The same frame with `value` transformed. Observations that need
-#'   an earlier one that does not exist become `NA` rather than being
-#'   dropped, so the rows still line up with the original.
+#' @return The same frame with `value` transformed, rows in the order they
+#'   arrived. Observations that need an earlier one that does not exist
+#'   become `NA` rather than being dropped, so the rows still line up with
+#'   the original. "Previous" and "a year ago" are found by date within each
+#'   series, so the input need not be sorted.
 #'
 #' @examples
 #' econ <- ggplot2::economics
@@ -60,16 +62,16 @@ transform_series <- function(df, how = c("lin", "chg", "ch1", "pch", "pc1", "pca
     }
   }
   groups <- if ("series_id" %in% names(df)) df$series_id else rep("series", nrow(df))
-  pieces <- split(df, groups, drop = TRUE)
-  out <- lapply(pieces, function(piece) {
-    piece <- piece[order(piece$date), , drop = FALSE]
-    ppy <- frequency %||% infer_frequency(piece$date)
-    piece$value <- transform_values(piece$value, how, ppy)
-    piece
-  })
-  out <- do.call(rbind, unname(out))
-  rownames(out) <- NULL
-  out
+  # Work series by series in date order, but write the results back into the
+  # caller's rows so the frame comes back in the order it arrived.
+  value <- as.numeric(df$value)
+  for (rows in split(seq_len(nrow(df)), groups, drop = TRUE)) {
+    rows <- rows[order(df$date[rows])]
+    ppy <- frequency %||% infer_frequency(df$date[rows])
+    value[rows] <- transform_values(df$value[rows], how, ppy)
+  }
+  df$value <- value
+  df
 }
 
 #' @noRd

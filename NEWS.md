@@ -1,3 +1,27 @@
+# econscape 0.14.1
+
+Theory and classroom fixes from the 2026-09-14 review.
+
+* `mu_per_dollar()` builds the purchase order as a constrained greedy (the
+  next unit of each good competes, never a later one), so tables without
+  diminishing marginal utility no longer get a scrambled order (#31). When
+  the greedy set differs from `optimal_bundle()` (a non-concave table, or
+  leftover cash on a kinked budget) it warns and attaches a `note`
+  attribute.
+* The market solvers score candidates on a 4,000-point grid instead of 200
+  and integrate each candidate up to its polished root, so a marginal feature
+  narrower than a fiftieth of the quantity range is no longer invisible
+  (#32).
+* `transform_series()` returns rows in the order they arrived, as documented,
+  rather than re-sorted by series and date (#35).
+* A `trend_cycle` keeps its attributes when rows are subset and drops its
+  class when the value columns go; `print()` and `plot_trend_cycle()` explain
+  an incomplete object instead of failing on `attr(x, "method")` (#36).
+* `plot_consumer_choice()` takes the axis labels from a `utility_table()`'s
+  goods when `goods` is not given (#37).
+* `econ_colours("brown")` is the academic primary; `budget()` documents that
+  its cost closures make `identical()` on two budgets false (#38).
+
 # econscape 0.14.0
 
 Econometrics fixes from the 2026-09-14 review.

@@ -60,3 +60,9 @@ test_that("a plot using the scales renders end to end", {
     theme_econ()
   expect_s3_class(ggplot2::ggplot_build(p), "ggplot_built")
 })
+
+
+test_that("the academic primary has a name in the dictionary", {
+  expect_identical(unname(econ_colours("brown")), "#5C4033")
+  expect_identical(unname(econ_colours("brown")), unname(econ_styles$academic$roles[["primary"]]))
+})
