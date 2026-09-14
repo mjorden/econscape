@@ -8,10 +8,11 @@ Theory and classroom fixes from the 2026-09-14 review.
   the greedy set differs from `optimal_bundle()` (a non-concave table, or
   leftover cash on a kinked budget) it warns and attaches a `note`
   attribute.
-* The market solvers score candidates on a 4,000-point grid instead of 200
+* The market solvers score candidates on a 1,000-point grid instead of 200
   and integrate each candidate up to its polished root, so a marginal feature
-  narrower than a fiftieth of the quantity range is no longer invisible
-  (#32).
+  narrower than a two-hundredth of the quantity range is no longer invisible
+  (#32). Exact ties between candidates resolve to the smaller quantity on
+  every platform.
 * `transform_series()` returns rows in the order they arrived, as documented,
   rather than re-sorted by series and date (#35).
 * A `trend_cycle` keeps its attributes when rows are subset and drops its
