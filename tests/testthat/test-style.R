@@ -1,5 +1,5 @@
 test_that("the default style is economist and set_style() round-trips", {
-  withr::local_options(fredscape.style = NULL)
+  withr::local_options(econscape.style = NULL)
   expect_identical(get_style(), "economist")
   old <- set_style("academic")
   expect_identical(old, "economist")
@@ -7,22 +7,22 @@ test_that("the default style is economist and set_style() round-trips", {
   set_style(old)
   expect_identical(get_style(), "economist")
   expect_error(set_style("gothic"))
-  withr::local_options(fredscape.style = "gothic")
+  withr::local_options(econscape.style = "gothic")
   expect_error(get_style(), "Unknown style")
 })
 
 test_that("style_colour() follows the style", {
-  withr::local_options(fredscape.style = "economist")
+  withr::local_options(econscape.style = "economist")
   expect_identical(style_colour("primary"), "#006BA2")
   expect_identical(style_colour("secondary"), "#E3120B")
-  withr::local_options(fredscape.style = "academic")
+  withr::local_options(econscape.style = "academic")
   expect_identical(style_colour("primary"), "#5C4033")
   expect_identical(style_colour("band"), "#D8C3A5")
   expect_error(style_colour("neon"))
 })
 
 test_that("theme, scales and masthead follow the style unless told otherwise", {
-  withr::local_options(fredscape.style = "academic")
+  withr::local_options(econscape.style = "academic")
   th <- theme_econ()
   expect_identical(th$panel.background$fill, "#F4EEE2")
   expect_identical(th$text$family, "serif")
@@ -37,13 +37,13 @@ test_that("theme, scales and masthead follow the style unless told otherwise", {
   block <- g$grobs[[which(g$layout$name == "masthead")]]
   expect_identical(block$gp$fill, "#8B3A2F")
   expect_identical(econ_masthead(p, colour = "#000000")$grobs[[which(g$layout$name == "masthead")]]$gp$fill, "#000000")
-  withr::local_options(fredscape.style = "economist")
+  withr::local_options(econscape.style = "economist")
   expect_identical(theme_econ()$panel.background$fill, "#D5E4EB")
   expect_identical(econ_pal()(1), "#006BA2")
 })
 
 test_that("every plot helper builds under the academic style", {
-  withr::local_options(fredscape.style = "academic")
+  withr::local_options(econscape.style = "academic")
   u <- cobb_douglas(0.4); b <- budget(120, 3, 4)
   d <- linear_demand(100, 1); cst <- quadratic_cost(a = 20)
   econ <- ggplot2::economics
@@ -63,7 +63,7 @@ test_that("every plot helper builds under the academic style", {
 })
 
 test_that("recession bands take the style's band colour by default", {
-  withr::local_options(fredscape.style = "academic")
+  withr::local_options(econscape.style = "academic")
   layer <- annotate_recessions(from = "1990-01-01", to = "2015-01-01")
   expect_identical(layer$aes_params$fill, "#D8C3A5")
   expect_identical(annotate_recessions(fill = "red")$aes_params$fill, "red")

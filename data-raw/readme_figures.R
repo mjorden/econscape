@@ -7,7 +7,7 @@
 if (requireNamespace("devtools", quietly = TRUE)) {
   devtools::load_all(".", quiet = TRUE)
 } else {
-  library(fredscape)
+  library(econscape)
 }
 library(ggplot2)
 
@@ -108,7 +108,7 @@ p_choice <- plot_consumer_choice(
   goods = c("Coffee, cups", "Bagels"),
   title = "Breakfast, optimised",
   subtitle = "Cobb-Douglas utility, alpha = 0.4; income 120 at prices 3 and 4",
-  source = "fredscape"
+  source = "econscape"
 )
 
 save_fig(econ_masthead(p_choice), "README-choice", width = 7, height = 5.2)
@@ -120,7 +120,7 @@ p_leontief <- plot_consumer_choice(
   goods = c("Left shoes", "Right shoes"),
   title = "No use for one without the other",
   subtitle = "Leontief utility, u = min(x, y / 2); income 120 at prices 3 and 4",
-  source = "fredscape"
+  source = "econscape"
 )
 save_fig(econ_masthead(p_leontief), "README-leontief", width = 7, height = 5.2)
 
@@ -134,7 +134,7 @@ p_demand <- ggplot() +
   labs_econ(
     title = "Downward sloping, as advertised",
     subtitle = "Demand for coffee from the Cobb-Douglas consumer above; income 120, bagels at 4",
-    source = "fredscape"
+    source = "econscape"
   ) +
   labs(x = "Cups of coffee", y = "Price per cup") +
   theme_econ(grid = "both") +
@@ -149,7 +149,7 @@ p_slutsky <- plot_price_change(
   goods = c("Coffee, cups", "Bagels"),
   title = "When coffee doubles in price",
   subtitle = "Hicks decomposition; income 120, bagels at 4, coffee from 3 to 6",
-  source = "fredscape"
+  source = "econscape"
 )
 save_fig(econ_masthead(p_slutsky), "README-price-change", width = 7, height = 5.4)
 
@@ -160,7 +160,7 @@ p_cost <- plot_cost_curves(
   f, w = 20, r = 30, q = seq(1, 40, by = 0.25), fixed = 150,
   title = "Where marginal meets average",
   subtitle = "Cobb-Douglas production with decreasing returns; w = 20, r = 30, fixed cost 150",
-  source = "fredscape"
+  source = "econscape"
 )
 save_fig(econ_masthead(p_cost), "README-cost", width = 7, height = 4.6)
 
@@ -171,7 +171,7 @@ p_monopoly <- plot_market(
   m,
   title = "The price of market power",
   subtitle = "Monopoly facing P = 100 - Q with constant marginal cost 20",
-  source = "fredscape"
+  source = "econscape"
 )
 save_fig(econ_masthead(p_monopoly), "README-monopoly", width = 7, height = 5)
 
@@ -185,7 +185,7 @@ p_tariff <- plot_two_part_tariff(
   title = "The Disneyland dilemma",
   subtitle = sprintf("Five light users for every heavy one: fee %s, unit price %s, above marginal cost 20",
                      format(signif(tp$fee, 3)), format(signif(tp$price, 3))),
-  source = "fredscape"
+  source = "econscape"
 )
 save_fig(econ_masthead(p_tariff), "README-tariff", width = 7, height = 4.8)
 
@@ -220,7 +220,7 @@ p_academic <- plot_consumer_choice(
   goods = c("Pairs of shoes", "Paintings of dogs playing poker"),
   title = "A quantity discount bends the budget line",
   subtitle = "Income $100; shoes $10; paintings $20, 25% off after the second. Cobb-Douglas, alpha = 0.5",
-  source = "fredscape, academic style"
+  source = "econscape, academic style"
 )
 save_fig(econ_masthead(p_academic), "README-academic", width = 7.5, height = 5.6)
 set_style(old_style)

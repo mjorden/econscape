@@ -1,4 +1,16 @@
-# fredscape 0.11.0
+# econscape 0.12.0
+
+The package is now called **econscape**. It began as a FRED client with an
+Economist-style theme and grew into consumer, producer and market theory,
+price discrimination, an econometrics toolkit and a second house style; the
+old name described a tenth of it. Nothing else changes: every function keeps
+its name (the `fred_*` functions are named for their data source, which is
+still FRED), the options are now `econscape.style` and `econscape.base_url`,
+and the GitHub repository redirects from the old address.
+
+Reinstall with `remotes::install_github("mjorden/econscape")`.
+
+# econscape 0.11.0
 
 Two things the introductory course asks for that the package could not do,
 and a second look.
@@ -24,7 +36,7 @@ and a second look.
   `theme_econ()` and `econ_masthead()` follow the style unless told
   otherwise; `style_colour()` exposes the role colours for your own layers.
 
-# fredscape 0.10.0
+# econscape 0.10.0
 
 Naming and API decisions from the code review (#18), settled before a 1.0.
 
@@ -44,7 +56,7 @@ Decided and documented rather than changed:
   the latter are the textbook letters; each of those pages now says so.
 * Validation before `UseMethod()` in the generics stays, and the extension
   contract it implies -- subclass `demand`, `cost` or `budget`, or supply
-  any callable for a utility -- is written down on `?fredscape-extending`.
+  any callable for a utility -- is written down on `?econscape-extending`.
 * `quasilinear()` has no `kind` because `f(x) + y` has no production
   reading; its documentation says so.
 * `plot_producer_choice()` documents that it relabels whatever `kind` the
@@ -56,7 +68,7 @@ Internal: `market_outcome()`'s override arguments no longer shadow the
 marginal-cost helper is `mc_from_production()`, so it cannot be mistaken for
 the public `marginal_cost()` generic on cost objects.
 
-# fredscape 0.9.1
+# econscape 0.9.1
 
 Numerical robustness, from the code review (#17). No API changes.
 
@@ -74,7 +86,7 @@ Numerical robustness, from the code review (#17). No API changes.
   reports the cost of the first thousandth of a unit rather than a
   derivative that may not exist.
 
-# fredscape 0.9.0
+# econscape 0.9.0
 
 Econometrics (#21): estimating things from the series you fetched, in base R
 and stats only.
@@ -95,7 +107,7 @@ and stats only.
   `pch`, `pc1`, `pca`, `cch`, `cca`, `log`, plus `index`) applied locally to
   a tidy frame, with the frequency inferred from the dates.
 
-# fredscape 0.8.1
+# econscape 0.8.1
 
 Housekeeping from the code review (#19). No user-facing behaviour changes.
 
@@ -111,7 +123,7 @@ Housekeeping from the code review (#19). No user-facing behaviour changes.
   existing reference documentation. The committed `adversarial-review-log/`
   is explained in the README as the review trail it is.
 
-# fredscape 0.8.0
+# econscape 0.8.0
 
 Price discrimination (#15):
 
@@ -150,7 +162,7 @@ Fixes from the pre-merge code review:
   unknown structure.
 
 
-# fredscape 0.7.0
+# econscape 0.7.0
 
 Market structure (#13): the demand side, and the equilibria that put it
 together with the cost side.
@@ -170,7 +182,7 @@ together with the cost side.
   surplus and deadweight-loss areas shaded; `compare_structures()` tabulates
   how price and welfare move as the number of firms grows.
 
-# fredscape 0.6.0
+# econscape 0.6.0
 
 Producer theory (#8), on the same machinery as the consumer side:
 
@@ -186,7 +198,7 @@ Also: `check_positive()`'s `zero_ok` argument, flagged as dead code in #4,
 now has a caller (`fixed = 0` is a valid cost). #4 is closed by this
 release.
 
-# fredscape 0.5.0
+# econscape 0.5.0
 
 The substitution / income decomposition of a price change (#7):
 
@@ -201,7 +213,7 @@ The substitution / income decomposition of a price change (#7):
   compensated line, the indifference curves through the bundles, and
   bracketed arrows along the axis for each effect.
 
-# fredscape 0.4.0
+# econscape 0.4.0
 
 Curves traced by the optimal bundle (#6):
 
@@ -214,7 +226,7 @@ Curves traced by the optimal bundle (#6):
 * `geom_budget()` accepts a list of budgets and draws one line each, with
   `colour` / `linetype` recycled across the family.
 
-# fredscape 0.3.0
+# econscape 0.3.0
 
 Four more utility (and production) function constructors, each with the same
 closed-form `indifference_curve()`, `optimal_bundle()` and `mrs()` methods
@@ -233,7 +245,7 @@ that `cobb_douglas()` has (#5):
   income; corners are checked; `f_prime` is approximated numerically when not
   supplied.
 
-# fredscape 0.2.0
+# econscape 0.2.0
 
 Consumer and producer theory, drawn in the house style.
 
@@ -262,7 +274,7 @@ Fixes from the pre-release adversarial review:
   `x <= 0` and `level <= 0` rather than `Inf`/`NaN`, matching the numeric
   method (#3).
 
-# fredscape 0.1.0
+# econscape 0.1.0
 
 First release.
 

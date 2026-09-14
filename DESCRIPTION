@@ -1,6 +1,6 @@
-Package: fredscape
+Package: econscape
 Title: Tidy Access to FRED Economic Data with Economist-Style Charts
-Version: 0.11.0
+Version: 0.12.0
 Authors@R:
     person("Matthew", "Jorden", email = "matthew.jorden@gmail.com",
            role = c("aut", "cre"))
@@ -13,8 +13,8 @@ Description: A small, dependency-light client for the Federal Reserve Bank of
 License: MIT + file LICENSE
 Encoding: UTF-8
 Language: en-GB
-URL: https://mjorden.github.io/fredscape/, https://github.com/mjorden/fredscape
-BugReports: https://github.com/mjorden/fredscape/issues
+URL: https://mjorden.github.io/econscape/, https://github.com/mjorden/econscape
+BugReports: https://github.com/mjorden/econscape/issues
 Depends:
     R (>= 4.1)
 Imports:

@@ -243,7 +243,7 @@ consumer_surplus.general_demand <- function(d, q, ...) {
 #' @param fixed Fixed cost. Non-negative.
 #' @param a Linear coefficient: marginal cost at zero output. Non-negative.
 #' @param b Quadratic coefficient. Non-negative. (The textbook letter, not a
-#'   [budget()]; see `?fredscape-extending` for the naming conventions.)
+#'   [budget()]; see `?econscape-extending` for the naming conventions.)
 #' @param f A production function of `x` and `y`.
 #' @param w,r Input prices.
 #'

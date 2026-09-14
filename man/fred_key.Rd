@@ -22,7 +22,7 @@ fred_set_key(key)
 variable, so it can be restored.
 }
 \description{
-FRED requires a free API key for every request. \code{fredscape} reads it from the
+FRED requires a free API key for every request. \code{econscape} reads it from the
 \code{FRED_API_KEY} environment variable so that the key never has to appear in a
 script, a git history, or an error message.
 }

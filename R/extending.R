@@ -1,4 +1,4 @@
-#' Extending fredscape with your own preferences, demand and cost
+#' Extending econscape with your own preferences, demand and cost
 #'
 #' The theory functions dispatch on S3 classes, and most generics check
 #' their first argument before dispatching. This page is the contract that
@@ -63,6 +63,6 @@
 #' [perfect_substitutes()]; the coefficient keeps its letter because that is
 #' what the formula is written with.
 #'
-#' @name fredscape-extending
+#' @name econscape-extending
 #' @aliases extending
 NULL

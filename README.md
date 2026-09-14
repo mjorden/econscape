@@ -1,7 +1,10 @@
-# fredscape
+# econscape
+
+*Formerly `fredscape`. The old name described the FRED client this started as;
+the package outgrew it. Every function keeps its name.*
 
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/mjorden/fredscape/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mjorden/fredscape/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/mjorden/econscape/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mjorden/econscape/actions/workflows/R-CMD-check.yaml)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 <!-- badges: end -->
@@ -26,7 +29,7 @@ Two halves that work on their own:
 
 ```r
 # install.packages("remotes")
-remotes::install_github("mjorden/fredscape")
+remotes::install_github("mjorden/econscape")
 ```
 
 ## Getting a key
@@ -46,7 +49,7 @@ session; `fred_has_key()` reports whether one is available.
 ## Quick start
 
 ```r
-library(fredscape)
+library(econscape)
 library(ggplot2)
 
 unrate <- fred_series("UNRATE", start = "1970-01-01")
@@ -298,7 +301,7 @@ surplus.
 
 ## The palette
 
-<img src="man/figures/README-palette.png" width="100%" alt="Swatches of the five fredscape palettes" />
+<img src="man/figures/README-palette.png" width="100%" alt="Swatches of the five econscape palettes" />
 
 The categorical hues (`main`, `cool`, `contrast`) follow the data palette *The
 Economist* publishes for its own charts. The sequential (`blues`) and diverging

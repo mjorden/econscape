@@ -47,7 +47,7 @@ fred_aggregation_choices <- c("avg", "sum", "eop")
 #' @seealso [fred_series_info()] for the metadata behind a series, and
 #'   [fred_search()] to find an ID in the first place.
 #'
-#' @examplesIf fredscape::fred_has_key()
+#' @examplesIf econscape::fred_has_key()
 #' fred_series("UNRATE", start = "2000-01-01")
 #'
 #' # Several series at once, as year-on-year percent change
@@ -147,7 +147,7 @@ parse_observations <- function(body, series_id) {
 #'   `observation_start`, `observation_end`, `last_updated`, `popularity` and
 #'   `notes`.
 #'
-#' @examplesIf fredscape::fred_has_key()
+#' @examplesIf econscape::fred_has_key()
 #' fred_series_info("UNRATE")$title
 #' @export
 fred_series_info <- function(series_id, key = fred_key()) {
@@ -171,7 +171,7 @@ fred_series_info <- function(series_id, key = fred_key()) {
 #'
 #' @return A data frame in the same shape as [fred_series_info()].
 #'
-#' @examplesIf fredscape::fred_has_key()
+#' @examplesIf econscape::fred_has_key()
 #' head(fred_search("unemployment rate", limit = 5)[, c("series_id", "title")])
 #' @export
 fred_search <- function(text,

@@ -3,7 +3,7 @@
 \name{econ_colours}
 \alias{econ_colours}
 \alias{econ_colors}
-\title{Look up fredscape colours by name}
+\title{Look up econscape colours by name}
 \usage{
 econ_colours(...)
 
@@ -17,7 +17,7 @@ arguments the whole dictionary is returned.}
 A named character vector of hex colours.
 }
 \description{
-Look up fredscape colours by name
+Look up econscape colours by name
 }
 \examples{
 econ_colours()

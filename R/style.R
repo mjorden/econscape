@@ -37,7 +37,7 @@ econ_styles <- list(
 #' scales, [econ_masthead()] and every `plot_*()` helper; any argument you
 #' pass explicitly still wins.
 #'
-#' The style is a session option (`fredscape.style`), so put `set_style()` at
+#' The style is a session option (`econscape.style`), so put `set_style()` at
 #' the top of a script or in `.Rprofile`. It is read when a plot is *built*:
 #' a ggplot constructed under one style keeps that style if you switch
 #' afterwards, so set the style first and construct the plot second.
@@ -58,16 +58,16 @@ econ_styles <- list(
 set_style <- function(style = c("economist", "academic")) {
   style <- match.arg(style)
   old <- get_style()
-  options(fredscape.style = style)
+  options(econscape.style = style)
   invisible(old)
 }
 
 #' @rdname set_style
 #' @export
 get_style <- function() {
-  style <- getOption("fredscape.style", default = "economist")
+  style <- getOption("econscape.style", default = "economist")
   if (!style %in% names(econ_styles)) {
-    cli::cli_abort("Unknown style {.val {style}} in option {.code fredscape.style}.")
+    cli::cli_abort("Unknown style {.val {style}} in option {.code econscape.style}.")
   }
   style
 }

@@ -1,4 +1,4 @@
-url: https://mjorden.github.io/fredscape/
+url: https://mjorden.github.io/econscape/
 
 template:
   bootstrap: 5
@@ -103,8 +103,8 @@ reference:
 
 - title: Extending
   contents:
-  - fredscape-extending
+  - econscape-extending
 
 - title: internal
   contents:
-  - fredscape-package
+  - econscape-package
