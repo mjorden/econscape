@@ -6,8 +6,8 @@
 \usage{
 theme_econ(
   base_size = 12,
-  base_family = "",
-  panel = c("blue", "white", "dark"),
+  base_family = NULL,
+  panel = NULL,
   grid = c("y", "x", "both", "none"),
   legend_position = "top"
 )
@@ -15,10 +15,11 @@ theme_econ(
 \arguments{
 \item{base_size}{Base font size in points.}
 
-\item{base_family}{Base font family. \code{""} uses the device default.}
+\item{base_family}{Base font family. \code{""} uses the device default;
+\code{NULL} follows the current style (\code{\link[=set_style]{set_style()}}).}
 
-\item{panel}{Panel style: \code{"blue"} (the classic printed panel, the default),
-\code{"white"}, or \code{"dark"}.}
+\item{panel}{Panel style: \code{"blue"} (the classic printed panel), \code{"white"},
+\code{"dark"} or \code{"parchment"}. \code{NULL} follows the current style.}
 
 \item{grid}{Which major gridlines to draw: \code{"y"} (the default), \code{"x"},
 \code{"both"} or \code{"none"}.}

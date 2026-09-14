@@ -30,7 +30,8 @@ curve_grid <- function(xlim, n_points) {
 #' * `geom_indifference()` draws one path per `level`.
 #' * `geom_budget()` draws the budget (or isocost) line between its two
 #'   intercepts. Given a list of budgets it draws one line each, which is how
-#'   a price or income change is shown.
+#'   a price or income change is shown. A kinked budget (one built with a
+#'   [price_schedule()]) is drawn as a path through its kinks.
 #' * `geom_optimum()` marks the chosen bundle, with dashed lines dropping to
 #'   each axis.
 #'
@@ -76,7 +77,7 @@ NULL
 #' @rdname geom_micro
 #' @export
 geom_indifference <- function(u, levels, xlim, n_points = 200L,
-                              colour = unname(econ_hex["blue"]),
+                              colour = style_colour("primary"),
                               linewidth = 0.8, ...) {
   x <- curve_grid(xlim, n_points)
   df <- indifference_curve(u, level = levels, x = x)
@@ -108,12 +109,28 @@ geom_indifference <- function(u, levels, xlim, n_points = 200L,
 
 #' @rdname geom_micro
 #' @export
-geom_budget <- function(b, colour = unname(econ_hex["red"]),
+geom_budget <- function(b, colour = style_colour("secondary"),
                         linewidth = 0.8, linetype = "solid", ...) {
   budgets <- if (inherits(b, "budget")) list(b) else b
   if (!is.list(budgets) || length(budgets) == 0L ||
       !all(vapply(budgets, inherits, logical(1), what = "budget"))) {
     cli::cli_abort("{.arg b} must be a {.fn budget} object or a list of them.")
+  }
+  if (any(vapply(budgets, function(bb) isTRUE(bb$kinked), logical(1)))) {
+    # A kinked frontier needs a path, and per-budget aesthetics do not recycle
+    # across groups of one path layer, so draw one layer per budget.
+    k <- length(budgets)
+    colour <- rep_len(colour, k)
+    linewidth <- rep_len(linewidth, k)
+    linetype <- rep_len(linetype, k)
+    return(lapply(seq_len(k), function(i) {
+      ggplot2::geom_path(
+        data = budget_line(budgets[[i]]),
+        mapping = ggplot2::aes(x = .data$x, y = .data$y),
+        colour = colour[i], linewidth = linewidth[i], linetype = linetype[i],
+        inherit.aes = FALSE, ...
+      )
+    }))
   }
   # One segment per budget, from the y intercept to the x intercept. Built as
   # data rather than annotate() so a family of lines is a single layer that
@@ -135,7 +152,7 @@ geom_budget <- function(b, colour = unname(econ_hex["red"]),
 
 #' @rdname geom_micro
 #' @export
-geom_optimum <- function(u, b, colour = unname(econ_hex["ink"]),
+geom_optimum <- function(u, b, colour = style_colour("ink"),
                          size = 2.5, drop_lines = TRUE, ...) {
   opt <- optimal_bundle(u, b)
   layers <- list()
@@ -193,7 +210,7 @@ plot_consumer_choice <- function(u, b,
                                  subtitle = NULL,
                                  source = NULL,
                                  label_levels = TRUE,
-                                 panel = "blue") {
+                                 panel = NULL) {
   if (!inherits(b, "budget")) {
     cli::cli_abort("{.arg b} must be a {.fn budget} object.")
   }
@@ -236,7 +253,7 @@ plot_consumer_choice <- function(u, b,
         # Right-aligned and pulled inward: the panel has no expansion, so a
         # label pushed past the edge is clipped away.
         hjust = 1, vjust = -0.4, nudge_x = -diff(xlim) * 0.01,
-        colour = unname(econ_hex["blue"]), size = 3.2,
+        colour = style_colour("primary"), size = 3.2,
         inherit.aes = FALSE
       )
     }
@@ -251,7 +268,7 @@ plot_consumer_choice <- function(u, b,
     ggplot2::annotate(
       "text", x = xlim[2], y = ylim[2], label = curve_name,
       hjust = 1.05, vjust = 1.5, size = 3.2,
-      colour = unname(econ_hex["muted"])
+      colour = style_colour("muted")
     )
 }
 

@@ -5,9 +5,9 @@
 \alias{geom_engel}
 \title{Draw a demand or Engel curve}
 \usage{
-geom_demand(data, colour = unname(econ_hex["blue"]), linewidth = 0.8, ...)
+geom_demand(data, colour = style_colour("primary"), linewidth = 0.8, ...)
 
-geom_engel(data, colour = unname(econ_hex["blue"]), linewidth = 0.8, ...)
+geom_engel(data, colour = style_colour("primary"), linewidth = 0.8, ...)
 }
 \arguments{
 \item{data}{A data frame from \code{\link[=demand_curve]{demand_curve()}} or \code{\link[=engel_curve]{engel_curve()}}.}

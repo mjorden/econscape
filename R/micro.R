@@ -104,10 +104,16 @@ print.cobb_douglas <- function(x, ...) {
 #' line, with `income` read as total outlay and the prices as input prices.
 #'
 #' @param income Income, or total outlay. Positive.
-#' @param px,py Prices of `x` and `y`. Positive.
+#' @param px,py Prices of `x` and `y`: a positive number, or a
+#'   [price_schedule()] for a good whose unit price changes with the quantity
+#'   bought (quantity discounts, block tariffs). A schedule makes the budget
+#'   line kinked; see [price_schedule()] for what that changes.
 #'
 #' @return A list of class `budget` with the inputs plus the derived
-#'   `x_max` (`income / px`), `y_max` (`income / py`) and `slope` (`-px / py`).
+#'   `x_max` and `y_max` (the most of each good the income buys on its own),
+#'   `slope` (`-px / py`, or `NA` when a price is a schedule), `kinked`
+#'   (`TRUE` when either price is a schedule) and the cost functions `cost_x`
+#'   and `cost_y`.
 #'
 #' @seealso [budget_line()] to get plottable coordinates, [optimal_bundle()]
 #'   to solve against a utility function.
@@ -119,16 +125,20 @@ print.cobb_douglas <- function(x, ...) {
 #' @export
 budget <- function(income, px, py) {
   check_positive(income)
-  check_positive(px)
-  check_positive(py)
+  px <- as_price(px)
+  py <- as_price(py)
+  kinked <- inherits(px, "price_schedule") || inherits(py, "price_schedule")
   structure(
     list(
       income = income,
       px = px,
       py = py,
-      x_max = income / px,
-      y_max = income / py,
-      slope = -px / py
+      x_max = schedule_quantity(px, income),
+      y_max = schedule_quantity(py, income),
+      slope = if (kinked) NA_real_ else -px / py,
+      kinked = kinked,
+      cost_x = function(q) schedule_cost(px, q),
+      cost_y = function(q) schedule_cost(py, q)
     ),
     class = "budget"
   )
@@ -136,6 +146,12 @@ budget <- function(income, px, py) {
 
 #' @export
 print.budget <- function(x, ...) {
+  if (isTRUE(x$kinked)) {
+    cat("<Budget constraint, kinked>\n",
+        sprintf("  income %s; x: %s; y: %s\n", format(x$income), format_price(x$px), format_price(x$py)),
+        sprintf("  intercepts: x = %s, y = %s\n", format(x$x_max), format(x$y_max)), sep = "")
+    return(invisible(x))
+  }
   cat(
     "<Budget constraint>\n",
     sprintf("  %s * x + %s * y <= %s\n",
@@ -150,22 +166,26 @@ print.budget <- function(x, ...) {
 #' Coordinates of a budget line
 #'
 #' @param b A [budget()].
-#' @param n_points Number of points. Two is enough for a straight line; more
-#'   is useful if you want to attach a colour or size aesthetic along it.
+#' @param n_points Number of points. Two is enough for a straight line (the
+#'   default); a kinked budget defaults to 200 and always includes its kinks.
 #'
 #' @return A data frame with `x` and `y` columns running from the `y`
-#'   intercept to the `x` intercept.
+#'   intercept to the `x` intercept. For a kinked budget the rows trace the
+#'   frontier through every kink.
 #'
 #' @examples
 #' budget_line(budget(100, 2, 5))
 #' @export
-budget_line <- function(b, n_points = 2L) {
+budget_line <- function(b, n_points = NULL) {
   if (!inherits(b, "budget")) {
     cli::cli_abort("{.arg b} must be a {.fn budget} object.")
   }
-  n_points <- as.integer(n_points)
+  n_points <- as.integer(n_points %||% if (isTRUE(b$kinked)) 200L else 2L)
   if (is.na(n_points) || n_points < 2L) {
     cli::cli_abort("{.arg n_points} must be at least 2.")
+  }
+  if (isTRUE(b$kinked)) {
+    return(kinked_budget_line(b, n_points))
   }
   x <- seq(0, b$x_max, length.out = n_points)
   data.frame(x = x, y = (b$income - b$px * x) / b$py)
@@ -308,6 +328,12 @@ optimal_bundle <- function(u, b, ...) {
   }
   if (!inherits(b, "budget")) {
     cli::cli_abort("{.arg b} must be a {.fn budget} object.")
+  }
+  # The closed forms assume a straight budget line. A kinked one goes to the
+  # numerical search along the frontier, unless the preferences are a table,
+  # whose own method searches whole bundles against any budget.
+  if (isTRUE(b$kinked) && !inherits(u, "utility_table")) {
+    return(optimal_bundle_kinked(u, b))
   }
   UseMethod("optimal_bundle")
 }

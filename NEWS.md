@@ -1,3 +1,29 @@
+# fredscape 0.11.0
+
+Two things the introductory course asks for that the package could not do,
+and a second look.
+
+* `utility_table(tu_x, tu_y)` -- preferences given as a table of total
+  utility from 1, 2, ... units of each good. `optimal_bundle()` searches
+  whole bundles, `indifference_curve()` interpolates the table so the
+  curves can be drawn, `mrs()` uses the marginal utilities at the table
+  rows, and `mu_per_dollar()` prints the purchase order the textbook
+  argument walks through, with the running cost so the answer for any
+  income is read off directly.
+* `price_schedule()` -- a unit price that changes with the quantity bought
+  (quantity discounts, block tariffs). `budget()` accepts one in place of a
+  number and the budget line is then kinked: `budget_line()` traces the
+  frontier through the kinks, `geom_budget()` draws it as a path,
+  `optimal_bundle()` searches along the frontier (the kink is a candidate),
+  and `expenditure()` and the Hicks/Slutsky decomposition search over income.
+* `set_style()` -- the house styles. `"economist"` is the default and is
+  unchanged. `"academic"` is a fork for papers and lecture notes: a
+  parchment panel, a serif face, a tan-to-espresso categorical palette
+  (`econ_pal("academic")`), a `"browns"` sequential ramp, a rust masthead
+  and matching recession bands. Every `plot_*()` helper, the colour scales,
+  `theme_econ()` and `econ_masthead()` follow the style unless told
+  otherwise; `style_colour()` exposes the role colours for your own layers.
+
 # fredscape 0.10.0
 
 Naming and API decisions from the code review (#18), settled before a 1.0.

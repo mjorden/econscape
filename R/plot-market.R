@@ -27,7 +27,7 @@
 #' @export
 plot_market <- function(outcome, q_max = NULL, shade = c("cs", "ps", "dwl"),
                         title = NULL, subtitle = NULL, source = NULL,
-                        panel = "blue") {
+                        panel = NULL) {
   if (!inherits(outcome, "market_outcome")) {
     cli::cli_abort("{.arg outcome} must be a {.cls market_outcome}.")
   }
@@ -51,10 +51,10 @@ plot_market <- function(outcome, q_max = NULL, shade = c("cs", "ps", "dwl"),
   Q <- outcome$quantity
   P <- outcome$price
   Q_eff <- outcome$efficient$quantity
-  ink <- unname(econ_hex["ink"])
-  muted <- unname(econ_hex["muted"])
-  fills <- c(cs = unname(econ_hex["blue"]), ps = unname(econ_hex["green"]),
-             dwl = unname(econ_hex["red"]))
+  ink <- style_colour("ink")
+  muted <- style_colour("muted")
+  fills <- c(cs = style_colour("primary"), ps = style_colour("tertiary"),
+             dwl = style_colour("secondary"))
 
   # A shaded area plus its label, or nothing at all when the area is empty --
   # perfect competition with flat marginal cost has no producer surplus, and
@@ -139,9 +139,9 @@ plot_market <- function(outcome, q_max = NULL, shade = c("cs", "ps", "dwl"),
 
   p <- ggplot2::ggplot() + layers +
     ggplot2::geom_line(data = curves, ggplot2::aes(x = .data$q, y = .data$demand),
-                       colour = unname(econ_hex["blue"]), linewidth = 0.8) +
+                       colour = style_colour("primary"), linewidth = 0.8) +
     ggplot2::geom_line(data = curves, ggplot2::aes(x = .data$q, y = .data$mc),
-                       colour = unname(econ_hex["red"]), linewidth = 0.8)
+                       colour = style_colour("secondary"), linewidth = 0.8)
   if (show_mr) {
     p <- p + ggplot2::geom_line(data = curves, ggplot2::aes(x = .data$q, y = .data$mr),
                                 colour = muted, linewidth = 0.6, linetype = "dashed")

@@ -342,7 +342,7 @@ print.two_part_tariff <- function(x, ...) {
 #' @export
 plot_two_part_tariff <- function(tariff, type = NULL,
                                  title = NULL, subtitle = NULL, source = NULL,
-                                 panel = "blue") {
+                                 panel = NULL) {
   if (!inherits(tariff, "two_part_tariff")) {
     cli::cli_abort("{.arg tariff} must come from {.fn two_part_tariff}.")
   }
@@ -358,7 +358,7 @@ plot_two_part_tariff <- function(tariff, type = NULL,
   p <- tariff$price
   q <- quantity_at(d, p)
   choke <- price_at(d, 0)
-  ink <- unname(econ_hex["ink"])
+  ink <- style_colour("ink")
 
   grid <- seq(0, d$q_max, length.out = 300)
   curve <- data.frame(q = grid, p = price_at(d, grid))
@@ -377,14 +377,14 @@ plot_two_part_tariff <- function(tariff, type = NULL,
     ggplot2::geom_ribbon(
       data = fee_area,
       ggplot2::aes(x = .data$q, ymin = .data$ymin, ymax = .data$ymax),
-      fill = unname(econ_hex["blue"]), alpha = 0.25
+      fill = style_colour("primary"), alpha = 0.25
     ) +
     ggplot2::annotate("text", x = q * 0.3, y = (price_at(d, q * 0.3) + p) / 2,
                       label = "Fee = surplus\nat the unit price", size = 3,
-                      colour = unname(econ_hex["blue"]), fontface = "bold") +
+                      colour = style_colour("primary"), fontface = "bold") +
     ggplot2::geom_line(data = curve, ggplot2::aes(x = .data$q, y = .data$p),
-                       colour = unname(econ_hex["blue"]), linewidth = 0.8) +
-    ggplot2::geom_hline(yintercept = tariff$marginal_cost, colour = unname(econ_hex["red"]),
+                       colour = style_colour("primary"), linewidth = 0.8) +
+    ggplot2::geom_hline(yintercept = tariff$marginal_cost, colour = style_colour("secondary"),
                         linewidth = 0.6, linetype = if (p > tariff$marginal_cost) "dashed" else "solid") +
     ggplot2::annotate("segment", x = 0, xend = q, y = p, yend = p, colour = ink, linewidth = 0.5) +
     ggplot2::annotate("segment", x = q, xend = q, y = 0, yend = p, colour = ink,

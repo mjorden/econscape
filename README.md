@@ -94,6 +94,36 @@ returns titles, units, frequency and coverage for the matches.
 
 <img src="man/figures/README-index.png" width="100%" alt="Three indexed US economic series in the Economist categorical palette" />
 
+## Problem sets
+
+The introductory course does not hand you a Cobb-Douglas function. It hands
+you a table of total utility and a store with a sale on, and both now work
+directly.
+
+```r
+# "Number of movies: TU 20, 37, 50, 60, 65. Bags of popcorn: TU 16, 30, 40, 46, 48."
+u <- utility_table(c(20, 37, 50, 60, 65), c(16, 30, 40, 46, 48), goods = c("movies", "popcorn"))
+optimal_bundle(u, budget(35, px = 7.5, py = 3))     # 3 movies, 4 bags: the whole-unit optimum
+mu_per_dollar(u, budget(35, px = 7.5, py = 3))      # the purchase order, with the running cost
+plot_consumer_choice(u, budget(35, 7.5, 3))         # interpolated curves, kinks and all
+
+# "$20 a painting, but after you buy two every painting is 25% off"
+paintings <- price_schedule(20, discount = 0.25, after = 2)
+b <- budget(100, px = 10, py = paintings)           # a kinked budget line
+budget_line(b)                                      # the frontier, through the kink at (6, 2)
+optimal_bundle(cobb_douglas(0.5), b)                # searched along the frontier
+```
+
+## Two looks
+
+`set_style("academic")` swaps the newspaper look for one that belongs in a
+paper or a set of lecture notes — parchment panel, serif face, a tan-to-brown
+palette, rust masthead. Every `plot_*()` helper, the colour scales,
+`theme_econ()` and `econ_masthead()` follow it; `set_style("economist")` is
+the default.
+
+<img src="man/figures/README-academic.png" width="80%" alt="The consumer-choice diagram in the academic style: parchment panel, serif type, brown curves and a rust budget line" />
+
 ## Estimating things
 
 Once a series is in a data frame, the usual first questions have answers in

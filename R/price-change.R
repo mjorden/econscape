@@ -30,12 +30,39 @@ expenditure <- function(u, px, py, level, ...) {
   if (!is.function(u)) {
     cli::cli_abort("{.arg u} must be a function of {.arg x} and {.arg y}.")
   }
-  check_positive(px)
-  check_positive(py)
+  px <- as_price(px)
+  py <- as_price(py)
   if (!is.numeric(level) || length(level) == 0L || any(!is.finite(level))) {
     cli::cli_abort("{.arg level} must be a numeric vector of finite values.")
   }
+  # No closed form survives a price schedule: search over income, which
+  # optimal_bundle() already handles for a kinked budget.
+  if (inherits(px, "price_schedule") || inherits(py, "price_schedule")) {
+    return(expenditure_numeric(u, px, py, level))
+  }
   UseMethod("expenditure")
+}
+
+#' Least income reaching each level, by search over income
+#' @noRd
+expenditure_numeric <- function(u, px, py, level) {
+  vapply(level, function(lv) {
+    g <- function(income) optimal_bundle(u, budget(income, px, py))$utility - lv
+    lo <- 1e-12
+    if (g(lo) >= 0) {
+      return(0)
+    }
+    # Expand the bracket until the target is affordable.
+    hi <- 1
+    for (i in seq_len(200L)) {
+      if (g(hi) >= 0) break
+      hi <- hi * 2
+    }
+    if (g(hi) < 0) {
+      cli::cli_abort("Could not find an income that reaches level {.val {lv}}.")
+    }
+    stats::uniroot(g, c(lo, hi), tol = 1e-10)$root
+  }, numeric(1))
 }
 
 #' @rdname expenditure
@@ -114,23 +141,7 @@ expenditure.perfect_substitutes <- function(u, px, py, level, ...) {
 #' @rdname expenditure
 #' @export
 expenditure.default <- function(u, px, py, level, ...) {
-  vapply(level, function(lv) {
-    g <- function(income) optimal_bundle(u, budget(income, px, py))$utility - lv
-    lo <- 1e-12
-    if (g(lo) >= 0) {
-      return(0)
-    }
-    # Expand the bracket until the target is affordable.
-    hi <- 1
-    for (i in seq_len(200L)) {
-      if (g(hi) >= 0) break
-      hi <- hi * 2
-    }
-    if (g(hi) < 0) {
-      cli::cli_abort("Could not find an income that reaches level {.val {lv}}.")
-    }
-    stats::uniroot(g, c(lo, hi), tol = 1e-10)$root
-  }, numeric(1))
+  expenditure_numeric(u, px, py, level)
 }
 
 #' Decompose a price change into substitution and income effects
@@ -205,7 +216,7 @@ price_change <- function(u, b, new_px = NULL, new_py = NULL,
   final <- optimal_bundle(u, b_final)
 
   comp_income <- if (method == "slutsky") {
-    b_final$px * original$x + b_final$py * original$y
+    b_final$cost_x(original$x) + b_final$cost_y(original$y)
   } else {
     expenditure(u, b_final$px, b_final$py, original$utility)
   }
@@ -304,7 +315,7 @@ plot_price_change <- function(u, b, new_px = NULL, new_py = NULL,
                               method = c("hicks", "slutsky"),
                               goods = c("Good x", "Good y"),
                               title = NULL, subtitle = NULL, source = NULL,
-                              xlim = NULL, ylim = NULL, panel = "blue") {
+                              xlim = NULL, ylim = NULL, panel = NULL) {
   method <- match.arg(method)
   if (!is.character(goods) || length(goods) != 2L) {
     cli::cli_abort("{.arg goods} must be two labels.")
@@ -328,8 +339,8 @@ plot_price_change <- function(u, b, new_px = NULL, new_py = NULL,
   }
 
   levels <- unique(signif(bundles$utility, 10))
-  ink <- unname(econ_hex["ink"])
-  muted <- unname(econ_hex["muted"])
+  ink <- style_colour("ink")
+  muted <- style_colour("muted")
 
   # Brackets along the axis of the changed good, stacked just inside the panel.
   along_x <- pc$good == "x"

@@ -6,7 +6,7 @@
 \usage{
 econ_masthead(
   plot,
-  colour = unname(econ_hex["red"]),
+  colour = NULL,
   width = grid::unit(0.55, "cm"),
   height = grid::unit(0.13, "cm"),
   gap = grid::unit(0.3, "cm")
@@ -16,7 +16,8 @@ econ_masthead(
 \item{plot}{A ggplot object, or a gtable from a previous
 \code{\link[ggplot2:ggplotGrob]{ggplot2::ggplotGrob()}} call.}
 
-\item{colour}{Block colour. Defaults to the Economist red.}
+\item{colour}{Block colour. \code{NULL} follows the current style: Economist red,
+or rust for the academic style.}
 
 \item{width, height}{Block dimensions, as \code{\link[grid:unit]{grid::unit()}} objects.}
 

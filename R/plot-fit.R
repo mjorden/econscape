@@ -23,7 +23,7 @@
 #' @export
 plot_coefficients <- function(fit, level = 0.95, intercept = FALSE, terms = NULL,
                               title = NULL, subtitle = NULL, source = NULL,
-                              panel = "blue") {
+                              panel = NULL) {
   tab <- coef_table(fit, level = level)
   if (!intercept) tab <- tab[tab$term != "(Intercept)", , drop = FALSE]
   if (!is.null(terms)) {
@@ -58,7 +58,7 @@ plot_coefficients <- function(fit, level = 0.95, intercept = FALSE, terms = NULL
     ) +
     ggplot2::geom_point(ggplot2::aes(colour = .data$clear), size = 3) +
     ggplot2::scale_colour_manual(
-      values = c(`TRUE` = unname(econ_hex["blue"]), `FALSE` = econ_surface(panel)$muted),
+      values = c(`TRUE` = style_colour("primary"), `FALSE` = econ_surface(panel)$muted),
       guide = "none"
     ) +
     labs_econ(title = title, subtitle = subtitle, source = source) +

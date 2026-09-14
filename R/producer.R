@@ -139,7 +139,7 @@ mc_from_production.default <- function(f, w, r, q) {
 #' @export
 plot_cost_curves <- function(f, w, r, q, fixed = 0,
                              title = NULL, subtitle = NULL, source = NULL,
-                             panel = "blue") {
+                             panel = NULL) {
   cc <- cost_curves(f, w, r, q, fixed = fixed)
   long <- rbind(
     data.frame(output = cc$output, cost = cc$average, curve = "Average cost"),
@@ -161,7 +161,8 @@ plot_cost_curves <- function(f, w, r, q, fixed = 0,
       mapping = ggplot2::aes(label = .data$curve),
       hjust = 1, vjust = -0.5, size = 3.2, show.legend = FALSE
     ) +
-    scale_colour_econ(palette = "contrast") +
+    ggplot2::scale_colour_manual(values = c(`Average cost` = style_colour("primary"),
+                                            `Marginal cost` = style_colour("secondary"))) +
     ggplot2::scale_x_continuous(expand = ggplot2::expansion(mult = c(0, 0.02))) +
     scale_y_econ(limits = c(0, NA)) +
     labs_econ(title = title, subtitle = subtitle, source = source) +
@@ -198,7 +199,7 @@ plot_cost_curves <- function(f, w, r, q, fixed = 0,
 plot_producer_choice <- function(f, b, inputs = c("Labour", "Capital"),
                                  levels = NULL, xlim = NULL, ylim = NULL,
                                  title = NULL, subtitle = NULL, source = NULL,
-                                 label_levels = TRUE, panel = "blue") {
+                                 label_levels = TRUE, panel = NULL) {
   if (!is.function(f)) {
     cli::cli_abort("{.arg f} must be a function of {.arg x} and {.arg y}.")
   }

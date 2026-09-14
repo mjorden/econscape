@@ -15,7 +15,7 @@ plot_producer_choice(
   subtitle = NULL,
   source = NULL,
   label_levels = TRUE,
-  panel = "blue"
+  panel = NULL
 )
 }
 \arguments{

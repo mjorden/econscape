@@ -8,7 +8,7 @@ annotate_recessions(
   data = nber_recessions,
   from = NULL,
   to = NULL,
-  fill = "#8FA5B0",
+  fill = NULL,
   alpha = 0.35
 )
 }
@@ -21,7 +21,7 @@ date columns. Defaults to \link{nber_recessions}; pass the result of
 dropped, which keeps the x-axis from stretching back to 1857 when the
 series starts in 1990.}
 
-\item{fill}{Band colour.}
+\item{fill}{Band colour. \code{NULL} follows the current style (\code{\link[=set_style]{set_style()}}).}
 
 \item{alpha}{Band opacity.}
 }

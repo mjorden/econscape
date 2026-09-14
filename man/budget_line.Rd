@@ -4,17 +4,18 @@
 \alias{budget_line}
 \title{Coordinates of a budget line}
 \usage{
-budget_line(b, n_points = 2L)
+budget_line(b, n_points = NULL)
 }
 \arguments{
 \item{b}{A \code{\link[=budget]{budget()}}.}
 
-\item{n_points}{Number of points. Two is enough for a straight line; more
-is useful if you want to attach a colour or size aesthetic along it.}
+\item{n_points}{Number of points. Two is enough for a straight line (the
+default); a kinked budget defaults to 200 and always includes its kinks.}
 }
 \value{
 A data frame with \code{x} and \code{y} columns running from the \code{y}
-intercept to the \code{x} intercept.
+intercept to the \code{x} intercept. For a kinked budget the rows trace the
+frontier through every kink.
 }
 \description{
 Coordinates of a budget line

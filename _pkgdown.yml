@@ -25,6 +25,7 @@ reference:
 - title: The Economist style
   desc: Theme, palettes, labels and the red masthead block.
   contents:
+  - set_style
   - theme_econ
   - scale_econ
   - scale_econ_axis
@@ -49,6 +50,9 @@ reference:
   contents:
   - budget
   - budget_line
+  - price_schedule
+  - utility_table
+  - mu_per_dollar
   - indifference_curve
   - optimal_bundle
   - mrs

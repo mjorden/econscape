@@ -36,7 +36,7 @@
 #' @param from,to Optional window. Recessions that do not overlap it are
 #'   dropped, which keeps the x-axis from stretching back to 1857 when the
 #'   series starts in 1990.
-#' @param fill Band colour.
+#' @param fill Band colour. `NULL` follows the current style ([set_style()]).
 #' @param alpha Band opacity.
 #'
 #' @return A ggplot2 annotation layer, or a zero-row layer if nothing overlaps
@@ -60,11 +60,12 @@
 annotate_recessions <- function(data = nber_recessions,
                                 from = NULL,
                                 to = NULL,
-                                fill = "#8FA5B0",
+                                fill = NULL,
                                 alpha = 0.35) {
   if (!is.data.frame(data) || !all(c("peak", "trough") %in% names(data))) {
     cli::cli_abort("{.arg data} must be a data frame with {.field peak} and {.field trough} columns.")
   }
+  fill <- fill %||% style_colour("band")
   bands <- clip_recessions(data, from = from, to = to)
 
   ggplot2::annotate(

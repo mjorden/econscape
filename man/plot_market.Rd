@@ -11,7 +11,7 @@ plot_market(
   title = NULL,
   subtitle = NULL,
   source = NULL,
-  panel = "blue"
+  panel = NULL
 )
 }
 \arguments{
