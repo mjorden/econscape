@@ -1,6 +1,6 @@
 #' Manage the FRED API key
 #'
-#' FRED requires a free API key for every request. `fredscape` reads it from the
+#' FRED requires a free API key for every request. `econscape` reads it from the
 #' `FRED_API_KEY` environment variable so that the key never has to appear in a
 #' script, a git history, or an error message.
 #'
@@ -36,7 +36,7 @@ fred_key <- function() {
       "No FRED API key found.",
       "i" = "Request a free key at {.url https://fredaccount.stlouisfed.org/apikeys}.",
       "i" = "Then set {.envvar FRED_API_KEY} in {.file ~/.Renviron}, or call
-             {.run fredscape::fred_set_key(\"<key>\")} for this session."
+             {.run econscape::fred_set_key(\"<key>\")} for this session."
     ))
   }
   validate_key(key)

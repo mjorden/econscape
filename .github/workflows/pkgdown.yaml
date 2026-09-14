@@ -1,6 +1,6 @@
 # Build the pkgdown site and publish it to the gh-pages branch. GitHub Pages
 # must be pointed at that branch once (Settings > Pages > Deploy from a
-# branch > gh-pages) for the site to appear at mjorden.github.io/fredscape.
+# branch > gh-pages) for the site to appear at mjorden.github.io/econscape.
 on:
   push:
     branches: [main]

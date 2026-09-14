@@ -1,4 +1,4 @@
 library(testthat)
-library(fredscape)
+library(econscape)
 
-test_check("fredscape")
+test_check("econscape")

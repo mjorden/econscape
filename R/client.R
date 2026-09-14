@@ -6,14 +6,14 @@
 #' @return A URL string.
 #' @noRd
 fred_base_url <- function() {
-  getOption("fredscape.base_url", default = "https://api.stlouisfed.org/fred")
+  getOption("econscape.base_url", default = "https://api.stlouisfed.org/fred")
 }
 
 #' @noRd
-fredscape_user_agent <- function() {
+econscape_user_agent <- function() {
   paste0(
-    "fredscape/", utils::packageVersion("fredscape"),
-    " (https://github.com/mjorden/fredscape)"
+    "econscape/", utils::packageVersion("econscape"),
+    " (https://github.com/mjorden/econscape)"
   )
 }
 
@@ -40,7 +40,7 @@ fred_get <- function(endpoint, params = list(), key = fred_key()) {
   req <- httr2::request(fred_base_url())
   req <- httr2::req_url_path_append(req, endpoint)
   req <- httr2::req_url_query(req, !!!params, api_key = key, file_type = "json")
-  req <- httr2::req_user_agent(req, fredscape_user_agent())
+  req <- httr2::req_user_agent(req, econscape_user_agent())
   req <- httr2::req_throttle(req, capacity = 100, fill_time_s = 60)
   req <- httr2::req_retry(req, max_tries = 3, retry_on_failure = TRUE)
   req <- httr2::req_error(req, body = fred_error_body)

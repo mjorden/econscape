@@ -127,7 +127,7 @@ clip_recessions <- function(data, from = NULL, to = NULL) {
 #' @return A data frame with `peak` and `trough` `Date` columns, in the same
 #'   shape [annotate_recessions()] expects.
 #'
-#' @examplesIf fredscape::fred_has_key()
+#' @examplesIf econscape::fred_has_key()
 #' tail(fred_recessions(), 3)
 #' @export
 fred_recessions <- function(key = fred_key()) {

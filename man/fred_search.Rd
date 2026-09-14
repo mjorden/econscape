@@ -23,7 +23,7 @@ A data frame in the same shape as \code{\link[=fred_series_info]{fred_series_inf
 Search FRED for series matching free text
 }
 \examples{
-\dontshow{if (fredscape::fred_has_key()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (econscape::fred_has_key()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 head(fred_search("unemployment rate", limit = 5)[, c("series_id", "title")])
 \dontshow{\}) # examplesIf}
 }

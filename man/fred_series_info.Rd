@@ -23,7 +23,7 @@ Returns the title, units, frequency and seasonal-adjustment status of one or
 more series -- the information needed to label an axis honestly.
 }
 \examples{
-\dontshow{if (fredscape::fred_has_key()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (econscape::fred_has_key()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 fred_series_info("UNRATE")$title
 \dontshow{\}) # examplesIf}
 }

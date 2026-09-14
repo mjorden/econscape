@@ -50,7 +50,7 @@ FRED encodes a missing observation as the string \code{"."}; those become \code{
 rather than a coercion warning.
 }
 \examples{
-\dontshow{if (fredscape::fred_has_key()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (econscape::fred_has_key()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 fred_series("UNRATE", start = "2000-01-01")
 
 # Several series at once, as year-on-year percent change

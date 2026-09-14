@@ -2,7 +2,7 @@
 % Please edit documentation in R/palette.R
 \name{econ_pal}
 \alias{econ_pal}
-\title{Build a fredscape palette function}
+\title{Build a econscape palette function}
 \usage{
 econ_pal(palette = NULL, reverse = FALSE)
 }
@@ -20,7 +20,7 @@ palettes return their first \code{n} colours and error if \code{n} exceeds what 
 palette holds; continuous palettes interpolate.
 }
 \description{
-Build a fredscape palette function
+Build a econscape palette function
 }
 \examples{
 econ_pal()(3)

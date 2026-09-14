@@ -35,7 +35,7 @@ scales, \code{\link[=econ_masthead]{econ_masthead()}} and every \verb{plot_*()} 
 pass explicitly still wins.
 }
 \details{
-The style is a session option (\code{fredscape.style}), so put \code{set_style()} at
+The style is a session option (\code{econscape.style}), so put \code{set_style()} at
 the top of a script or in \code{.Rprofile}. It is read when a plot is \emph{built}:
 a ggplot constructed under one style keeps that style if you switch
 afterwards, so set the style first and construct the plot second.

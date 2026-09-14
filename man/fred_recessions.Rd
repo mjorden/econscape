@@ -21,7 +21,7 @@ you need the current dating, including any recession called since this
 package was last released.
 }
 \examples{
-\dontshow{if (fredscape::fred_has_key()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (econscape::fred_has_key()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 tail(fred_recessions(), 3)
 \dontshow{\}) # examplesIf}
 }

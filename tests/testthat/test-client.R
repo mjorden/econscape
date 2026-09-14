@@ -33,7 +33,7 @@ test_that("redact_key() leaves ordinary text alone", {
 
 test_that("the base URL is overridable for testing", {
   expect_match(fred_base_url(), "^https://api\\.stlouisfed\\.org/fred$")
-  withr::local_options(fredscape.base_url = "http://localhost:9999/fred")
+  withr::local_options(econscape.base_url = "http://localhost:9999/fred")
   expect_identical(fred_base_url(), "http://localhost:9999/fred")
 })
 

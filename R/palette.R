@@ -1,4 +1,4 @@
-#' The fredscape colour dictionary
+#' The econscape colour dictionary
 #'
 #' Every colour the package uses, in one place. The categorical hues follow the
 #' data palette The Economist publishes for its own charts; the surface and
@@ -42,7 +42,7 @@ econ_hex <- c(
   rust            = "#8B3A2F"
 )
 
-#' Look up fredscape colours by name
+#' Look up econscape colours by name
 #'
 #' @param ... Unquoted or quoted colour names, e.g. `"blue"`, `"red"`. With no
 #'   arguments the whole dictionary is returned.
@@ -86,7 +86,7 @@ econ_palettes <- list(
   browns = c("#F4EEE2", "#E3D3B8", "#CDB48E", "#B08F63", "#8C6A44", "#5C4033")
 )
 
-#' Build a fredscape palette function
+#' Build a econscape palette function
 #'
 #' @param palette One of `"main"` (7 categorical hues), `"cool"`, `"contrast"`,
 #'   `"academic"` (7 tans and browns), `"blues"` or `"browns"` (sequential) or
