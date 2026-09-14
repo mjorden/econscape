@@ -40,7 +40,8 @@ adf_response_surface <- list(
 #' @param x A numeric vector, or a single-series data frame with a `value`
 #'   column.
 #' @param lags Number of lagged differences `p`. With `NULL` the lag length
-#'   is chosen by AIC over `0:max_lags`.
+#'   is chosen by AIC over `0:max_lags`, skipping any candidate that would
+#'   leave fewer than three residual degrees of freedom.
 #' @param type Deterministic terms: `"drift"`, `"trend"` or `"none"`.
 #' @param max_lags Upper bound for the AIC search. Defaults to Schwert's
 #'   \eqn{\lfloor 12 (T/100)^{1/4} \rfloor}.
@@ -100,14 +101,34 @@ adf_test <- function(x, lags = NULL, type = c("drift", "trend", "none"), max_lag
     fit <- stats::lm.fit(X, lhs)
     rss <- sum(fit$residuals^2)
     m <- length(lhs)
-    list(fit = fit, X = X, lhs = lhs, m = m, aic = m * log(rss / m) + 2 * ncol(X))
+    list(fit = fit, X = X, lhs = lhs, m = m, df = m - ncol(X),
+         aic = m * log(rss / m) + 2 * ncol(X))
   }
+  # A regression with (almost) no residual degrees of freedom gives a
+  # statistic that is NaN or meaningless, not a test; and in the AIC search
+  # such a candidate always wins because its residual sum is ~0.
+  min_df <- 3L
 
   if (is.null(lags)) {
     candidates <- lapply(0:max_lags, fit_adf)
-    lags <- (0:max_lags)[which.min(vapply(candidates, function(cc) cc$aic, numeric(1)))]
+    usable <- vapply(candidates, function(cc) cc$df >= min_df, logical(1))
+    if (!any(usable)) {
+      cli::cli_abort(c(
+        "Too few observations ({n}) for an ADF regression with {.arg type} = {.val {type}}.",
+        "i" = "Every candidate lag length leaves fewer than {min_df} residual degrees of freedom."
+      ))
+    }
+    aics <- vapply(candidates, function(cc) cc$aic, numeric(1))
+    aics[!usable] <- Inf
+    lags <- (0:max_lags)[which.min(aics)]
   }
   res <- fit_adf(lags)
+  if (res$df < min_df) {
+    cli::cli_abort(c(
+      "Too few observations ({n}) for {lags} lagged difference{?s} with {.arg type} = {.val {type}}.",
+      "i" = "The regression would have {res$df} residual degree{?s} of freedom; need at least {min_df}."
+    ))
+  }
   fit <- res$fit
   m <- res$m
   k <- ncol(res$X)

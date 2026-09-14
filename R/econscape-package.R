@@ -3,7 +3,7 @@
 
 ## usethis namespace: start
 #' @importFrom rlang .data %||%
-#' @importFrom stats coef fitted nobs residuals vcov
+#' @importFrom stats coef fitted nobs residuals vcov confint predict model.matrix formula
 ## usethis namespace: end
 NULL
 

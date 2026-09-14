@@ -1,3 +1,28 @@
+# econscape 0.14.0
+
+Econometrics fixes from the 2026-09-14 review.
+
+* `ols()` accepts `weights` (#28). The `lm()` call is now built with
+  `match.call()`, so `weights` and `subset` are evaluated in `data` the way
+  `lm()` evaluates them, and all three covariance estimators use the weighted
+  bread and weighted scores. A weighted fit prints as "weighted OLS".
+* `econ_fit` gains `confint()`, `predict()`, `model.matrix()` and `formula()`
+  methods (#34). `confint()` now returns the same t interval as
+  `coef_table()` instead of falling through to the normal-based default.
+* `hp_filter()` solves the pentadiagonal system with a banded factorisation
+  (#33): linear in the series length rather than cubic. Twenty thousand
+  observations take a few hundredths of a second where they took hours.
+* `adf_test()` refuses a regression with fewer than three residual degrees of
+  freedom and skips such candidates in the AIC lag search (#29). Previously a
+  short series with `type = "trend"` could return a `NaN` statistic.
+* `hamilton_filter()` requires more than `h + 2p + 2` observations and aborts
+  on a rank-deficient forecasting regression (#30), instead of returning a
+  cycle of exact zeros.
+* `plot_coefficients(terms = "(Intercept)")` explains that the intercept is
+  excluded by `intercept = FALSE` rather than calling it an unknown term;
+  the HAC estimator's row-contiguity assumption is documented; and
+  `fred_recessions()` has a test (part of #38).
+
 # econscape 0.13.0
 
 * The academic style is now the default. `set_style("economist")` restores

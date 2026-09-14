@@ -11,7 +11,8 @@ adf_test(x, lags = NULL, type = c("drift", "trend", "none"), max_lags = NULL)
 column.}
 
 \item{lags}{Number of lagged differences \code{p}. With \code{NULL} the lag length
-is chosen by AIC over \code{0:max_lags}.}
+is chosen by AIC over \code{0:max_lags}, skipping any candidate that would
+leave fewer than three residual degrees of freedom.}
 
 \item{type}{Deterministic terms: \code{"drift"}, \code{"trend"} or \code{"none"}.}
 

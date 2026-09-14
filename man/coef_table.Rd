@@ -15,7 +15,8 @@ coef_table(x, level = 0.95)
 A data frame with one row per coefficient: \code{term}, \code{estimate},
 \code{std_error}, \code{statistic}, \code{p_value}, \code{conf_low}, \code{conf_high}. The
 statistic is compared to a t distribution with the residual degrees of
-freedom whichever standard errors were chosen.
+freedom whichever standard errors were chosen; \code{\link[=confint]{confint()}} on the fit
+gives the same interval.
 }
 \description{
 Coefficient table for an \code{econ_fit}

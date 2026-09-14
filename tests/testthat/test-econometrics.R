@@ -156,6 +156,11 @@ test_that("the Hamilton filter is the h-step-ahead regression residual", {
 test_that("the Hamilton filter needs enough data and validates h, p", {
   expect_error(hamilton_filter(rnorm(10), h = 8, p = 4), "more than")
   expect_error(hamilton_filter(rnorm(50), h = 0), "positive")
+  # n = 14 passed the old guard and returned an all-zero cycle from a
+  # rank-deficient regression (5 parameters on 3 rows).
+  expect_error(hamilton_filter(cumsum(rnorm(14)), h = 8, p = 4), "more than 18")
+  ok <- hamilton_filter(cumsum(rnorm(19)), h = 8, p = 4)
+  expect_true(any(abs(ok$cycle) > 0, na.rm = TRUE))
 })
 
 ## adf_test() ----------------------------------------------------------------
@@ -270,6 +275,8 @@ test_that("plot_coefficients() builds, drops the intercept, and colours by signi
   expect_identical(nrow(ggplot2::ggplot_build(one)$data[[3]]), 1L)
   expect_match(p$labels$subtitle, "Newey-West")
   expect_error(plot_coefficients(fit, terms = "nope"), "Unknown term")
+  expect_error(plot_coefficients(fit, terms = "(Intercept)"), "excluded by")
+  expect_identical(nrow(ggplot2::ggplot_build(plot_coefficients(fit, terms = "(Intercept)", intercept = TRUE))$data[[3]]), 1L)
   expect_error(plot_coefficients(ols(psavert ~ 1, econ)), "Nothing to plot")
 })
 
@@ -283,4 +290,87 @@ test_that("plot_trend_cycle() builds with and without dates", {
   expect_s3_class(ggplot2::ggplot_build(q), "ggplot_built")
   expect_null(q$labels$caption)
   expect_error(plot_trend_cycle(data.frame(a = 1)), "hp_filter")
+})
+
+
+## Review follow-ups (2026-09-14) ----------------------------------------------
+
+test_that("ols() accepts weights and computes weighted sandwiches", {
+  set.seed(4)
+  d <- data.frame(x = rnorm(80), w = runif(80, 0.5, 2))
+  d$y <- 1 + 2 * d$x + rnorm(80) / sqrt(d$w)
+  fit <- ols(y ~ x, d, weights = w)
+  ref <- stats::lm(y ~ x, d, weights = w)
+  expect_equal(coef(fit), coef(ref))
+  expect_equal(vcov(fit), vcov(ref))                       # classical = lm's own
+  expect_equal(coef_table(fit)$std_error, unname(summary(ref)$coefficients[, 2]))
+  expect_output(print(fit), "weighted OLS")
+  # HC1 by hand with weights: bread (X'WX)^-1, meat sum (w e)^2 x x'
+  hc <- ols(y ~ x, d, weights = w, se = "hc1")
+  X <- model.matrix(ref); e <- residuals(ref); w <- d$w; n <- nrow(X); k <- ncol(X)
+  bread <- solve(t(X) %*% diag(w) %*% X)
+  meat <- matrix(0, k, k)
+  for (i in seq_len(n)) meat <- meat + (w[i] * e[i])^2 * (X[i, ] %*% t(X[i, ]))
+  expect_equal(unname(hc$vcov), unname(n / (n - k) * bread %*% meat %*% bread))
+  # subset still works through the constructed call
+  sub <- ols(y ~ x, d, subset = x > 0)
+  expect_identical(nobs(sub), sum(d$x > 0))
+  # and so does calling from inside a function with a local data frame
+  f <- function() { dd <- d; ols(y ~ x, dd, weights = w, se = "hac") }
+  expect_equal(coef(f()), coef(ref))
+})
+
+test_that("econ_fit supports confint(), predict(), model.matrix() and formula()", {
+  fit <- ols(psavert ~ unemp_rate + uempmed, econ, se = "hac")
+  ci <- confint(fit)
+  tab <- coef_table(fit)
+  expect_equal(unname(ci[, 1]), tab$conf_low)
+  expect_equal(unname(ci[, 2]), tab$conf_high)
+  expect_identical(rownames(ci), tab$term)
+  expect_equal(unname(confint(fit, "uempmed", level = 0.9)[1, ]),
+               unlist(coef_table(fit, 0.9)[3, c("conf_low", "conf_high")], use.names = FALSE))
+  nd <- data.frame(unemp_rate = c(3, 5), uempmed = c(8, 12))
+  expect_equal(predict(fit, nd), predict(fit$fit, nd))
+  expect_equal(dim(model.matrix(fit)), c(nrow(econ), 3L))
+  expect_identical(formula(fit), psavert ~ unemp_rate + uempmed)
+})
+
+test_that("adf_test() refuses a regression with no residual degrees of freedom", {
+  set.seed(6)
+  y <- cumsum(rnorm(20))
+  expect_error(adf_test(y, lags = 8, type = "trend"), "Too few observations")
+  # The automatic search skips the saturated candidates and still answers.
+  a <- adf_test(y, type = "trend")
+  expect_true(is.finite(a$statistic))
+  expect_true(a$lags <= 5)
+  expect_true(all(!is.na(a$reject)))
+})
+
+test_that("the banded HP solve equals the dense solve", {
+  set.seed(12)
+  y <- cumsum(rnorm(60))
+  lambda <- 1600
+  n <- length(y)
+  K <- matrix(0, n - 2, n)
+  for (i in seq_len(n - 2)) K[i, i:(i + 2)] <- c(1, -2, 1)
+  dense <- as.numeric(solve(diag(n) + lambda * crossprod(K), y))
+  expect_equal(hp_filter(y, lambda = lambda)$trend, dense, tolerance = 1e-10)
+  expect_equal(hp_filter(y, lambda = 6.25)$trend,
+               as.numeric(solve(diag(n) + 6.25 * crossprod(K), y)), tolerance = 1e-10)
+  # Long series are now feasible at all (this used to take minutes).
+  long <- hp_filter(cumsum(rnorm(20000)), lambda = 14400)
+  expect_identical(nrow(long), 20000L)
+  expect_equal(sum(long$cycle), 0, tolerance = 1e-6)
+})
+
+test_that("fred_recessions() collapses the USREC indicator into intervals", {
+  months <- seq(as.Date("2007-01-01"), by = "month", length.out = 36)
+  flag <- as.numeric(months >= as.Date("2007-12-01") & months <= as.Date("2009-06-01"))
+  testthat::local_mocked_bindings(
+    fred_series = function(series_id, ..., key) data.frame(series_id = series_id, date = months, value = flag)
+  )
+  out <- fred_recessions(key = strrep("a", 32))
+  expect_identical(nrow(out), 1L)
+  expect_identical(out$peak, as.Date("2007-12-01"))
+  expect_identical(out$trough, as.Date("2009-06-01"))
 })

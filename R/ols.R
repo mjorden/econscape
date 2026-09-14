@@ -13,19 +13,30 @@
 #'   \eqn{\lfloor 4 (n/100)^{2/9} \rfloor}, the rule of thumb most software
 #'   uses. No small-sample adjustment is applied.
 #'
-#' Both robust estimators are computed directly from the design matrix and
-#' residuals -- a dozen lines of linear algebra -- rather than through a
-#' dependency, and the tests pin them against hand-computed sandwich matrices.
+#' Both robust estimators are computed directly from the design matrix,
+#' residuals and (if any) weights -- a dozen lines of linear algebra --
+#' rather than through a dependency, and the tests pin them against
+#' hand-computed sandwich matrices. With `weights`, every estimator uses the
+#' weighted bread \eqn{(X'WX)^{-1}} and weighted scores \eqn{w_t x_t e_t}.
+#'
+#' The HAC estimator lags observations by their row position in the fitted
+#' sample. If `subset` or `lm()`'s default `na.action` drops interior rows,
+#' "one lag" no longer means one period; check that the fitted sample is
+#' contiguous in time before trusting `"hac"` on gappy data.
 #'
 #' @param formula A model formula, as for [stats::lm()].
 #' @param data A data frame.
 #' @param se Which standard errors: `"classical"`, `"hc1"` or `"hac"`.
 #' @param lags Bandwidth for `"hac"`. Ignored otherwise.
-#' @param ... Passed to [stats::lm()], e.g. `subset` or `weights`.
+#' @param ... Passed to [stats::lm()], e.g. `subset` or `weights`. Both are
+#'   evaluated in `data` the way `lm()` evaluates them.
 #'
 #' @return An object of class `econ_fit`: a list with `fit` (the `lm`),
 #'   `vcov`, `se_type`, `lags`, `nobs` and `df`. [coef_table()] gives the
-#'   coefficient table; [plot_coefficients()] draws it.
+#'   coefficient table; [plot_coefficients()] draws it. The usual generics
+#'   work: [coef()], [vcov()], [confint()] (t intervals, matching
+#'   `coef_table()`), [predict()], [residuals()], [fitted()],
+#'   [model.matrix()], [formula()], [nobs()].
 #'
 #' @examples
 #' econ <- ggplot2::economics
@@ -35,17 +46,34 @@
 #' fit <- ols(psavert ~ unemp_rate, econ, se = "hac")
 #' fit
 #' coef_table(fit)
+#' confint(fit)
+#'
+#' # Weighted least squares with robust errors
+#' econ$w <- seq_len(nrow(econ))
+#' ols(psavert ~ unemp_rate, econ, se = "hc1", weights = w)
 #' @export
 ols <- function(formula, data, se = c("classical", "hc1", "hac"), lags = NULL, ...) {
   se <- match.arg(se)
   if (!is.data.frame(data)) {
     cli::cli_abort("{.arg data} must be a data frame.")
   }
-  fit <- stats::lm(formula, data = data, ...)
+  # Build the lm() call rather than forwarding `...`: lm() evaluates
+  # `weights` and `subset` in `data` by non-standard evaluation, which a
+  # forwarded `...` breaks with "..1 used in an incorrect context".
+  cl <- match.call(expand.dots = TRUE)
+  cl$se <- NULL
+  cl$lags <- NULL
+  cl$formula <- formula
+  cl$data <- data
+  cl[[1L]] <- quote(stats::lm)
+  fit <- eval(cl, parent.frame())
+
   X <- stats::model.matrix(fit)
   e <- stats::residuals(fit)
+  w <- stats::weights(fit)
   n <- nrow(X)
   k <- ncol(X)
+  if (is.null(w)) w <- rep(1, n)
   if (n <= k) {
     cli::cli_abort("Need more observations ({n}) than coefficients ({k}).")
   }
@@ -59,9 +87,9 @@ ols <- function(formula, data, se = c("classical", "hc1", "hac"), lags = NULL, .
   }
 
   V <- switch(se,
-    classical = vcov_classical(X, e),
-    hc1 = vcov_hc1(X, e),
-    hac = vcov_hac(X, e, lags)
+    classical = vcov_classical(X, e, w),
+    hc1 = vcov_hc1(X, e, w),
+    hac = vcov_hac(X, e, w, lags)
   )
   dimnames(V) <- list(colnames(X), colnames(X))
 
@@ -74,37 +102,38 @@ ols <- function(formula, data, se = c("classical", "hc1", "hac"), lags = NULL, .
 
 #' Sandwich pieces
 #'
-#' Each takes the design matrix `X` and residuals `e` and returns the
-#' covariance of the coefficient estimates. `bread` is \eqn{(X'X)^{-1}}; the
-#' meat is the estimated covariance of the score \eqn{\sum_t x_t e_t}.
+#' Each takes the design matrix `X`, residuals `e` and weights `w` (all ones
+#' for an unweighted fit) and returns the covariance of the coefficient
+#' estimates. The bread is \eqn{(X'WX)^{-1}}; the meat is the estimated
+#' covariance of the score \eqn{\sum_t w_t x_t e_t}.
 #' @noRd
-vcov_classical <- function(X, e) {
+vcov_classical <- function(X, e, w) {
   n <- nrow(X)
   k <- ncol(X)
-  sigma2 <- sum(e^2) / (n - k)
-  sigma2 * solve(crossprod(X))
+  sigma2 <- sum(w * e^2) / (n - k)
+  sigma2 * solve(crossprod(X * sqrt(w)))
 }
 
 #' @noRd
-vcov_hc1 <- function(X, e) {
+vcov_hc1 <- function(X, e, w) {
   n <- nrow(X)
   k <- ncol(X)
-  bread <- solve(crossprod(X))
-  meat <- crossprod(X * e)          # sum_t e_t^2 x_t x_t'
+  bread <- solve(crossprod(X * sqrt(w)))
+  meat <- crossprod(X * (w * e))       # sum_t (w_t e_t)^2 x_t x_t'
   (n / (n - k)) * bread %*% meat %*% bread
 }
 
 #' @noRd
-vcov_hac <- function(X, e, lags) {
-  bread <- solve(crossprod(X))
-  scores <- X * e                   # rows: x_t e_t
-  S <- crossprod(scores)            # lag 0
+vcov_hac <- function(X, e, w, lags) {
+  bread <- solve(crossprod(X * sqrt(w)))
+  scores <- X * (w * e)                # rows: w_t x_t e_t
+  S <- crossprod(scores)               # lag 0
   if (lags > 0) {
     n <- nrow(scores)
     for (l in seq_len(lags)) {
-      w <- 1 - l / (lags + 1)       # Bartlett kernel
+      wgt <- 1 - l / (lags + 1)        # Bartlett kernel
       gamma_l <- crossprod(scores[(l + 1):n, , drop = FALSE], scores[1:(n - l), , drop = FALSE])
-      S <- S + w * (gamma_l + t(gamma_l))
+      S <- S + wgt * (gamma_l + t(gamma_l))
     }
   }
   bread %*% S %*% bread
@@ -118,7 +147,8 @@ vcov_hac <- function(X, e, lags) {
 #' @return A data frame with one row per coefficient: `term`, `estimate`,
 #'   `std_error`, `statistic`, `p_value`, `conf_low`, `conf_high`. The
 #'   statistic is compared to a t distribution with the residual degrees of
-#'   freedom whichever standard errors were chosen.
+#'   freedom whichever standard errors were chosen; [confint()] on the fit
+#'   gives the same interval.
 #'
 #' @examples
 #' fit <- ols(psavert ~ uempmed, ggplot2::economics, se = "hc1")
@@ -173,6 +203,33 @@ fitted.econ_fit <- function(object, ...) {
 }
 
 #' @export
+confint.econ_fit <- function(object, parm, level = 0.95, ...) {
+  tab <- coef_table(object, level = level)
+  out <- cbind(tab$conf_low, tab$conf_high)
+  pct <- paste(format(100 * c((1 - level) / 2, 1 - (1 - level) / 2), trim = TRUE, digits = 3), "%")
+  dimnames(out) <- list(tab$term, pct)
+  if (!missing(parm)) {
+    out <- out[parm, , drop = FALSE]
+  }
+  out
+}
+
+#' @export
+predict.econ_fit <- function(object, newdata, ...) {
+  stats::predict(object$fit, newdata = newdata, ...)
+}
+
+#' @export
+model.matrix.econ_fit <- function(object, ...) {
+  stats::model.matrix(object$fit, ...)
+}
+
+#' @export
+formula.econ_fit <- function(x, ...) {
+  x$formula
+}
+
+#' @export
 print.econ_fit <- function(x, digits = 3, ...) {
   tab <- coef_table(x)
   stars <- ifelse(tab$p_value < 0.01, "***",
@@ -182,7 +239,8 @@ print.econ_fit <- function(x, digits = 3, ...) {
     hc1 = "heteroskedasticity-robust (HC1)",
     hac = sprintf("Newey-West HAC, %d lag%s", x$lags, if (x$lags == 1) "" else "s")
   )
-  cat(sprintf("<OLS: %s>\n", deparse(x$formula)))
+  weighted <- !is.null(stats::weights(x$fit))
+  cat(sprintf("<%sOLS: %s>\n", if (weighted) "weighted " else "", deparse(x$formula)))
   cat(sprintf("  %d observations; %s standard errors\n", x$nobs, se_label))
   out <- data.frame(
     estimate = formatC(tab$estimate, digits = digits, format = "g"),
