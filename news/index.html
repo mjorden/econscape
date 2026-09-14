@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">fredscape</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,6 +30,15 @@
       <small>Source: <a href="https://github.com/mjorden/fredscape/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.9.1" id="fredscape-091">fredscape 0.9.1<a class="anchor" aria-label="anchor" href="#fredscape-091"></a></h2>
+<p>Numerical robustness, from the code review (<a href="https://github.com/mjorden/fredscape/issues/17" class="external-link">#17</a>). No API changes.</p>
+<ul><li>The market solvers are now two named primitives instead of one: <code>maximise_on()</code> scores the endpoints and every downward crossing of a marginal function by the integral and returns the best, so an upward-only crossing (a profit minimum) is never returned and several crossings are compared rather than the last one assumed; <code>find_crossing()</code> keeps the last-downward-crossing rule for <code><a href="../reference/price_discrimination.html">third_degree()</a></code>’s search over the common marginal-revenue level, where an integral means nothing.</li>
+<li>
+<code><a href="../reference/demand.html">demand_fn()</a></code> checks on a coarse grid that inverse demand is finite and decreasing, and refuses it otherwise.</li>
+<li>
+<code><a href="../reference/cost_values.html">marginal_cost()</a></code> of a <code><a href="../reference/cost.html">production_cost()</a></code> built on a plain function no longer differences below the inner solver’s noise floor; at zero output it reports the cost of the first thousandth of a unit rather than a derivative that may not exist.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.9.0" id="fredscape-090">fredscape 0.9.0<a class="anchor" aria-label="anchor" href="#fredscape-090"></a></h2>
 <p>Econometrics (<a href="https://github.com/mjorden/fredscape/issues/21" class="external-link">#21</a>): estimating things from the series you fetched, in base R and stats only.</p>
