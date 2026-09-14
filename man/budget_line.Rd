@@ -4,13 +4,13 @@
 \alias{budget_line}
 \title{Coordinates of a budget line}
 \usage{
-budget_line(b, n = 2L)
+budget_line(b, n_points = 2L)
 }
 \arguments{
 \item{b}{A \code{\link[=budget]{budget()}}.}
 
-\item{n}{Number of points. Two is enough for a straight line; more is
-useful if you want to attach a colour or size aesthetic along it.}
+\item{n_points}{Number of points. Two is enough for a straight line; more
+is useful if you want to attach a colour or size aesthetic along it.}
 }
 \value{
 A data frame with \code{x} and \code{y} columns running from the \code{y}

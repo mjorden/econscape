@@ -150,8 +150,8 @@ print.budget <- function(x, ...) {
 #' Coordinates of a budget line
 #'
 #' @param b A [budget()].
-#' @param n Number of points. Two is enough for a straight line; more is
-#'   useful if you want to attach a colour or size aesthetic along it.
+#' @param n_points Number of points. Two is enough for a straight line; more
+#'   is useful if you want to attach a colour or size aesthetic along it.
 #'
 #' @return A data frame with `x` and `y` columns running from the `y`
 #'   intercept to the `x` intercept.
@@ -159,15 +159,15 @@ print.budget <- function(x, ...) {
 #' @examples
 #' budget_line(budget(100, 2, 5))
 #' @export
-budget_line <- function(b, n = 2L) {
+budget_line <- function(b, n_points = 2L) {
   if (!inherits(b, "budget")) {
     cli::cli_abort("{.arg b} must be a {.fn budget} object.")
   }
-  n <- as.integer(n)
-  if (is.na(n) || n < 2L) {
-    cli::cli_abort("{.arg n} must be at least 2.")
+  n_points <- as.integer(n_points)
+  if (is.na(n_points) || n_points < 2L) {
+    cli::cli_abort("{.arg n_points} must be at least 2.")
   }
-  x <- seq(0, b$x_max, length.out = n)
+  x <- seq(0, b$x_max, length.out = n_points)
   data.frame(x = x, y = (b$income - b$px * x) / b$py)
 }
 

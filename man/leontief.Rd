@@ -7,7 +7,8 @@
 leontief(a = 1, b = 1, A = 1, kind = c("utility", "production"))
 }
 \arguments{
-\item{a, b}{Units of \code{x} and \code{y} needed per unit of output. Positive.}
+\item{a, b}{Units of \code{x} and \code{y} needed per unit of output. Positive.
+(\code{b} here is the textbook coefficient, not a \code{\link[=budget]{budget()}}.)}
 
 \item{A}{Scale factor. Positive.}
 

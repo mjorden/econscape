@@ -97,6 +97,10 @@ reference:
   - geom_demand
   - geom_consumption_path
 
+- title: Extending
+  contents:
+  - fredscape-extending
+
 - title: internal
   contents:
   - fredscape-package

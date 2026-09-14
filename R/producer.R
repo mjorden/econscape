@@ -93,24 +93,24 @@ cost_curves <- function(f, w, r, q, fixed = 0) {
     output = q,
     total = total,
     average = total / q,
-    marginal = mc_production(f, w, r, q)
+    marginal = mc_from_production(f, w, r, q)
   )
 }
 
-#' Marginal cost of production at each output level (internal; see marginal_cost() for cost objects)
+#' Marginal cost of production at each output level (internal; dispatches on the production function -- marginal_cost() is the public generic on cost objects)
 #' @noRd
-mc_production <- function(f, w, r, q) {
-  UseMethod("mc_production")
+mc_from_production <- function(f, w, r, q) {
+  UseMethod("mc_from_production")
 }
 
 #' @noRd
-mc_production.cobb_douglas <- function(f, w, r, q) {
+mc_from_production.cobb_douglas <- function(f, w, r, q) {
   d <- attr(f, "alpha") + attr(f, "beta")
   expenditure(f, w, r, q) / (d * q)
 }
 
 #' @noRd
-mc_production.default <- function(f, w, r, q) {
+mc_from_production.default <- function(f, w, r, q) {
   # When expenditure() has no closed form it is a uniroot() around an
   # optimize(), accurate to ~1e-9: a difference step must sit well above
   # that noise floor or the derivative is garbage near zero output.
@@ -177,8 +177,11 @@ plot_cost_curves <- function(f, w, r, q, fixed = 0,
 #' The same diagram as [plot_consumer_choice()] with the producer's
 #' vocabulary: isoquants, an isocost line, and the input bundle that produces
 #' the most for the outlay. Works for any production function, including a
-#' plain `function(x, y)`; the `kind` attribute of the constructors is set to
-#' `"production"` for the labels regardless of how it was built.
+#' plain `function(x, y)`. The `kind` attribute is set to `"production"` on a
+#' copy for the labels regardless of how the function was built -- so a
+#' `cobb_douglas(0.5)` constructed with the default `kind = "utility"` draws
+#' as a technology here without complaint. That is deliberate: the maths is
+#' identical and the constructor default should not force a keystroke.
 #'
 #' @param f A production function of `x` and `y`.
 #' @param b A [budget()] read as an isocost line: `income` is the outlay and

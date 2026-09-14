@@ -242,7 +242,8 @@ consumer_surplus.general_demand <- function(d, q, ...) {
 #'
 #' @param fixed Fixed cost. Non-negative.
 #' @param a Linear coefficient: marginal cost at zero output. Non-negative.
-#' @param b Quadratic coefficient. Non-negative.
+#' @param b Quadratic coefficient. Non-negative. (The textbook letter, not a
+#'   [budget()]; see `?fredscape-extending` for the naming conventions.)
 #' @param f A production function of `x` and `y`.
 #' @param w,r Input prices.
 #'
@@ -378,7 +379,7 @@ marginal_cost.production_cost <- function(cost, q, ...) {
   out <- numeric(length(q))
   pos <- q > 0
   if (any(pos)) {
-    out[pos] <- mc_production(cost$f, cost$w, cost$r, q[pos])
+    out[pos] <- mc_from_production(cost$f, cost$w, cost$r, q[pos])
   }
   if (any(!pos)) {
     # At zero output the derivative may not exist (it is 0 or infinite for
@@ -501,14 +502,14 @@ efficient_quantity <- function(d, cost, n) {
 #' Assemble the outcome object shared by every structure
 #' @noRd
 market_outcome <- function(structure, d, cost, n, q_firm, note = NULL,
-                           price = NULL, consumer_surplus = NULL,
-                           producer_surplus = NULL) {
+                           price = NULL, cs_override = NULL,
+                           ps_override = NULL) {
   Q <- n * q_firm
   P <- price %||% price_at(d, Q)
   # A discriminating seller has no single price and takes surplus the
   # uniform-price formulas do not see, so those callers pass their own.
-  cs <- consumer_surplus %||% consumer_surplus(d, Q)
-  ps <- producer_surplus %||% (P * Q - n * variable_cost(cost, q_firm))
+  cs <- cs_override %||% consumer_surplus(d, Q)
+  ps <- ps_override %||% (P * Q - n * variable_cost(cost, q_firm))
   profit <- ps - n * (total_cost(cost, q_firm) - variable_cost(cost, q_firm))
   profit <- profit / n
 

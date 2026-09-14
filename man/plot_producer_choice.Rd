@@ -45,8 +45,11 @@ A ggplot object.
 The same diagram as \code{\link[=plot_consumer_choice]{plot_consumer_choice()}} with the producer's
 vocabulary: isoquants, an isocost line, and the input bundle that produces
 the most for the outlay. Works for any production function, including a
-plain \verb{function(x, y)}; the \code{kind} attribute of the constructors is set to
-\code{"production"} for the labels regardless of how it was built.
+plain \verb{function(x, y)}. The \code{kind} attribute is set to \code{"production"} on a
+copy for the labels regardless of how the function was built -- so a
+\code{cobb_douglas(0.5)} constructed with the default \code{kind = "utility"} draws
+as a technology here without complaint. That is deliberate: the maths is
+identical and the constructor default should not force a keystroke.
 }
 \examples{
 f <- cobb_douglas(0.5, 0.5, A = 3, kind = "production")

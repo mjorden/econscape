@@ -4,20 +4,20 @@
 #' grid that starts exactly at the axis produces an `Inf` and a broken path.
 #'
 #' @param xlim Two numbers.
-#' @param n Number of points.
+#' @param n_points Number of points.
 #' @return A numeric vector.
 #' @noRd
-curve_grid <- function(xlim, n) {
+curve_grid <- function(xlim, n_points) {
   if (!is.numeric(xlim) || length(xlim) != 2L || any(!is.finite(xlim)) ||
       xlim[1] >= xlim[2] || xlim[1] < 0) {
     cli::cli_abort("{.arg xlim} must be an increasing pair of non-negative numbers.")
   }
-  n <- as.integer(n)
-  if (is.na(n) || n < 2L) {
-    cli::cli_abort("{.arg n} must be at least 2.")
+  n_points <- as.integer(n_points)
+  if (is.na(n_points) || n_points < 2L) {
+    cli::cli_abort("{.arg n_points} must be at least 2.")
   }
-  lo <- if (xlim[1] > 0) xlim[1] else diff(xlim) / (n * 4)
-  seq(lo, xlim[2], length.out = n)
+  lo <- if (xlim[1] > 0) xlim[1] else diff(xlim) / (n_points * 4)
+  seq(lo, xlim[2], length.out = n_points)
 }
 
 #' Chart layers for consumer and producer theory
@@ -37,7 +37,9 @@ curve_grid <- function(xlim, n) {
 #' @param u A function of `x` and `y`, typically from [cobb_douglas()].
 #' @param levels Utility (or output) levels, one curve each.
 #' @param xlim Range of `x` over which to draw the curves.
-#' @param n Number of points per curve.
+#' @param n_points Number of points per curve. (Named `n_points`, not `n`,
+#'   because `n` means a number of firms or consumers elsewhere in the
+#'   package.)
 #' @param b A [budget()], or for `geom_budget()` a list of them.
 #' @param colour Line or point colour.
 #' @param linewidth Line width.
@@ -73,10 +75,10 @@ NULL
 
 #' @rdname geom_micro
 #' @export
-geom_indifference <- function(u, levels, xlim, n = 200L,
+geom_indifference <- function(u, levels, xlim, n_points = 200L,
                               colour = unname(econ_hex["blue"]),
                               linewidth = 0.8, ...) {
-  x <- curve_grid(xlim, n)
+  x <- curve_grid(xlim, n_points)
   df <- indifference_curve(u, level = levels, x = x)
   df <- df[is.finite(df$y), , drop = FALSE]
   path <- ggplot2::geom_path(
@@ -262,8 +264,8 @@ plot_consumer_choice <- function(u, b,
 #'
 #' @return A data frame with `x`, `y` and `label`.
 #' @noRd
-curve_labels <- function(u, levels, xlim, ylim, n = 400L) {
-  x <- curve_grid(xlim, n)
+curve_labels <- function(u, levels, xlim, ylim, n_points = 400L) {
+  x <- curve_grid(xlim, n_points)
   df <- indifference_curve(u, level = levels, x = x)
   df <- df[is.finite(df$y) & df$y >= ylim[1] & df$y <= ylim[2], , drop = FALSE]
   if (nrow(df) == 0L) {

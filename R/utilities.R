@@ -167,6 +167,7 @@ mrs.ces <- function(u, x, y, ...) {
 #' curve has a corner and the MRS is undefined, returned as `NA`.
 #'
 #' @param a,b Units of `x` and `y` needed per unit of output. Positive.
+#'   (`b` here is the textbook coefficient, not a [budget()].)
 #' @param A Scale factor. Positive.
 #' @param kind `"utility"` or `"production"`.
 #'
@@ -247,9 +248,13 @@ mrs.leontief <- function(u, x, y, ...) {
 #' \eqn{a / p_x = b / p_y} exactly, when every point on the budget line is
 #' equally good. In that knife-edge case [optimal_bundle()] returns the
 #' midpoint of the budget line and flags the result with an `indeterminate`
-#' attribute set to `TRUE`.
+#' attribute set to `TRUE`. "Exactly" means within [all.equal()]'s default
+#' tolerance, about 1.5e-8 relative: two utilities-per-dollar that differ
+#' only in the ninth significant figure count as a tie.
 #'
-#' @param a,b Marginal utility of `x` and `y`. Positive.
+#' @param a,b Marginal utility of `x` and `y`. Positive. (`b` here is the
+#'   textbook coefficient, not a [budget()] -- the letter is kept because
+#'   that is how the formula is written.)
 #' @param A Scale factor. Positive.
 #' @param kind `"utility"` or `"production"`.
 #'
@@ -340,6 +345,10 @@ mrs.perfect_substitutes <- function(u, x, y, ...) {
 #' [stats::uniroot()]. Either way the corners are checked: if even the first
 #' unit of `x` is not worth its price the consumer buys none, and if the last
 #' affordable unit still is, the consumer buys nothing but `x`.
+#'
+#' Unlike the other constructors this one has no `kind` argument: a function
+#' linear in one input has no sensible reading as a technology, so it is
+#' always a utility function.
 #'
 #' @param f A concave function of one argument.
 #' @param f_prime Its derivative, or `NULL` to approximate numerically.

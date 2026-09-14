@@ -27,6 +27,10 @@ otherwise it is approximated numerically and the root is found with
 \code{\link[stats:uniroot]{stats::uniroot()}}. Either way the corners are checked: if even the first
 unit of \code{x} is not worth its price the consumer buys none, and if the last
 affordable unit still is, the consumer buys nothing but \code{x}.
+
+Unlike the other constructors this one has no \code{kind} argument: a function
+linear in one input has no sensible reading as a technology, so it is
+always a utility function.
 }
 \examples{
 u <- quasilinear(log, f_prime = function(x) 1 / x)

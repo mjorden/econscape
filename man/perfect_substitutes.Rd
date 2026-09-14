@@ -7,7 +7,9 @@
 perfect_substitutes(a = 1, b = 1, A = 1, kind = c("utility", "production"))
 }
 \arguments{
-\item{a, b}{Marginal utility of \code{x} and \code{y}. Positive.}
+\item{a, b}{Marginal utility of \code{x} and \code{y}. Positive. (\code{b} here is the
+textbook coefficient, not a \code{\link[=budget]{budget()}} -- the letter is kept because
+that is how the formula is written.)}
 
 \item{A}{Scale factor. Positive.}
 
@@ -24,7 +26,9 @@ utility per unit of money, so the optimum is a corner unless
 \eqn{a / p_x = b / p_y} exactly, when every point on the budget line is
 equally good. In that knife-edge case \code{\link[=optimal_bundle]{optimal_bundle()}} returns the
 midpoint of the budget line and flags the result with an \code{indeterminate}
-attribute set to \code{TRUE}.
+attribute set to \code{TRUE}. "Exactly" means within \code{\link[=all.equal]{all.equal()}}'s default
+tolerance, about 1.5e-8 relative: two utilities-per-dollar that differ
+only in the ninth significant figure count as a tie.
 }
 \examples{
 u <- perfect_substitutes(a = 1, b = 2)   # y is worth twice x

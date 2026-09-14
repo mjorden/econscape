@@ -4,17 +4,20 @@ b <- budget(income = 120, px = 3, py = 4)
 built_layers <- function(p) ggplot2::ggplot_build(p)$data
 
 test_that("curve_grid() never starts at zero", {
-  g <- curve_grid(c(0, 10), n = 50)
+  g <- curve_grid(c(0, 10), n_points = 50)
   expect_true(g[1] > 0)
   expect_equal(g[50], 10)
   expect_length(g, 50L)
-  expect_equal(curve_grid(c(2, 10), n = 5)[1], 2)
+  expect_equal(curve_grid(c(2, 10), n_points = 5)[1], 2)
 })
 
 test_that("curve_grid() validates its inputs", {
   expect_error(curve_grid(c(10, 0), 10), "increasing pair")
   expect_error(curve_grid(c(-1, 10), 10), "non-negative")
   expect_error(curve_grid(c(0, 10), 1), "at least 2")
+  # R partially matches n to n_points, so the old spelling still works.
+  old <- ggplot2::ggplot_build(ggplot2::ggplot() + geom_indifference(u, levels = 10, xlim = c(1, 30), n = 25))
+  expect_identical(nrow(old$data[[1]]), 25L)
 })
 
 test_that("geom_indifference() draws one path per level with finite y", {
@@ -26,7 +29,7 @@ test_that("geom_indifference() draws one path per level with finite y", {
 })
 
 test_that("geom_indifference() points lie on the requested contour", {
-  p <- ggplot2::ggplot() + geom_indifference(u, levels = 10, xlim = c(1, 30), n = 25)
+  p <- ggplot2::ggplot() + geom_indifference(u, levels = 10, xlim = c(1, 30), n_points = 25)
   d <- built_layers(p)[[1]]
   expect_equal(u(d$x, d$y), rep(10, nrow(d)))
 })

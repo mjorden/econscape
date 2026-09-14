@@ -58,7 +58,7 @@ test_that("budget_line() runs from the y intercept to the x intercept", {
   expect_equal(line$x, c(0, 50))
   expect_equal(line$y, c(20, 0))
 
-  many <- budget_line(b, n = 11)
+  many <- budget_line(b, n_points = 11)
   expect_identical(nrow(many), 11L)
   # Every point satisfies the constraint with equality.
   expect_equal(b$px * many$x + b$py * many$y, rep(100, 11))
@@ -66,7 +66,7 @@ test_that("budget_line() runs from the y intercept to the x intercept", {
 
 test_that("budget_line() validates its inputs", {
   expect_error(budget_line(list(income = 1)), "budget")
-  expect_error(budget_line(budget(1, 1, 1), n = 1), "at least 2")
+  expect_error(budget_line(budget(1, 1, 1), n_points = 1), "at least 2")
 })
 
 test_that("Cobb-Douglas indifference curves are exact contours", {

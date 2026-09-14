@@ -1,3 +1,35 @@
+# fredscape 0.10.0
+
+Naming and API decisions from the code review (#18), settled before a 1.0.
+
+Breaking:
+
+* `geom_indifference()`, `budget_line()` and the internal grid helpers take
+  `n_points`, not `n`: `n` is a number of firms in `cournot()` and
+  `perfect_competition()` and a number of consumers in `two_part_tariff()`,
+  and a grid size has nothing to do with either. Old calls keep working
+  through R's partial argument matching (`n` resolves to `n_points`), but
+  `n_points` is the documented name.
+
+Decided and documented rather than changed:
+
+* `b` stays a `budget()` in the consumer functions and a scalar coefficient
+  in `quadratic_cost()`, `leontief()` and `perfect_substitutes()`, because
+  the latter are the textbook letters; each of those pages now says so.
+* Validation before `UseMethod()` in the generics stays, and the extension
+  contract it implies -- subclass `demand`, `cost` or `budget`, or supply
+  any callable for a utility -- is written down on `?fredscape-extending`.
+* `quasilinear()` has no `kind` because `f(x) + y` has no production
+  reading; its documentation says so.
+* `plot_producer_choice()` documents that it relabels whatever `kind` the
+  function was built with, and the perfect-substitutes tie test documents
+  its tolerance.
+
+Internal: `market_outcome()`'s override arguments no longer shadow the
+`consumer_surplus()` / `producer_surplus` names, and the producer-side
+marginal-cost helper is `mc_from_production()`, so it cannot be mistaken for
+the public `marginal_cost()` generic on cost objects.
+
 # fredscape 0.9.1
 
 Numerical robustness, from the code review (#17). No API changes.

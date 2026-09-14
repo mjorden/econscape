@@ -116,7 +116,7 @@ first_degree <- function(demand, cost) {
   }
   market_outcome(
     "first-degree discrimination", demand, cost, n = 1, q_firm = Q,
-    price = price_at(demand, Q), consumer_surplus = 0, producer_surplus = ps,
+    price = price_at(demand, Q), cs_override = 0, ps_override = ps,
     note = "price is that of the last unit; earlier units sold at willingness to pay"
   )
 }

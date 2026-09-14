@@ -11,7 +11,7 @@ geom_indifference(
   u,
   levels,
   xlim,
-  n = 200L,
+  n_points = 200L,
   colour = unname(econ_hex["blue"]),
   linewidth = 0.8,
   ...
@@ -41,7 +41,9 @@ geom_optimum(
 
 \item{xlim}{Range of \code{x} over which to draw the curves.}
 
-\item{n}{Number of points per curve.}
+\item{n_points}{Number of points per curve. (Named \code{n_points}, not \code{n},
+because \code{n} means a number of firms or consumers elsewhere in the
+package.)}
 
 \item{colour}{Line or point colour.}
 

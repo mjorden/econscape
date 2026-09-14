@@ -15,7 +15,8 @@ production_cost(f, w, r, fixed = 0)
 
 \item{a}{Linear coefficient: marginal cost at zero output. Non-negative.}
 
-\item{b}{Quadratic coefficient. Non-negative.}
+\item{b}{Quadratic coefficient. Non-negative. (The textbook letter, not a
+\code{\link[=budget]{budget()}}; see \code{?fredscape-extending} for the naming conventions.)}
 
 \item{f}{A production function of \code{x} and \code{y}.}
 
