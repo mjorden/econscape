@@ -12,7 +12,7 @@ plot_coefficients(
   title = NULL,
   subtitle = NULL,
   source = NULL,
-  panel = "blue"
+  panel = NULL
 )
 }
 \arguments{

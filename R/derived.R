@@ -158,7 +158,7 @@ NULL
 
 #' @rdname geom_demand
 #' @export
-geom_demand <- function(data, colour = unname(econ_hex["blue"]), linewidth = 0.8, ...) {
+geom_demand <- function(data, colour = style_colour("primary"), linewidth = 0.8, ...) {
   if (!is.data.frame(data) || !all(c("price", "quantity") %in% names(data))) {
     cli::cli_abort("{.arg data} must come from {.fn demand_curve}.")
   }
@@ -172,7 +172,7 @@ geom_demand <- function(data, colour = unname(econ_hex["blue"]), linewidth = 0.8
 
 #' @rdname geom_demand
 #' @export
-geom_engel <- function(data, colour = unname(econ_hex["blue"]), linewidth = 0.8, ...) {
+geom_engel <- function(data, colour = style_colour("primary"), linewidth = 0.8, ...) {
   if (!is.data.frame(data) || !all(c("income", "quantity") %in% names(data))) {
     cli::cli_abort("{.arg data} must come from {.fn engel_curve}.")
   }
@@ -214,7 +214,7 @@ geom_engel <- function(data, colour = unname(econ_hex["blue"]), linewidth = 0.8,
 #'   coord_cartesian(xlim = c(0, 60), ylim = c(0, 45), expand = FALSE) +
 #'   theme_econ()
 #' @export
-geom_consumption_path <- function(data, colour = unname(econ_hex["ink"]),
+geom_consumption_path <- function(data, colour = style_colour("ink"),
                                   linewidth = 0.6, size = 2, ...) {
   if (!is.data.frame(data) || !all(c("x", "y") %in% names(data))) {
     cli::cli_abort("{.arg data} must have {.field x} and {.field y} columns.")

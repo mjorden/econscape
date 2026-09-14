@@ -21,7 +21,7 @@ fmt_num <- function(v) {
 #'   matches.
 #' @return A ggplot2 theme object to add to a plot.
 #' @noRd
-econ_axes <- function(panel = "blue") {
+econ_axes <- function(panel = NULL) {
   ggplot2::theme(
     axis.line.y = ggplot2::element_line(colour = econ_surface(panel)$axis, linewidth = 0.5),
     axis.title = ggplot2::element_text(hjust = 1)

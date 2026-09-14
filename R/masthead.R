@@ -43,7 +43,8 @@ plot_surface <- function(plot) {
 #'
 #' @param plot A ggplot object, or a gtable from a previous
 #'   [ggplot2::ggplotGrob()] call.
-#' @param colour Block colour. Defaults to the Economist red.
+#' @param colour Block colour. `NULL` follows the current style: Economist red,
+#'   or rust for the academic style.
 #' @param width,height Block dimensions, as [grid::unit()] objects.
 #' @param gap Space between the block and whatever is below it.
 #'
@@ -64,7 +65,7 @@ plot_surface <- function(plot) {
 #' econ_masthead(p)
 #' @export
 econ_masthead <- function(plot,
-                          colour = unname(econ_hex["red"]),
+                          colour = NULL,
                           width = grid::unit(0.55, "cm"),
                           height = grid::unit(0.13, "cm"),
                           gap = grid::unit(0.3, "cm")) {
@@ -72,6 +73,7 @@ econ_masthead <- function(plot,
     cli::cli_abort("{.arg plot} already carries a masthead.")
   }
 
+  colour <- colour %||% style_default("masthead")
   surface <- plot_surface(plot)
   g <- if (inherits(plot, "gtable")) plot else ggplot2::ggplotGrob(plot)
 

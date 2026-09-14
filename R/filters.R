@@ -170,7 +170,7 @@ print.trend_cycle <- function(x, ...) {
 #'                  title = "Unemployment and its trend")
 #' @export
 plot_trend_cycle <- function(tc, title = NULL, subtitle = NULL, source = NULL,
-                             recessions = TRUE, panel = "blue") {
+                             recessions = TRUE, panel = NULL) {
   if (!inherits(tc, "trend_cycle")) {
     cli::cli_abort("{.arg tc} must come from {.fn hp_filter} or {.fn hamilton_filter}.")
   }
@@ -211,8 +211,8 @@ plot_trend_cycle <- function(tc, title = NULL, subtitle = NULL, source = NULL,
       linewidth = 0.7
     ) +
     ggplot2::scale_colour_manual(
-      values = c(Series = unname(econ_hex["blue"]), Trend = unname(econ_hex["red"]),
-                 Cycle = unname(econ_hex["green"])),
+      values = c(Series = style_colour("primary"), Trend = style_colour("secondary"),
+                 Cycle = style_colour("tertiary")),
       breaks = c("Series", "Trend", "Cycle")
     ) +
     ggplot2::facet_wrap(~panel, ncol = 1, scales = "free_y") +

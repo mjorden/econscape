@@ -9,11 +9,17 @@ budget(income, px, py)
 \arguments{
 \item{income}{Income, or total outlay. Positive.}
 
-\item{px, py}{Prices of \code{x} and \code{y}. Positive.}
+\item{px, py}{Prices of \code{x} and \code{y}: a positive number, or a
+\code{\link[=price_schedule]{price_schedule()}} for a good whose unit price changes with the quantity
+bought (quantity discounts, block tariffs). A schedule makes the budget
+line kinked; see \code{\link[=price_schedule]{price_schedule()}} for what that changes.}
 }
 \value{
 A list of class \code{budget} with the inputs plus the derived
-\code{x_max} (\code{income / px}), \code{y_max} (\code{income / py}) and \code{slope} (\code{-px / py}).
+\code{x_max} and \code{y_max} (the most of each good the income buys on its own),
+\code{slope} (\code{-px / py}, or \code{NA} when a price is a schedule), \code{kinked}
+(\code{TRUE} when either price is a schedule) and the cost functions \code{cost_x}
+and \code{cost_y}.
 }
 \description{
 Describes the set of bundles affordable at income \code{income} when the two

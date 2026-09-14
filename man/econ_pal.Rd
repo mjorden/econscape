@@ -4,11 +4,13 @@
 \alias{econ_pal}
 \title{Build a fredscape palette function}
 \usage{
-econ_pal(palette = "main", reverse = FALSE)
+econ_pal(palette = NULL, reverse = FALSE)
 }
 \arguments{
 \item{palette}{One of \code{"main"} (7 categorical hues), \code{"cool"}, \code{"contrast"},
-\code{"blues"} (sequential) or \code{"redblue"} (diverging).}
+\code{"academic"} (7 tans and browns), \code{"blues"} or \code{"browns"} (sequential) or
+\code{"redblue"} (diverging). \code{NULL} means the current style's categorical
+palette, see \code{\link[=set_style]{set_style()}}.}
 
 \item{reverse}{Reverse the colour order?}
 }

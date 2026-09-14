@@ -10,20 +10,20 @@
 \alias{scale_fill_econ_c}
 \title{Economist-style colour and fill scales}
 \usage{
-scale_colour_econ(palette = "main", reverse = FALSE, ...)
+scale_colour_econ(palette = NULL, reverse = FALSE, ...)
 
-scale_color_econ(palette = "main", reverse = FALSE, ...)
+scale_color_econ(palette = NULL, reverse = FALSE, ...)
 
-scale_fill_econ(palette = "main", reverse = FALSE, ...)
+scale_fill_econ(palette = NULL, reverse = FALSE, ...)
 
-scale_colour_econ_c(palette = "blues", reverse = FALSE, ...)
+scale_colour_econ_c(palette = NULL, reverse = FALSE, ...)
 
-scale_color_econ_c(palette = "blues", reverse = FALSE, ...)
+scale_color_econ_c(palette = NULL, reverse = FALSE, ...)
 
-scale_fill_econ_c(palette = "blues", reverse = FALSE, ...)
+scale_fill_econ_c(palette = NULL, reverse = FALSE, ...)
 }
 \arguments{
-\item{palette}{Palette name, see \code{\link[=econ_pal]{econ_pal()}}.}
+\item{palette}{Palette name, see \code{\link[=econ_pal]{econ_pal()}}. \code{NULL} follows \code{\link[=set_style]{set_style()}}.}
 
 \item{reverse}{Reverse the colour order?}
 

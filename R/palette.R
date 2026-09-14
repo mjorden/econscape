@@ -32,7 +32,14 @@ econ_hex <- c(
   ink_light   = "#F2F2F2",
   muted       = "#5A6E78",
   muted_dark  = "#A8B6BF",
-  white       = "#FFFFFF"
+  white       = "#FFFFFF",
+
+  # The academic style: parchment surfaces and brown ink
+  panel_parchment = "#F4EEE2",
+  grid_parchment  = "#E3D9C6",
+  ink_brown       = "#2E2622",
+  muted_brown     = "#7A6B5D",
+  rust            = "#8B3A2F"
 )
 
 #' Look up fredscape colours by name
@@ -74,13 +81,17 @@ econ_palettes <- list(
   contrast = unname(econ_hex[c("blue", "red")]),
   blues = c("#EBF3F7", "#BCD9E5", "#8DBFD3", "#4E9FBE", "#1B7FA6", "#00588D"),
   redblue = c("#A81829", "#D4574B", "#EBB9AF", "#E9EEF2",
-              "#A2C2D4", "#4E90B4", "#00588D")
+              "#A2C2D4", "#4E90B4", "#00588D"),
+  academic = c("#5C4033", "#A47551", "#C9A87C", "#7B5E3B", "#D8C3A5", "#3E2F23", "#9C8B7A"),
+  browns = c("#F4EEE2", "#E3D3B8", "#CDB48E", "#B08F63", "#8C6A44", "#5C4033")
 )
 
 #' Build a fredscape palette function
 #'
 #' @param palette One of `"main"` (7 categorical hues), `"cool"`, `"contrast"`,
-#'   `"blues"` (sequential) or `"redblue"` (diverging).
+#'   `"academic"` (7 tans and browns), `"blues"` or `"browns"` (sequential) or
+#'   `"redblue"` (diverging). `NULL` means the current style's categorical
+#'   palette, see [set_style()].
 #' @param reverse Reverse the colour order?
 #'
 #' @return A function of one argument `n` returning `n` colours. Categorical
@@ -91,13 +102,14 @@ econ_palettes <- list(
 #' econ_pal()(3)
 #' econ_pal("blues")(9)
 #' @export
-econ_pal <- function(palette = "main", reverse = FALSE) {
+econ_pal <- function(palette = NULL, reverse = FALSE) {
+  palette <- palette %||% style_default("palette")
   palette <- match_code(palette, names(econ_palettes))
   cols <- econ_palettes[[palette]]
   if (reverse) {
     cols <- rev(cols)
   }
-  continuous <- palette %in% c("blues", "redblue")
+  continuous <- palette %in% c("blues", "browns", "redblue")
 
   function(n) {
     if (continuous) {
@@ -119,7 +131,7 @@ econ_pal <- function(palette = "main", reverse = FALSE) {
 #' Discrete scales draw from the categorical palette in order; continuous
 #' scales interpolate a sequential or diverging ramp.
 #'
-#' @param palette Palette name, see [econ_pal()].
+#' @param palette Palette name, see [econ_pal()]. `NULL` follows [set_style()].
 #' @param reverse Reverse the colour order?
 #' @param ... Passed to [ggplot2::discrete_scale()] or
 #'   [ggplot2::scale_colour_gradientn()].
@@ -137,7 +149,7 @@ NULL
 
 #' @rdname scale_econ
 #' @export
-scale_colour_econ <- function(palette = "main", reverse = FALSE, ...) {
+scale_colour_econ <- function(palette = NULL, reverse = FALSE, ...) {
   ggplot2::discrete_scale(
     aesthetics = "colour",
     palette = econ_pal(palette, reverse),
@@ -151,7 +163,7 @@ scale_color_econ <- scale_colour_econ
 
 #' @rdname scale_econ
 #' @export
-scale_fill_econ <- function(palette = "main", reverse = FALSE, ...) {
+scale_fill_econ <- function(palette = NULL, reverse = FALSE, ...) {
   ggplot2::discrete_scale(
     aesthetics = "fill",
     palette = econ_pal(palette, reverse),
@@ -161,7 +173,8 @@ scale_fill_econ <- function(palette = "main", reverse = FALSE, ...) {
 
 #' @rdname scale_econ
 #' @export
-scale_colour_econ_c <- function(palette = "blues", reverse = FALSE, ...) {
+scale_colour_econ_c <- function(palette = NULL, reverse = FALSE, ...) {
+  palette <- palette %||% if (get_style() == "academic") "browns" else "blues"
   ggplot2::scale_colour_gradientn(
     colours = econ_pal(palette, reverse)(256),
     ...
@@ -174,7 +187,8 @@ scale_color_econ_c <- scale_colour_econ_c
 
 #' @rdname scale_econ
 #' @export
-scale_fill_econ_c <- function(palette = "blues", reverse = FALSE, ...) {
+scale_fill_econ_c <- function(palette = NULL, reverse = FALSE, ...) {
+  palette <- palette %||% if (get_style() == "academic") "browns" else "blues"
   ggplot2::scale_fill_gradientn(
     colours = econ_pal(palette, reverse)(256),
     ...

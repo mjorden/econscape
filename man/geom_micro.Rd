@@ -12,14 +12,14 @@ geom_indifference(
   levels,
   xlim,
   n_points = 200L,
-  colour = unname(econ_hex["blue"]),
+  colour = style_colour("primary"),
   linewidth = 0.8,
   ...
 )
 
 geom_budget(
   b,
-  colour = unname(econ_hex["red"]),
+  colour = style_colour("secondary"),
   linewidth = 0.8,
   linetype = "solid",
   ...
@@ -28,7 +28,7 @@ geom_budget(
 geom_optimum(
   u,
   b,
-  colour = unname(econ_hex["ink"]),
+  colour = style_colour("ink"),
   size = 2.5,
   drop_lines = TRUE,
   ...
@@ -80,7 +80,8 @@ combined with other data.
 \item \code{geom_indifference()} draws one path per \code{level}.
 \item \code{geom_budget()} draws the budget (or isocost) line between its two
 intercepts. Given a list of budgets it draws one line each, which is how
-a price or income change is shown.
+a price or income change is shown. A kinked budget (one built with a
+\code{\link[=price_schedule]{price_schedule()}}) is drawn as a path through its kinks.
 \item \code{geom_optimum()} marks the chosen bundle, with dashed lines dropping to
 each axis.
 }

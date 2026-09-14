@@ -1,9 +1,11 @@
 #' Surface colours for a given panel style
 #'
-#' @param panel `"blue"`, `"white"` or `"dark"`.
+#' @param panel `"blue"`, `"white"`, `"dark"` or `"parchment"`; `NULL` follows
+#'   the current style.
 #' @return A list of plot, panel, grid, axis, ink and muted colours.
 #' @noRd
-econ_surface <- function(panel) {
+econ_surface <- function(panel = NULL) {
+  panel <- panel %||% style_default("panel")
   switch(panel,
     blue = list(
       plot  = unname(econ_hex["panel_blue"]),
@@ -20,6 +22,14 @@ econ_surface <- function(panel) {
       axis  = unname(econ_hex["ink"]),
       ink   = unname(econ_hex["ink"]),
       muted = unname(econ_hex["muted"])
+    ),
+    parchment = list(
+      plot  = unname(econ_hex["panel_parchment"]),
+      panel = unname(econ_hex["panel_parchment"]),
+      grid  = unname(econ_hex["grid_parchment"]),
+      axis  = unname(econ_hex["ink_brown"]),
+      ink   = unname(econ_hex["ink_brown"]),
+      muted = unname(econ_hex["muted_brown"])
     ),
     dark = list(
       plot  = unname(econ_hex["panel_dark"]),
@@ -51,9 +61,10 @@ econ_surface <- function(panel) {
 #' closer.
 #'
 #' @param base_size Base font size in points.
-#' @param base_family Base font family. `""` uses the device default.
-#' @param panel Panel style: `"blue"` (the classic printed panel, the default),
-#'   `"white"`, or `"dark"`.
+#' @param base_family Base font family. `""` uses the device default;
+#'   `NULL` follows the current style ([set_style()]).
+#' @param panel Panel style: `"blue"` (the classic printed panel), `"white"`,
+#'   `"dark"` or `"parchment"`. `NULL` follows the current style.
 #' @param grid Which major gridlines to draw: `"y"` (the default), `"x"`,
 #'   `"both"` or `"none"`.
 #' @param legend_position Passed to [ggplot2::theme()]. Defaults to `"top"`,
@@ -78,11 +89,12 @@ econ_surface <- function(panel) {
 #'   theme_econ()
 #' @export
 theme_econ <- function(base_size = 12,
-                       base_family = "",
-                       panel = c("blue", "white", "dark"),
+                       base_family = NULL,
+                       panel = NULL,
                        grid = c("y", "x", "both", "none"),
                        legend_position = "top") {
-  panel <- match.arg(panel)
+  panel <- match_code(panel %||% style_default("panel"), c("blue", "white", "dark", "parchment"))
+  base_family <- base_family %||% style_default("base_family")
   grid <- match.arg(grid)
   s <- econ_surface(panel)
   half <- base_size / 2

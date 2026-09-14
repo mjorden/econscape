@@ -211,3 +211,16 @@ p_coef <- plot_coefficients(
   source = "FRED, Federal Reserve Bank of St Louis"
 )
 save_fig(econ_masthead(p_coef), "README-coef", width = 7, height = 3.6)
+
+## 13. The academic style ------------------------------------------------------------
+
+old_style <- set_style("academic")
+p_academic <- plot_consumer_choice(
+  cobb_douglas(0.5), budget(100, px = 10, py = price_schedule(20, discount = 0.25, after = 2)),
+  goods = c("Pairs of shoes", "Paintings of dogs playing poker"),
+  title = "A quantity discount bends the budget line",
+  subtitle = "Income $100; shoes $10; paintings $20, 25% off after the second. Cobb-Douglas, alpha = 0.5",
+  source = "fredscape, academic style"
+)
+save_fig(econ_masthead(p_academic), "README-academic", width = 7.5, height = 5.6)
+set_style(old_style)
