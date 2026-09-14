@@ -14,11 +14,14 @@ check_unit_interval <- function(x, arg = rlang::caller_arg(x)) {
 #'
 #' @param f A function of one argument.
 #' @param h Relative step.
+#' @param h_min Absolute floor on the step. Leave at zero for a smooth
+#'   closed-form `f`; raise it when `f` is itself the output of a numerical
+#'   solver, whose tolerance would otherwise swamp a tiny difference.
 #' @return A function of `x`.
 #' @noRd
-numeric_derivative <- function(f, h = 1e-6) {
+numeric_derivative <- function(f, h = 1e-6, h_min = 0) {
   function(x) {
-    h_x <- h * pmax(abs(x), 1e-8)
+    h_x <- pmax(h * pmax(abs(x), 1e-8), h_min)
     x_lo <- pmax(x - h_x, 0)
     (f(x + h_x) - f(x_lo)) / (x + h_x - x_lo)
   }

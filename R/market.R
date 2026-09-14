@@ -52,6 +52,20 @@ demand_fn <- function(p_of_q, q_max) {
     cli::cli_abort("{.arg p_of_q} must be a function of quantity.")
   }
   check_positive(q_max)
+  # Everything downstream -- inverting the curve, the marginal-revenue
+  # crossings, the surplus integrals -- assumes inverse demand slopes down.
+  # Check it on a coarse grid now rather than return plausible nonsense later.
+  probe <- p_of_q(seq(0, q_max, length.out = 50))
+  if (length(probe) == 1L) probe <- rep(probe, 50)
+  if (length(probe) != 50L || any(!is.finite(probe))) {
+    cli::cli_abort("{.arg p_of_q} must return one finite price per quantity on [0, q_max].")
+  }
+  if (any(diff(probe) > 1e-9 * max(1, abs(probe[1])))) {
+    cli::cli_abort(c(
+      "{.arg p_of_q} must be decreasing in quantity.",
+      "x" = "It rises somewhere on [0, {format(q_max)}]."
+    ))
+  }
   structure(
     list(p_of_q = p_of_q, q_max = q_max),
     class = c("general_demand", "demand")
@@ -367,8 +381,12 @@ marginal_cost.production_cost <- function(cost, q, ...) {
     out[pos] <- mc_production(cost$f, cost$w, cost$r, q[pos])
   }
   if (any(!pos)) {
-    # Marginal cost at zero output: the limit from the right.
-    out[!pos] <- mc_production(cost$f, cost$w, cost$r, rep(1e-6, sum(!pos)))
+    # At zero output the derivative may not exist (it is 0 or infinite for
+    # a Cobb-Douglas with non-unit returns), so report the cost of the
+    # first small sliver of output instead: a right-hand secant over
+    # [0, 1e-3], which is finite, scale-independent and honest.
+    sliver <- 1e-3
+    out[!pos] <- expenditure(cost$f, cost$w, cost$r, sliver) / sliver
   }
   out
 }
@@ -411,39 +429,73 @@ min_average_cost <- function(cost, q_max = NULL, ...) {
 
 ## Market structures ---------------------------------------------------------
 
-#' Solve g(q) = 0 on (0, upper]
+#' Scan a marginal function on (0, upper]
 #'
-#' `g` is a "net benefit of one more unit" function (MR - MC, P - MC, ...),
-#' so the outcome is where it crosses from positive to negative. That is not
-#' always the first crossing: with marginal cost falling from infinity (a
-#' production function with increasing returns) `g` runs negative, positive,
-#' negative, and the first sign change is the wrong one. So scan a grid,
-#' bracket the last downward crossing, and polish it with uniroot(). With no
-#' crossing at all, 0 if `g` is never positive and `upper` if it always is.
+#' Shared by the two solvers below: evaluate `g` on a grid, drop non-finite
+#' points, and locate every downward crossing (positive to non-positive).
 #'
+#' @return A list with the grid `q`, the values `g`, the indices `down` of
+#'   the grid points just before each downward crossing, and a `polish`
+#'   function that refines crossing `i` with uniroot().
 #' @noRd
-solve_on <- function(g, upper, n_grid = 200L) {
+scan_marginal <- function(g, upper, n_grid = 200L) {
   qs <- seq(upper * 1e-9, upper, length.out = n_grid)
   vals <- vapply(qs, g, numeric(1))
   keep <- is.finite(vals)
   qs <- qs[keep]
   vals <- vals[keep]
-  if (length(vals) == 0L) return(0)
+  down <- if (length(vals) > 1L) which(vals[-length(vals)] > 0 & vals[-1L] <= 0) else integer(0)
+  list(
+    q = qs, g = vals, down = down,
+    polish = function(i) stats::uniroot(g, c(qs[i], qs[i + 1L]), tol = 1e-10)$root
+  )
+}
 
-  polish <- function(i) stats::uniroot(g, c(qs[i], qs[i + 1L]), tol = 1e-10)$root
-  down <- which(vals[-length(vals)] > 0 & vals[-1L] <= 0)
-  if (length(down) > 0L) {
-    return(polish(down[length(down)]))
+#' Maximise the integral of a marginal function on [0, upper]
+#'
+#' `g` is a "net benefit of one more unit" (MR - MC, P - MC, ...), so the
+#' objective is its integral and the candidates for the maximum are the
+#' interval's endpoints and every point where `g` crosses from positive to
+#' negative. The integral is accumulated on the grid by the trapezoid rule
+#' and each candidate is scored; the best one wins. That handles the cases a
+#' first-crossing rule gets wrong: marginal cost falling from infinity
+#' (`g` runs -, +, -), several crossings, and a `g` that only ever crosses
+#' upward (a profit minimum, never returned -- one of the endpoints is).
+#'
+#' @noRd
+maximise_on <- function(g, upper, n_grid = 200L) {
+  s <- scan_marginal(g, upper, n_grid)
+  if (length(s$g) == 0L) return(0)
+  # Cumulative integral of g from 0, treating g as 0 on [0, q[1]].
+  cum <- c(0, cumsum(diff(s$q) * (utils::head(s$g, -1) + utils::tail(s$g, -1)) / 2))
+  candidates <- c(0, upper)
+  scores <- c(0, cum[length(cum)])
+  for (i in s$down) {
+    candidates <- c(candidates, s$polish(i))
+    scores <- c(scores, cum[i])
   }
-  if (all(vals > 0)) return(upper)
-  if (all(vals <= 0)) return(0)
-  polish(max(which(diff(sign(vals)) != 0)))
+  candidates[which.max(scores)]
+}
+
+#' Find where a decreasing-then-increasing gap function last crosses zero
+#'
+#' For a search over a *level* rather than a quantity (the common marginal
+#' revenue in [third_degree()]) the integral of `g` means nothing; the
+#' answer is simply the last downward crossing. With none, 0 if `g` is never
+#' positive and `upper` if it always is.
+#'
+#' @noRd
+find_crossing <- function(g, upper, n_grid = 200L) {
+  s <- scan_marginal(g, upper, n_grid)
+  if (length(s$g) == 0L) return(0)
+  if (length(s$down) > 0L) return(s$polish(s$down[length(s$down)]))
+  if (all(s$g > 0)) upper else 0
 }
 
 #' The quantity at which price equals industry marginal cost
 #' @noRd
 efficient_quantity <- function(d, cost, n) {
-  solve_on(function(Q) price_at(d, Q) - marginal_cost(cost, Q / n), d$q_max)
+  maximise_on(function(Q) price_at(d, Q) - marginal_cost(cost, Q / n), d$q_max)
 }
 
 #' Assemble the outcome object shared by every structure
@@ -543,7 +595,7 @@ NULL
 monopoly <- function(demand, cost) {
   check_demand(demand)
   check_cost(cost)
-  q <- solve_on(function(Q) marginal_revenue(demand, Q) - marginal_cost(cost, Q), demand$q_max)
+  q <- maximise_on(function(Q) marginal_revenue(demand, Q) - marginal_cost(cost, Q), demand$q_max)
   market_outcome("monopoly", demand, cost, n = 1, q_firm = q)
 }
 
@@ -559,7 +611,7 @@ cournot <- function(demand, cost, n) {
     Q <- n * q
     price_at(demand, Q) + q * demand_slope(demand, Q) - marginal_cost(cost, q)
   }
-  q <- solve_on(foc, demand$q_max / n)
+  q <- maximise_on(foc, demand$q_max / n)
   market_outcome(if (n == 1) "monopoly" else "cournot", demand, cost, n = n, q_firm = q)
 }
 
@@ -587,7 +639,7 @@ perfect_competition <- function(demand, cost, n = NULL) {
   if (!is.numeric(n) || length(n) != 1L || !is.finite(n) || n < 1) {
     cli::cli_abort("{.arg n} must be a positive number of firms, or NULL for the long run.")
   }
-  Q <- solve_on(function(QQ) price_at(demand, QQ) - marginal_cost(cost, QQ / n), demand$q_max)
+  Q <- maximise_on(function(QQ) price_at(demand, QQ) - marginal_cost(cost, QQ / n), demand$q_max)
   q <- Q / n
   note <- NULL
   if (q > 0 && price_at(demand, Q) < average_variable_cost(cost, q)) {

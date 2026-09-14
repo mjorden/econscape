@@ -111,7 +111,12 @@ mc_production.cobb_douglas <- function(f, w, r, q) {
 
 #' @noRd
 mc_production.default <- function(f, w, r, q) {
-  numeric_derivative(function(lv) expenditure(f, w, r, lv))(q)
+  # When expenditure() has no closed form it is a uniroot() around an
+  # optimize(), accurate to ~1e-9: a difference step must sit well above
+  # that noise floor or the derivative is garbage near zero output.
+  closed_form <- inherits(f, c("cobb_douglas", "ces", "leontief", "perfect_substitutes", "quasilinear"))
+  numeric_derivative(function(lv) expenditure(f, w, r, lv),
+                     h_min = if (closed_form) 0 else 1e-4)(q)
 }
 
 #' Draw average and marginal cost

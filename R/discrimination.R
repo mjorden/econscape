@@ -124,7 +124,7 @@ first_degree <- function(demand, cost) {
 #' Quantity at which a segment's marginal revenue equals m
 #' @noRd
 quantity_at_mr <- function(d, m) {
-  solve_on(function(q) marginal_revenue(d, q) - m, d$q_max)
+  maximise_on(function(q) marginal_revenue(d, q) - m, d$q_max)
 }
 
 #' @rdname price_discrimination
@@ -140,7 +140,7 @@ third_degree <- function(demands, cost) {
   # marginal cost (increasing returns) it can dip below zero and come back,
   # so bracket the crossing the same way the other structures do.
   gap <- function(m) marginal_cost(cost, total_at(m)) - m
-  m <- solve_on(gap, choke)
+  m <- find_crossing(gap, choke)
 
   q <- vapply(demands, quantity_at_mr, numeric(1), m = m)
   p <- mapply(function(d, qq) price_at(d, qq), demands, q)

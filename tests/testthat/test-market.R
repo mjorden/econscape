@@ -213,3 +213,62 @@ test_that("plot_market() builds for each structure and shades the right areas", 
   expect_s3_class(ggplot2::ggplot_build(plot_market(cournot(d, ushape, 3))), "ggplot_built")
   expect_error(plot_market(list()), "market_outcome")
 })
+
+## Numerics follow-ups (#17) -------------------------------------------------
+
+test_that("maximise_on() never returns a profit minimum", {
+  # Net benefit negative then positive: the integral is minimised at the
+  # crossing and maximised at an endpoint. The old rule returned 5.
+  g <- function(q) if (q <= 5) -1 else 1
+  expect_equal(maximise_on(g, 10), 10)
+  g2 <- function(q) if (q <= 8) -1 else 1
+  expect_equal(maximise_on(g2, 10), 0)
+})
+
+test_that("maximise_on() picks the best of several downward crossings", {
+  # Two humps: integral of g is larger after the second crossing.
+  g <- function(q) if (q < 2) 1 else if (q < 3) -0.5 else if (q < 7) 1 else -3
+  expect_equal(maximise_on(g, 10), 7, tolerance = 1e-6)
+  # ... and the first when the second hump is shallow.
+  g3 <- function(q) if (q < 2) 1 else if (q < 5) -1 else if (q < 6) 0.5 else -3
+  expect_equal(maximise_on(g3, 10), 2, tolerance = 1e-6)
+})
+
+test_that("maximise_on() keeps the endpoint behaviour and the IRS case", {
+  expect_equal(maximise_on(function(q) 1, 10), 10)
+  expect_equal(maximise_on(function(q) -1, 10), 0)
+  irs <- production_cost(cobb_douglas(0.6, 0.6, kind = "production"), w = 20, r = 30)
+  m <- monopoly(linear_demand(100, 1), irs)
+  expect_true(m$quantity > 0)
+  expect_equal(marginal_revenue(m$demand, m$quantity), marginal_cost(irs, m$quantity), tolerance = 1e-5)
+})
+
+test_that("find_crossing() returns the last downward crossing, or an endpoint", {
+  g <- function(m) if (m < 3) 1 else if (m < 6) -1 else if (m < 8) 1 else -1
+  expect_equal(find_crossing(g, 10), 8, tolerance = 1e-6)
+  expect_equal(find_crossing(function(m) 1, 10), 10)
+  expect_equal(find_crossing(function(m) -1, 10), 0)
+})
+
+test_that("demand_fn() rejects an inverse demand that is not decreasing", {
+  expect_error(demand_fn(function(q) 50 + q, 100), "decreasing")
+  expect_error(demand_fn(function(q) 100 - (q - 50)^2 / 25, 100), "decreasing")
+  expect_error(demand_fn(function(q) 100 / q, 100), "finite")
+  expect_error(demand_fn(function(q) 5, 100), NA)          # flat is allowed
+  expect_s3_class(demand_fn(function(q) 100 - q, 100), "demand")
+})
+
+test_that("marginal cost of a custom production function is usable near zero", {
+  # Same technology two ways: closed form and a plain function.
+  cd <- cobb_douglas(0.25, 0.25, kind = "production")
+  plain <- function(x, y) x^0.25 * y^0.25
+  a <- production_cost(cd, w = 5, r = 5)
+  b <- production_cost(plain, w = 5, r = 5)
+  for (q in c(1e-4, 1e-2, 1)) {
+    expect_true(marginal_cost(b, q) > 0)
+    expect_equal(marginal_cost(b, q), marginal_cost(a, q), tolerance = 1e-2)
+  }
+  # At zero: the cost of the first sliver, finite and positive, same for both.
+  expect_true(is.finite(marginal_cost(a, 0)) && marginal_cost(a, 0) > 0)
+  expect_equal(marginal_cost(b, 0), marginal_cost(a, 0), tolerance = 1e-3)
+})

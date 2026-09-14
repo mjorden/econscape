@@ -1,3 +1,21 @@
+# fredscape 0.9.1
+
+Numerical robustness, from the code review (#17). No API changes.
+
+* The market solvers are now two named primitives instead of one:
+  `maximise_on()` scores the endpoints and every downward crossing of a
+  marginal function by the integral and returns the best, so an upward-only
+  crossing (a profit minimum) is never returned and several crossings are
+  compared rather than the last one assumed; `find_crossing()` keeps the
+  last-downward-crossing rule for `third_degree()`'s search over the common
+  marginal-revenue level, where an integral means nothing.
+* `demand_fn()` checks on a coarse grid that inverse demand is finite and
+  decreasing, and refuses it otherwise.
+* `marginal_cost()` of a `production_cost()` built on a plain function no
+  longer differences below the inner solver's noise floor; at zero output it
+  reports the cost of the first thousandth of a unit rather than a
+  derivative that may not exist.
+
 # fredscape 0.9.0
 
 Econometrics (#21): estimating things from the series you fetched, in base R

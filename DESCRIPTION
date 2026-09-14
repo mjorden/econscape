@@ -1,6 +1,6 @@
 Package: fredscape
 Title: Tidy Access to FRED Economic Data with Economist-Style Charts
-Version: 0.9.0
+Version: 0.9.1
 Authors@R:
     person("Matthew", "Jorden", email = "matthew.jorden@gmail.com",
            role = c("aut", "cre"))
