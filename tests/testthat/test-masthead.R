@@ -28,10 +28,13 @@ test_that("the block sits directly above the title and shares its left edge", {
   expect_identical(block$l, title$l)
 })
 
-test_that("the block is drawn in the Economist red by default", {
+test_that("the block takes the style's masthead colour by default", {
   g <- econ_masthead(make_plot())
   block <- g$grobs[[which(g$layout$name == "masthead")]]
-  expect_identical(block$gp$fill, unname(econ_colours("red")))
+  expect_identical(block$gp$fill, style_default("masthead"))
+  withr::local_options(econscape.style = "economist")
+  g2 <- econ_masthead(make_plot())
+  expect_identical(g2$grobs[[which(g2$layout$name == "masthead")]]$gp$fill, unname(econ_colours("red")))
 })
 
 test_that("the block colour is overridable", {

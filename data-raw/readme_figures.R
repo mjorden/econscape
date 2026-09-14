@@ -21,7 +21,7 @@ save_fig <- function(plot, name, width = 8, height = 4.6) {
 
 p_unemployment <- ggplot(economics, aes(date, uempmed)) +
   annotate_recessions(from = min(economics$date), to = max(economics$date)) +
-  geom_line(colour = econ_colours("blue"), linewidth = 0.8) +
+  geom_line(colour = style_colour("primary"), linewidth = 0.8) +
   scale_x_econ_date(date_breaks = "10 years", date_labels = "%Y") +
   scale_y_econ() +
   labs_econ(
@@ -54,7 +54,7 @@ indexed$series <- factor(
 )
 
 p_index <- ggplot(indexed, aes(date, value, colour = series)) +
-  geom_hline(yintercept = 100, colour = econ_colours("muted"), linewidth = 0.3) +
+  geom_hline(yintercept = 100, colour = style_colour("muted"), linewidth = 0.3) +
   geom_line(linewidth = 0.8) +
   scale_colour_econ() +
   scale_x_econ_date(date_breaks = "10 years", date_labels = "%Y") +
@@ -70,7 +70,7 @@ save_fig(econ_masthead(p_index), "README-index")
 
 ## 3. The palette itself -------------------------------------------------------
 
-sizes <- c(main = 7L, cool = 3L, contrast = 2L, blues = 7L, redblue = 7L)
+sizes <- c(academic = 7L, browns = 7L, main = 7L, cool = 3L, contrast = 2L, blues = 7L, redblue = 7L)
 swatches <- do.call(rbind, lapply(names(sizes), function(name) {
   cols <- econ_pal(name)(sizes[[name]])
   data.frame(palette = name, i = seq_along(cols), colour = cols,
@@ -78,7 +78,7 @@ swatches <- do.call(rbind, lapply(names(sizes), function(name) {
 }))
 swatches$palette <- factor(
   swatches$palette,
-  levels = rev(c("main", "cool", "contrast", "blues", "redblue"))
+  levels = rev(c("academic", "browns", "main", "cool", "contrast", "blues", "redblue"))
 )
 
 p_palette <- ggplot(swatches, aes(i, palette, fill = colour)) +
@@ -86,10 +86,10 @@ p_palette <- ggplot(swatches, aes(i, palette, fill = colour)) +
   scale_fill_identity() +
   scale_x_continuous(expand = expansion(mult = c(0.01, 0.01))) +
   labs_econ(
-    title = "The palette",
-    subtitle = "Categorical hues follow The Economist's published data colours"
+    title = "The palettes",
+    subtitle = "Academic tans and browns (the default); the Economist data colours and ramps beneath"
   ) +
-  theme_econ(panel = "white", grid = "none") +
+  theme_econ(grid = "none") +
   theme(
     axis.text.x = element_blank(),
     axis.ticks.x = element_blank(),
@@ -138,7 +138,7 @@ p_demand <- ggplot() +
   ) +
   labs(x = "Cups of coffee", y = "Price per cup") +
   theme_econ(grid = "both") +
-  theme(axis.line.y = element_line(colour = "#1A1A1A", linewidth = 0.5),
+  theme(axis.line.y = element_line(colour = style_colour("ink"), linewidth = 0.5),
         axis.title = element_text(hjust = 1))
 save_fig(econ_masthead(p_demand), "README-demand", width = 7, height = 4.6)
 
@@ -212,15 +212,15 @@ p_coef <- plot_coefficients(
 )
 save_fig(econ_masthead(p_coef), "README-coef", width = 7, height = 3.6)
 
-## 13. The academic style ------------------------------------------------------------
+## 13. The Economist style -----------------------------------------------------------
 
-old_style <- set_style("academic")
-p_academic <- plot_consumer_choice(
+old_style <- set_style("economist")
+p_economist <- plot_consumer_choice(
   cobb_douglas(0.5), budget(100, px = 10, py = price_schedule(20, discount = 0.25, after = 2)),
   goods = c("Pairs of shoes", "Paintings of dogs playing poker"),
   title = "A quantity discount bends the budget line",
   subtitle = "Income $100; shoes $10; paintings $20, 25% off after the second. Cobb-Douglas, alpha = 0.5",
-  source = "econscape, academic style"
+  source = "econscape, Economist style"
 )
-save_fig(econ_masthead(p_academic), "README-academic", width = 7.5, height = 5.6)
+save_fig(econ_masthead(p_economist), "README-economist", width = 7.5, height = 5.6)
 set_style(old_style)

@@ -1,3 +1,9 @@
+# econscape 0.13.0
+
+* The academic style is now the default. `set_style("economist")` restores
+  the newspaper look; nothing else about either style changes. The README
+  figures, the pkgdown accent and the package description follow.
+
 # econscape 0.12.0
 
 The package is now called **econscape**. It began as a FRED client with an

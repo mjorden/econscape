@@ -1,10 +1,9 @@
-test_that("the default style is economist and set_style() round-trips", {
+test_that("the default style is academic and set_style() round-trips", {
   withr::local_options(econscape.style = NULL)
-  expect_identical(get_style(), "economist")
-  old <- set_style("academic")
-  expect_identical(old, "economist")
   expect_identical(get_style(), "academic")
-  set_style(old)
+  old <- set_style("economist")
+  withr::defer(set_style(old))
+  expect_identical(old, "academic")
   expect_identical(get_style(), "economist")
   expect_error(set_style("gothic"))
   withr::local_options(econscape.style = "gothic")

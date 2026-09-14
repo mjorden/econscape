@@ -9,21 +9,24 @@ the package outgrew it. Every function keeps its name.*
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 <!-- badges: end -->
 
-Pull economic series from [FRED](https://fred.stlouisfed.org/) into tidy data
-frames, and plot them in the house style of *The Economist* — without hand-
-theming every chart.
+Economics in R, drawn properly. Four parts that work on their own:
 
-Two halves that work on their own:
+- **Data.** `fred_series()`, `fred_series_info()` and `fred_search()` pull
+  [FRED](https://fred.stlouisfed.org/) series into plain data frames, one row
+  per series per date.
+- **Theory.** Utility and production functions that carry their parameters,
+  budgets (straight or kinked), indifference curves, demand, Hicks and Slutsky,
+  cost curves, monopoly, Cournot, competition, price discrimination — closed
+  forms where they exist, tested numerical fallbacks where they do not, and
+  every textbook diagram in one call.
+- **Econometrics.** `ols()` with robust and Newey-West errors, trend-cycle
+  filters, unit-root tests, FRED's transformations applied locally.
+- **Two house styles.** An academic parchment-and-serif look (the default) and
+  a fork of *The Economist*'s chart style; `theme_econ()`, the colour scales,
+  `labs_econ()`, `annotate_recessions()` and `econ_masthead()` follow whichever
+  is set.
 
-- **A FRED client.** `fred_series()`, `fred_series_info()` and `fred_search()`
-  return plain data frames. One row per series per date, so a multi-series
-  chart is one `ggplot()` call.
-- **A chart style.** `theme_econ()`, `scale_colour_econ()`, `labs_econ()`,
-  `annotate_recessions()` and `econ_masthead()` reproduce the printed chart
-  furniture: blue-grey panel, horizontal gridlines only, right-hand y-axis,
-  left-hung title, red masthead block.
-
-<img src="man/figures/README-recessions.png" width="100%" alt="A line chart of median US unemployment duration with NBER recessions shaded, styled like an Economist chart" />
+<img src="man/figures/README-recessions.png" width="100%" alt="A line chart of median US unemployment duration with NBER recessions shaded, in the academic house style" />
 
 ## Installation
 
@@ -95,7 +98,7 @@ ggplot(inflation, aes(date, value, colour = series_id)) +
 Don't know the series ID? `fred_search("real median household income")`
 returns titles, units, frequency and coverage for the matches.
 
-<img src="man/figures/README-index.png" width="100%" alt="Three indexed US economic series in the Economist categorical palette" />
+<img src="man/figures/README-index.png" width="100%" alt="Three indexed US economic series in the academic categorical palette" />
 
 ## Problem sets
 
@@ -119,13 +122,14 @@ optimal_bundle(cobb_douglas(0.5), b)                # searched along the frontie
 
 ## Two looks
 
-`set_style("academic")` swaps the newspaper look for one that belongs in a
-paper or a set of lecture notes — parchment panel, serif face, a tan-to-brown
-palette, rust masthead. Every `plot_*()` helper, the colour scales,
-`theme_econ()` and `econ_masthead()` follow it; `set_style("economist")` is
-the default.
+The default style is **academic** — parchment panel, serif face, a tan-to-
+espresso palette, rust masthead — the look of a paper or a set of lecture
+notes, and what every figure on this page is drawn in. `set_style("economist")`
+switches to the newspaper's blue-grey panel, red masthead and data palette;
+every `plot_*()` helper, the colour scales, `theme_econ()` and
+`econ_masthead()` follow whichever is set.
 
-<img src="man/figures/README-academic.png" width="80%" alt="The consumer-choice diagram in the academic style: parchment panel, serif type, brown curves and a rust budget line" />
+<img src="man/figures/README-economist.png" width="80%" alt="The consumer-choice diagram in the Economist style: blue-grey panel, sans type, blue curves and a red budget line" />
 
 ## Estimating things
 
@@ -184,7 +188,7 @@ indifference_curve(u, level = c(10, 15), x = c(5, 10, 20))
 `geom_budget()` and `geom_optimum()` are the pieces if you'd rather build it
 up yourself.
 
-<img src="man/figures/README-choice.png" width="80%" alt="Three Cobb-Douglas indifference curves, a budget line, and the tangency point, in Economist style" />
+<img src="man/figures/README-choice.png" width="80%" alt="Three Cobb-Douglas indifference curves, a budget line, and the tangency point, in the academic house style" />
 
 The other textbook preferences come with the same closed forms:
 
