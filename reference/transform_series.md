@@ -1,6 +1,6 @@
 # Transform a tidy series the way FRED does
 
-[`fred_series()`](https://mjorden.github.io/fredscape/reference/fred_series.md)
+[`fred_series()`](https://mjorden.github.io/econscape/reference/fred_series.md)
 can ask the API for a transformed series through `units`; this applies
 the same definitions locally, so a frame already downloaded (or one
 built from any other source) can be reworked without another request.
@@ -22,7 +22,7 @@ transform_series(
 
   A data frame with `date` and `value` columns and optionally
   `series_id`, as returned by
-  [`fred_series()`](https://mjorden.github.io/fredscape/reference/fred_series.md).
+  [`fred_series()`](https://mjorden.github.io/econscape/reference/fred_series.md).
 
 - how:
 

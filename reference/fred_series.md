@@ -53,7 +53,7 @@ fred_series(
 - key:
 
   A FRED API key. Defaults to
-  [`fred_key()`](https://mjorden.github.io/fredscape/reference/fred_key.md).
+  [`fred_key()`](https://mjorden.github.io/econscape/reference/fred_key.md).
 
 ## Value
 
@@ -68,15 +68,15 @@ FRED encodes a missing observation as the string `"."`; those become
 
 ## See also
 
-[`fred_series_info()`](https://mjorden.github.io/fredscape/reference/fred_series_info.md)
+[`fred_series_info()`](https://mjorden.github.io/econscape/reference/fred_series_info.md)
 for the metadata behind a series, and
-[`fred_search()`](https://mjorden.github.io/fredscape/reference/fred_search.md)
+[`fred_search()`](https://mjorden.github.io/econscape/reference/fred_search.md)
 to find an ID in the first place.
 
 ## Examples
 
 ``` r
-if (FALSE) { # fredscape::fred_has_key()
+if (FALSE) { # econscape::fred_has_key()
 fred_series("UNRATE", start = "2000-01-01")
 
 # Several series at once, as year-on-year percent change

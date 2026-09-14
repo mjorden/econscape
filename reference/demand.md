@@ -40,13 +40,13 @@ An object of class `demand` (and `linear_demand` or `general_demand`).
 
 ## See also
 
-[`price_at()`](https://mjorden.github.io/fredscape/reference/demand_curve_values.md),
-[`marginal_revenue()`](https://mjorden.github.io/fredscape/reference/demand_curve_values.md),
-[`consumer_surplus()`](https://mjorden.github.io/fredscape/reference/demand_curve_values.md),
+[`price_at()`](https://mjorden.github.io/econscape/reference/demand_curve_values.md),
+[`marginal_revenue()`](https://mjorden.github.io/econscape/reference/demand_curve_values.md),
+[`consumer_surplus()`](https://mjorden.github.io/econscape/reference/demand_curve_values.md),
 and the market structures
-[`monopoly()`](https://mjorden.github.io/fredscape/reference/market_structure.md),
-[`cournot()`](https://mjorden.github.io/fredscape/reference/market_structure.md),
-[`perfect_competition()`](https://mjorden.github.io/fredscape/reference/market_structure.md).
+[`monopoly()`](https://mjorden.github.io/econscape/reference/market_structure.md),
+[`cournot()`](https://mjorden.github.io/econscape/reference/market_structure.md),
+[`perfect_competition()`](https://mjorden.github.io/econscape/reference/market_structure.md).
 
 ## Examples
 

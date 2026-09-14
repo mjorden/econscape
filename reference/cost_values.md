@@ -23,9 +23,9 @@ min_average_cost(cost, q_max = NULL, ...)
 - cost:
 
   A cost object from
-  [`quadratic_cost()`](https://mjorden.github.io/fredscape/reference/cost.md)
+  [`quadratic_cost()`](https://mjorden.github.io/econscape/reference/cost.md)
   or
-  [`production_cost()`](https://mjorden.github.io/fredscape/reference/cost.md).
+  [`production_cost()`](https://mjorden.github.io/econscape/reference/cost.md).
 
 - q:
 
@@ -39,14 +39,14 @@ min_average_cost(cost, q_max = NULL, ...)
 
   Upper bound for the numerical search in `min_average_cost()`; only
   needed for a
-  [`production_cost()`](https://mjorden.github.io/fredscape/reference/cost.md).
+  [`production_cost()`](https://mjorden.github.io/econscape/reference/cost.md).
 
 ## Value
 
 A numeric vector, except `min_average_cost()`, which returns a list with
 the output `q` at which average cost is lowest and the average cost `ac`
 there. For a
-[`quadratic_cost()`](https://mjorden.github.io/fredscape/reference/cost.md)
+[`quadratic_cost()`](https://mjorden.github.io/econscape/reference/cost.md)
 with no fixed cost or no quadratic term average cost has no interior
 minimum; `q` is then `NA` and `ac` the limiting value.
 

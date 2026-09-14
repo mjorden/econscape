@@ -21,14 +21,14 @@ plot_trend_cycle(
 - tc:
 
   A `trend_cycle` from
-  [`hp_filter()`](https://mjorden.github.io/fredscape/reference/trend_cycle.md)
+  [`hp_filter()`](https://mjorden.github.io/econscape/reference/trend_cycle.md)
   or
-  [`hamilton_filter()`](https://mjorden.github.io/fredscape/reference/trend_cycle.md).
+  [`hamilton_filter()`](https://mjorden.github.io/econscape/reference/trend_cycle.md).
 
 - title, subtitle, source:
 
   Passed to
-  [`labs_econ()`](https://mjorden.github.io/fredscape/reference/labs_econ.md);
+  [`labs_econ()`](https://mjorden.github.io/econscape/reference/labs_econ.md);
   sensible defaults are filled in.
 
 - recessions:
@@ -38,12 +38,12 @@ plot_trend_cycle(
 - panel:
 
   Passed to
-  [`theme_econ()`](https://mjorden.github.io/fredscape/reference/theme_econ.md).
+  [`theme_econ()`](https://mjorden.github.io/econscape/reference/theme_econ.md).
 
 ## Value
 
 A ggplot object. Add
-[`econ_masthead()`](https://mjorden.github.io/fredscape/reference/econ_masthead.md)
+[`econ_masthead()`](https://mjorden.github.io/econscape/reference/econ_masthead.md)
 last if you want the block.
 
 ## Examples

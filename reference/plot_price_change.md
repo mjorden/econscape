@@ -1,7 +1,7 @@
 # Draw the substitution and income effects of a price change
 
 The diagram behind
-[`price_change()`](https://mjorden.github.io/fredscape/reference/price_change.md):
+[`price_change()`](https://mjorden.github.io/econscape/reference/price_change.md):
 the original and final budget lines, the dashed compensated line, the
 indifference curves through the bundles, the three bundles themselves,
 and brackets along the axis of the good whose price changed showing how
@@ -35,7 +35,7 @@ plot_price_change(
 - b:
 
   The original
-  [`budget()`](https://mjorden.github.io/fredscape/reference/budget.md).
+  [`budget()`](https://mjorden.github.io/econscape/reference/budget.md).
 
 - new_px, new_py:
 
@@ -52,7 +52,7 @@ plot_price_change(
 - title, subtitle, source:
 
   Passed to
-  [`labs_econ()`](https://mjorden.github.io/fredscape/reference/labs_econ.md);
+  [`labs_econ()`](https://mjorden.github.io/econscape/reference/labs_econ.md);
   sensible defaults are filled in.
 
 - xlim, ylim:
@@ -62,12 +62,12 @@ plot_price_change(
 - panel:
 
   Passed to
-  [`theme_econ()`](https://mjorden.github.io/fredscape/reference/theme_econ.md).
+  [`theme_econ()`](https://mjorden.github.io/econscape/reference/theme_econ.md).
 
 ## Value
 
 A ggplot object. Add
-[`econ_masthead()`](https://mjorden.github.io/fredscape/reference/econ_masthead.md)
+[`econ_masthead()`](https://mjorden.github.io/econscape/reference/econ_masthead.md)
 last if you want the block.
 
 ## Examples

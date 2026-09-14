@@ -64,7 +64,7 @@ A numeric vector.
 
 At the optimal bundle the MRS equals the price ratio `px / py` – the
 tangency condition – which is a handy check on
-[`optimal_bundle()`](https://mjorden.github.io/fredscape/reference/optimal_bundle.md).
+[`optimal_bundle()`](https://mjorden.github.io/econscape/reference/optimal_bundle.md).
 
 ## Examples
 

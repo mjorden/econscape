@@ -1,7 +1,7 @@
 # Draw the producer's cost-minimising choice
 
 The same diagram as
-[`plot_consumer_choice()`](https://mjorden.github.io/fredscape/reference/plot_consumer_choice.md)
+[`plot_consumer_choice()`](https://mjorden.github.io/econscape/reference/plot_consumer_choice.md)
 with the producer's vocabulary: isoquants, an isocost line, and the
 input bundle that produces the most for the outlay. Works for any
 production function, including a plain `function(x, y)`. The `kind`
@@ -38,7 +38,7 @@ plot_producer_choice(
 - b:
 
   A
-  [`budget()`](https://mjorden.github.io/fredscape/reference/budget.md)
+  [`budget()`](https://mjorden.github.io/econscape/reference/budget.md)
   read as an isocost line: `income` is the outlay and `px`, `py` the
   input prices.
 
@@ -58,7 +58,7 @@ plot_producer_choice(
 - title, subtitle, source:
 
   Passed to
-  [`labs_econ()`](https://mjorden.github.io/fredscape/reference/labs_econ.md).
+  [`labs_econ()`](https://mjorden.github.io/econscape/reference/labs_econ.md).
   Sensible defaults are filled in from `u` and `b`.
 
 - label_levels:
@@ -68,7 +68,7 @@ plot_producer_choice(
 - panel:
 
   Passed to
-  [`theme_econ()`](https://mjorden.github.io/fredscape/reference/theme_econ.md).
+  [`theme_econ()`](https://mjorden.github.io/econscape/reference/theme_econ.md).
 
 ## Value
 

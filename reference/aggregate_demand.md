@@ -3,10 +3,10 @@
 The market demand faced by a seller who cannot tell buyer groups apart:
 at every price, the sum of the quantities each group demands. The
 inverse is found numerically, so the result is a
-[`demand_fn()`](https://mjorden.github.io/fredscape/reference/demand.md)
+[`demand_fn()`](https://mjorden.github.io/econscape/reference/demand.md)
 and works anywhere a demand object does – most usefully as the
 uniform-price benchmark for
-[`third_degree()`](https://mjorden.github.io/fredscape/reference/price_discrimination.md).
+[`third_degree()`](https://mjorden.github.io/econscape/reference/price_discrimination.md).
 
 ## Usage
 

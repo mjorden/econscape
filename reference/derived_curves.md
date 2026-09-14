@@ -1,6 +1,6 @@
 # Curves traced by the optimal bundle
 
-[`optimal_bundle()`](https://mjorden.github.io/fredscape/reference/optimal_bundle.md)
+[`optimal_bundle()`](https://mjorden.github.io/econscape/reference/optimal_bundle.md)
 answers one question: what does the consumer choose at one set of prices
 and one income? These functions ask it repeatedly and collect the
 answers.
@@ -22,13 +22,13 @@ income_consumption_path(u, b, incomes)
 - u:
 
   A function of `x` and `y`, typically from
-  [`cobb_douglas()`](https://mjorden.github.io/fredscape/reference/cobb_douglas.md)
+  [`cobb_douglas()`](https://mjorden.github.io/econscape/reference/cobb_douglas.md)
   or one of its siblings.
 
 - b:
 
   A
-  [`budget()`](https://mjorden.github.io/fredscape/reference/budget.md)
+  [`budget()`](https://mjorden.github.io/econscape/reference/budget.md)
   giving the baseline income and prices. The one being varied is
   overridden.
 
@@ -69,7 +69,7 @@ A data frame, one row per price or income:
   be drawn on the indifference-curve diagram.
 
 Every constructor in the package has a closed-form
-[`optimal_bundle()`](https://mjorden.github.io/fredscape/reference/optimal_bundle.md),
+[`optimal_bundle()`](https://mjorden.github.io/econscape/reference/optimal_bundle.md),
 so these are fast; a plain `function(x, y)` goes through the numeric
 line search once per point.
 

@@ -1,7 +1,7 @@
 # Draw a coefficient table
 
 A dot-and-whisker plot of the estimates in an
-[`ols()`](https://mjorden.github.io/fredscape/reference/ols.md) fit with
+[`ols()`](https://mjorden.github.io/econscape/reference/ols.md) fit with
 their confidence intervals, in the house style. Coefficients whose
 interval excludes zero are drawn in blue, the rest in grey.
 
@@ -25,7 +25,7 @@ plot_coefficients(
 - fit:
 
   An `econ_fit` from
-  [`ols()`](https://mjorden.github.io/fredscape/reference/ols.md).
+  [`ols()`](https://mjorden.github.io/econscape/reference/ols.md).
 
 - level:
 
@@ -43,18 +43,18 @@ plot_coefficients(
 - title, subtitle, source:
 
   Passed to
-  [`labs_econ()`](https://mjorden.github.io/fredscape/reference/labs_econ.md);
+  [`labs_econ()`](https://mjorden.github.io/econscape/reference/labs_econ.md);
   sensible defaults are filled in.
 
 - panel:
 
   Passed to
-  [`theme_econ()`](https://mjorden.github.io/fredscape/reference/theme_econ.md).
+  [`theme_econ()`](https://mjorden.github.io/econscape/reference/theme_econ.md).
 
 ## Value
 
 A ggplot object. Add
-[`econ_masthead()`](https://mjorden.github.io/fredscape/reference/econ_masthead.md)
+[`econ_masthead()`](https://mjorden.github.io/econscape/reference/econ_masthead.md)
 last if you want the block.
 
 ## Examples

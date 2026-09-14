@@ -13,7 +13,7 @@ coef_table(x, level = 0.95)
 - x:
 
   An `econ_fit` from
-  [`ols()`](https://mjorden.github.io/fredscape/reference/ols.md).
+  [`ols()`](https://mjorden.github.io/econscape/reference/ols.md).
 
 - level:
 

@@ -3,7 +3,7 @@
 A seller who charges an entry fee plus a per-unit price. With identical
 consumers the answer is Disneyland's: set the price at marginal cost and
 the fee at the whole of each consumer's surplus, which replicates
-[`first_degree()`](https://mjorden.github.io/fredscape/reference/price_discrimination.md)
+[`first_degree()`](https://mjorden.github.io/econscape/reference/price_discrimination.md)
 profit with only two numbers.
 
 ## Usage
@@ -47,7 +47,7 @@ for each, and returns the most profitable.
 
 ## See also
 
-[`plot_two_part_tariff()`](https://mjorden.github.io/fredscape/reference/plot_two_part_tariff.md).
+[`plot_two_part_tariff()`](https://mjorden.github.io/econscape/reference/plot_two_part_tariff.md).
 
 ## Examples
 

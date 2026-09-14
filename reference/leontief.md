@@ -17,7 +17,7 @@ leontief(a = 1, b = 1, A = 1, kind = c("utility", "production"))
 
   Units of `x` and `y` needed per unit of output. Positive. (`b` here is
   the textbook coefficient, not a
-  [`budget()`](https://mjorden.github.io/fredscape/reference/budget.md).)
+  [`budget()`](https://mjorden.github.io/econscape/reference/budget.md).)
 
 - A:
 
@@ -36,7 +36,7 @@ A function of `x` and `y` of class `leontief`, with `a`, `b`, `A` and
 
 The MRS is not a single number here. Below the ray (`x / a < y / b`) `x`
 is the scarce good and the consumer would give up any amount of `y` for
-it, so [`mrs()`](https://mjorden.github.io/fredscape/reference/mrs.md)
+it, so [`mrs()`](https://mjorden.github.io/econscape/reference/mrs.md)
 returns `Inf`; above the ray it returns `0`; on the ray itself the curve
 has a corner and the MRS is undefined, returned as `NA`.
 

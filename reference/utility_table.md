@@ -5,11 +5,11 @@ The introductory-course setup: a table of total utility from 1, 2, 3,
 then means choosing the affordable *whole-unit* bundle with the highest
 total utility – the rule "spend each dollar where it buys the most
 utility" – and
-[`optimal_bundle()`](https://mjorden.github.io/fredscape/reference/optimal_bundle.md)
+[`optimal_bundle()`](https://mjorden.github.io/econscape/reference/optimal_bundle.md)
 does exactly that search.
-[`indifference_curve()`](https://mjorden.github.io/fredscape/reference/indifference_curve.md)
+[`indifference_curve()`](https://mjorden.github.io/econscape/reference/indifference_curve.md)
 interpolates the table so the curves can be drawn;
-[`mu_per_dollar()`](https://mjorden.github.io/fredscape/reference/mu_per_dollar.md)
+[`mu_per_dollar()`](https://mjorden.github.io/econscape/reference/mu_per_dollar.md)
 lays out the purchase order the textbook argument walks through.
 
 ## Usage
@@ -30,7 +30,7 @@ utility_table(tu_x, tu_y, goods = c("x", "y"))
 - goods:
 
   Names for the two goods, used in
-  [`mu_per_dollar()`](https://mjorden.github.io/fredscape/reference/mu_per_dollar.md)
+  [`mu_per_dollar()`](https://mjorden.github.io/econscape/reference/mu_per_dollar.md)
   output.
 
 ## Value

@@ -63,7 +63,7 @@ A data frame:
   level. Marginal cost is closed-form for Cobb-Douglas (\\C(q) \propto
   q^{1/(\alpha+\beta)}\\, so \\MC = C / ((\alpha + \beta) q)\\) and a
   numerical derivative of
-  [`expenditure()`](https://mjorden.github.io/fredscape/reference/expenditure.md)
+  [`expenditure()`](https://mjorden.github.io/econscape/reference/expenditure.md)
   otherwise; for the constant- returns constructors that derivative is
   exact.
 

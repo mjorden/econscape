@@ -19,7 +19,7 @@ fred_series_info(series_id, key = fred_key())
 - key:
 
   A FRED API key. Defaults to
-  [`fred_key()`](https://mjorden.github.io/fredscape/reference/fred_key.md).
+  [`fred_key()`](https://mjorden.github.io/econscape/reference/fred_key.md).
 
 ## Value
 
@@ -31,7 +31,7 @@ A data frame with one row per series and columns `series_id`, `title`,
 ## Examples
 
 ``` r
-if (FALSE) { # fredscape::fred_has_key()
+if (FALSE) { # econscape::fred_has_key()
 fred_series_info("UNRATE")$title
 }
 ```

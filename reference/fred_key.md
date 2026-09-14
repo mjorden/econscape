@@ -1,6 +1,6 @@
 # Manage the FRED API key
 
-FRED requires a free API key for every request. `fredscape` reads it
+FRED requires a free API key for every request. `econscape` reads it
 from the `FRED_API_KEY` environment variable so that the key never has
 to appear in a script, a git history, or an error message.
 

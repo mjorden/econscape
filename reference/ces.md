@@ -37,18 +37,18 @@ A function of `x` and `y` of class `ces`, with `rho`, `alpha`, `A`,
 ## Details
 
 - \\\rho = 1\\ is perfect substitutes (linear contours) –
-  [`perfect_substitutes()`](https://mjorden.github.io/fredscape/reference/perfect_substitutes.md)
+  [`perfect_substitutes()`](https://mjorden.github.io/econscape/reference/perfect_substitutes.md)
   gives the same thing directly.
 
 - \\\rho \to 0\\ is Cobb-Douglas; use
-  [`cobb_douglas()`](https://mjorden.github.io/fredscape/reference/cobb_douglas.md)
+  [`cobb_douglas()`](https://mjorden.github.io/econscape/reference/cobb_douglas.md)
   for that limit, as the formula is undefined at exactly zero.
 
 - \\\rho \to -\infty\\ is perfect complements –
-  [`leontief()`](https://mjorden.github.io/fredscape/reference/leontief.md).
+  [`leontief()`](https://mjorden.github.io/econscape/reference/leontief.md).
 
 Like
-[`cobb_douglas()`](https://mjorden.github.io/fredscape/reference/cobb_douglas.md),
+[`cobb_douglas()`](https://mjorden.github.io/econscape/reference/cobb_douglas.md),
 the result is a callable function that carries its parameters, so
 contours, demand and the MRS use closed forms.
 

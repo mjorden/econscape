@@ -1,6 +1,6 @@
-# Look up fredscape colours by name
+# Look up econscape colours by name
 
-Look up fredscape colours by name
+Look up econscape colours by name
 
 ## Usage
 

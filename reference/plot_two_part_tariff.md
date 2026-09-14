@@ -23,7 +23,7 @@ plot_two_part_tariff(
 - tariff:
 
   A `two_part_tariff` from
-  [`two_part_tariff()`](https://mjorden.github.io/fredscape/reference/two_part_tariff.md).
+  [`two_part_tariff()`](https://mjorden.github.io/econscape/reference/two_part_tariff.md).
 
 - type:
 
@@ -32,18 +32,18 @@ plot_two_part_tariff(
 - title, subtitle, source:
 
   Passed to
-  [`labs_econ()`](https://mjorden.github.io/fredscape/reference/labs_econ.md);
+  [`labs_econ()`](https://mjorden.github.io/econscape/reference/labs_econ.md);
   sensible defaults are filled in.
 
 - panel:
 
   Passed to
-  [`theme_econ()`](https://mjorden.github.io/fredscape/reference/theme_econ.md).
+  [`theme_econ()`](https://mjorden.github.io/econscape/reference/theme_econ.md).
 
 ## Value
 
 A ggplot object. Add
-[`econ_masthead()`](https://mjorden.github.io/fredscape/reference/econ_masthead.md)
+[`econ_masthead()`](https://mjorden.github.io/econscape/reference/econ_masthead.md)
 last if you want the block.
 
 ## Examples

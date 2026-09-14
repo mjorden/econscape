@@ -38,9 +38,9 @@ ols(formula, data, se = c("classical", "hc1", "hac"), lags = NULL, ...)
 
 An object of class `econ_fit`: a list with `fit` (the `lm`), `vcov`,
 `se_type`, `lags`, `nobs` and `df`.
-[`coef_table()`](https://mjorden.github.io/fredscape/reference/coef_table.md)
+[`coef_table()`](https://mjorden.github.io/econscape/reference/coef_table.md)
 gives the coefficient table;
-[`plot_coefficients()`](https://mjorden.github.io/fredscape/reference/plot_coefficients.md)
+[`plot_coefficients()`](https://mjorden.github.io/econscape/reference/plot_coefficients.md)
 draws it.
 
 ## Details

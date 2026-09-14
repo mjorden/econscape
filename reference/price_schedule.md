@@ -3,7 +3,7 @@
 Quantity discounts ("25% off after the second"), block tariffs and
 rationing all make a good's price depend on how much of it you already
 have. A price schedule holds the unit price in each tier, and
-[`budget()`](https://mjorden.github.io/fredscape/reference/budget.md)
+[`budget()`](https://mjorden.github.io/econscape/reference/budget.md)
 accepts one in place of a number, giving a *kinked* budget line.
 
 ## Usage
@@ -60,16 +60,16 @@ after a threshold, or the general case as a vector of tier prices and
 the upper bounds of all but the last tier.
 
 A kinked budget changes what the downstream functions can assume:
-[`budget_line()`](https://mjorden.github.io/fredscape/reference/budget_line.md)
+[`budget_line()`](https://mjorden.github.io/econscape/reference/budget_line.md)
 traces the frontier through the kinks,
-[`geom_budget()`](https://mjorden.github.io/fredscape/reference/geom_micro.md)
+[`geom_budget()`](https://mjorden.github.io/econscape/reference/geom_micro.md)
 draws it as a path, and
-[`optimal_bundle()`](https://mjorden.github.io/fredscape/reference/optimal_bundle.md)
+[`optimal_bundle()`](https://mjorden.github.io/econscape/reference/optimal_bundle.md)
 searches along the frontier numerically instead of using a closed form,
 since the tangency condition no longer identifies the optimum on its own
 (the kink itself is a candidate). The marginal rate of substitution is
 still available from
-[`mrs()`](https://mjorden.github.io/fredscape/reference/mrs.md), but the
+[`mrs()`](https://mjorden.github.io/econscape/reference/mrs.md), but the
 budget's `slope` is `NA`.
 
 ## Examples

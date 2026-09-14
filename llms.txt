@@ -1,4 +1,7 @@
-# fredscape
+# econscape
+
+*Formerly `fredscape`. The old name described the FRED client this
+started as; the package outgrew it. Every function keeps its name.*
 
 Pull economic series from [FRED](https://fred.stlouisfed.org/) into tidy
 data frames, and plot them in the house style of *The Economist* —
@@ -7,21 +10,21 @@ without hand- theming every chart.
 Two halves that work on their own:
 
 - **A FRED client.**
-  [`fred_series()`](https://mjorden.github.io/fredscape/reference/fred_series.md),
-  [`fred_series_info()`](https://mjorden.github.io/fredscape/reference/fred_series_info.md)
+  [`fred_series()`](https://mjorden.github.io/econscape/reference/fred_series.md),
+  [`fred_series_info()`](https://mjorden.github.io/econscape/reference/fred_series_info.md)
   and
-  [`fred_search()`](https://mjorden.github.io/fredscape/reference/fred_search.md)
+  [`fred_search()`](https://mjorden.github.io/econscape/reference/fred_search.md)
   return plain data frames. One row per series per date, so a
   multi-series chart is one
   [`ggplot()`](https://ggplot2.tidyverse.org/reference/ggplot.html)
   call.
 - **A chart style.**
-  [`theme_econ()`](https://mjorden.github.io/fredscape/reference/theme_econ.md),
-  [`scale_colour_econ()`](https://mjorden.github.io/fredscape/reference/scale_econ.md),
-  [`labs_econ()`](https://mjorden.github.io/fredscape/reference/labs_econ.md),
-  [`annotate_recessions()`](https://mjorden.github.io/fredscape/reference/annotate_recessions.md)
+  [`theme_econ()`](https://mjorden.github.io/econscape/reference/theme_econ.md),
+  [`scale_colour_econ()`](https://mjorden.github.io/econscape/reference/scale_econ.md),
+  [`labs_econ()`](https://mjorden.github.io/econscape/reference/labs_econ.md),
+  [`annotate_recessions()`](https://mjorden.github.io/econscape/reference/annotate_recessions.md)
   and
-  [`econ_masthead()`](https://mjorden.github.io/fredscape/reference/econ_masthead.md)
+  [`econ_masthead()`](https://mjorden.github.io/econscape/reference/econ_masthead.md)
   reproduce the printed chart furniture: blue-grey panel, horizontal
   gridlines only, right-hand y-axis, left-hung title, red masthead
   block.
@@ -35,7 +38,7 @@ chart](reference/figures/README-recessions.png)
 ``` r
 
 # install.packages("remotes")
-remotes::install_github("mjorden/fredscape")
+remotes::install_github("mjorden/econscape")
 ```
 
 ## Getting a key
@@ -51,16 +54,16 @@ usethis::edit_r_environ()   # add: FRED_API_KEY=your32characterkey
 
 The key is read from the `FRED_API_KEY` environment variable, so it
 never has to appear in a script or a git history.
-[`fred_set_key()`](https://mjorden.github.io/fredscape/reference/fred_key.md)
+[`fred_set_key()`](https://mjorden.github.io/econscape/reference/fred_key.md)
 sets it for one session;
-[`fred_has_key()`](https://mjorden.github.io/fredscape/reference/fred_key.md)
+[`fred_has_key()`](https://mjorden.github.io/econscape/reference/fred_key.md)
 reports whether one is available.
 
 ## Quick start
 
 ``` r
 
-library(fredscape)
+library(econscape)
 library(ggplot2)
 
 unrate <- fred_series("UNRATE", start = "1970-01-01")
@@ -137,9 +140,9 @@ optimal_bundle(cobb_douglas(0.5), b)                # searched along the frontie
 a paper or a set of lecture notes — parchment panel, serif face, a
 tan-to-brown palette, rust masthead. Every `plot_*()` helper, the colour
 scales,
-[`theme_econ()`](https://mjorden.github.io/fredscape/reference/theme_econ.md)
+[`theme_econ()`](https://mjorden.github.io/econscape/reference/theme_econ.md)
 and
-[`econ_masthead()`](https://mjorden.github.io/fredscape/reference/econ_masthead.md)
+[`econ_masthead()`](https://mjorden.github.io/econscape/reference/econ_masthead.md)
 follow it; `set_style("economist")` is the default.
 
 ![The consumer-choice diagram in the academic style: parchment panel,
@@ -184,9 +187,9 @@ confidence intervals](reference/figures/README-coef.png)
 ## Theory, not just data
 
 The same style works for the textbook diagrams.
-[`cobb_douglas()`](https://mjorden.github.io/fredscape/reference/cobb_douglas.md)
+[`cobb_douglas()`](https://mjorden.github.io/econscape/reference/cobb_douglas.md)
 builds a utility (or production) function that remembers its parameters,
-[`budget()`](https://mjorden.github.io/fredscape/reference/budget.md)
+[`budget()`](https://mjorden.github.io/econscape/reference/budget.md)
 describes a budget constraint (or isocost line), and the closed-form
 results follow: indifference curves, the optimal bundle, the marginal
 rate of substitution.
@@ -206,12 +209,12 @@ mrs(u, 16, 18)                          # = px / py at the optimum
 indifference_curve(u, level = c(10, 15), x = c(5, 10, 20))
 ```
 
-[`plot_consumer_choice()`](https://mjorden.github.io/fredscape/reference/plot_consumer_choice.md)
+[`plot_consumer_choice()`](https://mjorden.github.io/econscape/reference/plot_consumer_choice.md)
 composes the whole chart;
-[`geom_indifference()`](https://mjorden.github.io/fredscape/reference/geom_micro.md),
-[`geom_budget()`](https://mjorden.github.io/fredscape/reference/geom_micro.md)
+[`geom_indifference()`](https://mjorden.github.io/econscape/reference/geom_micro.md),
+[`geom_budget()`](https://mjorden.github.io/econscape/reference/geom_micro.md)
 and
-[`geom_optimum()`](https://mjorden.github.io/fredscape/reference/geom_micro.md)
+[`geom_optimum()`](https://mjorden.github.io/econscape/reference/geom_micro.md)
 are the pieces if you’d rather build it up yourself.
 
 ![Three Cobb-Douglas indifference curves, a budget line, and the
@@ -227,12 +230,12 @@ perfect_substitutes(a = 1, b = 2)                # linear; picks a corner
 quasilinear(log, f_prime = function(x) 1 / x)    # f(x) + y; no income effect on x
 ```
 
-[`ces()`](https://mjorden.github.io/fredscape/reference/ces.md) nests
+[`ces()`](https://mjorden.github.io/econscape/reference/ces.md) nests
 the others — Cobb-Douglas as `rho → 0`, substitutes at `rho = 1`,
 Leontief as `rho → −∞` — and the tests check each limit against the
 dedicated constructor. Leontief’s L-shaped contours draw properly,
 including the vertical arm, and its
-[`mrs()`](https://mjorden.github.io/fredscape/reference/mrs.md) gives
+[`mrs()`](https://mjorden.github.io/econscape/reference/mrs.md) gives
 the textbook answer: `Inf` below the ray, `0` above it, `NA` at the
 kink.
 
@@ -254,9 +257,9 @@ engel_curve(u, b, incomes = seq(40, 400, by = 40))      # (income, quantity)
 income_consumption_path(u, b, incomes = c(60, 120, 180)) # the bundles themselves
 ```
 
-[`geom_demand()`](https://mjorden.github.io/fredscape/reference/geom_demand.md)
+[`geom_demand()`](https://mjorden.github.io/econscape/reference/geom_demand.md)
 draws price against quantity the way the textbooks do;
-[`geom_budget()`](https://mjorden.github.io/fredscape/reference/geom_micro.md)
+[`geom_budget()`](https://mjorden.github.io/econscape/reference/geom_micro.md)
 takes a list of budgets so the family of lines behind a path is one
 layer.
 
@@ -281,7 +284,7 @@ plot_price_change(u, b, new_px = 6)
 
 Hicks compensation holds utility fixed; Slutsky holds purchasing power
 fixed. Both rest on
-[`expenditure()`](https://mjorden.github.io/fredscape/reference/expenditure.md),
+[`expenditure()`](https://mjorden.github.io/econscape/reference/expenditure.md),
 the expenditure function, which has a dedicated method for every
 constructor and doubles as the total-cost function on the producer side.
 
@@ -322,10 +325,10 @@ compare_structures(d, cst, n = c(2, 3, 5, 10))
 Every structure returns the same `market_outcome` — price, quantities,
 profit, consumer and producer surplus, deadweight loss against the
 `P = MC` benchmark, the Lerner index — and
-[`plot_market()`](https://mjorden.github.io/fredscape/reference/plot_market.md)
+[`plot_market()`](https://mjorden.github.io/econscape/reference/plot_market.md)
 draws it with the welfare areas shaded. Costs can also come straight
 from a production function via
-[`production_cost()`](https://mjorden.github.io/fredscape/reference/cost.md),
+[`production_cost()`](https://mjorden.github.io/econscape/reference/cost.md),
 and any decreasing `function(q)` works as demand.
 
 ![A monopoly outcome: demand, marginal revenue and marginal cost, with
@@ -344,12 +347,12 @@ two_part_tariff(list(light = linear_demand(60, 1),    # who to serve, and at wha
                      heavy = d), cst, n = c(5, 1))
 ```
 
-[`third_degree()`](https://mjorden.github.io/fredscape/reference/price_discrimination.md)
+[`third_degree()`](https://mjorden.github.io/econscape/reference/price_discrimination.md)
 carries the uniform-price benchmark (via
-[`aggregate_demand()`](https://mjorden.github.io/fredscape/reference/aggregate_demand.md),
+[`aggregate_demand()`](https://mjorden.github.io/econscape/reference/aggregate_demand.md),
 the horizontal sum), so the gain from segmenting is explicit and the
 inverse-elasticity rule holds segment by segment.
-[`two_part_tariff()`](https://mjorden.github.io/fredscape/reference/two_part_tariff.md)
+[`two_part_tariff()`](https://mjorden.github.io/econscape/reference/two_part_tariff.md)
 weighs serving everyone — fee pinned to the lightest user, unit price
 above marginal cost — against excluding the light users and taking the
 heavy users’ whole surplus.
@@ -360,7 +363,7 @@ price](reference/figures/README-tariff.png)
 
 ## The palette
 
-![Swatches of the five fredscape
+![Swatches of the five econscape
 palettes](reference/figures/README-palette.png)
 
 The categorical hues (`main`, `cool`, `contrast`) follow the data
@@ -382,43 +385,43 @@ scale_fill_econ_c("redblue") # continuous, diverging
 
 |  |  |
 |----|----|
-| [`fred_series()`](https://mjorden.github.io/fredscape/reference/fred_series.md) | Observations for one or more series, tidy and stacked |
-| [`fred_series_info()`](https://mjorden.github.io/fredscape/reference/fred_series_info.md) | Title, units, frequency, seasonal adjustment, coverage |
-| [`fred_search()`](https://mjorden.github.io/fredscape/reference/fred_search.md) | Full-text search over the FRED catalogue |
-| [`fred_recessions()`](https://mjorden.github.io/fredscape/reference/fred_recessions.md) | NBER turning points, read live from `USREC` |
-| [`fred_key()`](https://mjorden.github.io/fredscape/reference/fred_key.md) / [`fred_set_key()`](https://mjorden.github.io/fredscape/reference/fred_key.md) / [`fred_has_key()`](https://mjorden.github.io/fredscape/reference/fred_key.md) | Key handling |
-| [`theme_econ()`](https://mjorden.github.io/fredscape/reference/theme_econ.md) | The theme. `panel = "blue"`, `"white"` or `"dark"` |
-| [`scale_y_econ()`](https://mjorden.github.io/fredscape/reference/scale_econ_axis.md) / [`scale_x_econ_date()`](https://mjorden.github.io/fredscape/reference/scale_econ_axis.md) | Right-hand y labels, no x padding |
-| [`labs_econ()`](https://mjorden.github.io/fredscape/reference/labs_econ.md) | Title, subtitle, and a properly formatted source line |
-| [`scale_colour_econ()`](https://mjorden.github.io/fredscape/reference/scale_econ.md) and friends | Discrete and continuous colour scales |
-| [`annotate_recessions()`](https://mjorden.github.io/fredscape/reference/annotate_recessions.md) | Recession bands behind the data |
-| [`econ_masthead()`](https://mjorden.github.io/fredscape/reference/econ_masthead.md) | The red block above the title |
+| [`fred_series()`](https://mjorden.github.io/econscape/reference/fred_series.md) | Observations for one or more series, tidy and stacked |
+| [`fred_series_info()`](https://mjorden.github.io/econscape/reference/fred_series_info.md) | Title, units, frequency, seasonal adjustment, coverage |
+| [`fred_search()`](https://mjorden.github.io/econscape/reference/fred_search.md) | Full-text search over the FRED catalogue |
+| [`fred_recessions()`](https://mjorden.github.io/econscape/reference/fred_recessions.md) | NBER turning points, read live from `USREC` |
+| [`fred_key()`](https://mjorden.github.io/econscape/reference/fred_key.md) / [`fred_set_key()`](https://mjorden.github.io/econscape/reference/fred_key.md) / [`fred_has_key()`](https://mjorden.github.io/econscape/reference/fred_key.md) | Key handling |
+| [`theme_econ()`](https://mjorden.github.io/econscape/reference/theme_econ.md) | The theme. `panel = "blue"`, `"white"` or `"dark"` |
+| [`scale_y_econ()`](https://mjorden.github.io/econscape/reference/scale_econ_axis.md) / [`scale_x_econ_date()`](https://mjorden.github.io/econscape/reference/scale_econ_axis.md) | Right-hand y labels, no x padding |
+| [`labs_econ()`](https://mjorden.github.io/econscape/reference/labs_econ.md) | Title, subtitle, and a properly formatted source line |
+| [`scale_colour_econ()`](https://mjorden.github.io/econscape/reference/scale_econ.md) and friends | Discrete and continuous colour scales |
+| [`annotate_recessions()`](https://mjorden.github.io/econscape/reference/annotate_recessions.md) | Recession bands behind the data |
+| [`econ_masthead()`](https://mjorden.github.io/econscape/reference/econ_masthead.md) | The red block above the title |
 | `nber_recessions` | Every NBER-dated US contraction since 1857 |
-| [`ols()`](https://mjorden.github.io/fredscape/reference/ols.md) / [`coef_table()`](https://mjorden.github.io/fredscape/reference/coef_table.md) / [`plot_coefficients()`](https://mjorden.github.io/fredscape/reference/plot_coefficients.md) | Regression with classical, HC1 or Newey-West standard errors |
-| [`hp_filter()`](https://mjorden.github.io/fredscape/reference/trend_cycle.md) / [`hamilton_filter()`](https://mjorden.github.io/fredscape/reference/trend_cycle.md) / [`plot_trend_cycle()`](https://mjorden.github.io/fredscape/reference/plot_trend_cycle.md) | Trend-cycle decompositions |
-| [`adf_test()`](https://mjorden.github.io/fredscape/reference/adf_test.md) | Augmented Dickey-Fuller with MacKinnon critical values |
-| [`transform_series()`](https://mjorden.github.io/fredscape/reference/transform_series.md) | FRED’s `units` transformations, applied locally |
-| [`cobb_douglas()`](https://mjorden.github.io/fredscape/reference/cobb_douglas.md) / [`ces()`](https://mjorden.github.io/fredscape/reference/ces.md) / [`leontief()`](https://mjorden.github.io/fredscape/reference/leontief.md) / [`perfect_substitutes()`](https://mjorden.github.io/fredscape/reference/perfect_substitutes.md) / [`quasilinear()`](https://mjorden.github.io/fredscape/reference/quasilinear.md) | Utility or production functions that carry their parameters |
-| [`budget()`](https://mjorden.github.io/fredscape/reference/budget.md) | A budget or isocost constraint |
-| [`indifference_curve()`](https://mjorden.github.io/fredscape/reference/indifference_curve.md) / [`optimal_bundle()`](https://mjorden.github.io/fredscape/reference/optimal_bundle.md) / [`mrs()`](https://mjorden.github.io/fredscape/reference/mrs.md) | Contours, the chosen bundle, marginal rate of substitution — closed form for Cobb-Douglas, numeric for anything else |
-| [`demand_curve()`](https://mjorden.github.io/fredscape/reference/derived_curves.md) / [`engel_curve()`](https://mjorden.github.io/fredscape/reference/derived_curves.md) / `*_consumption_path()` | Curves traced by the optimum as a price or income moves |
-| [`price_change()`](https://mjorden.github.io/fredscape/reference/price_change.md) / [`hicks()`](https://mjorden.github.io/fredscape/reference/price_change.md) / [`slutsky()`](https://mjorden.github.io/fredscape/reference/price_change.md) / [`plot_price_change()`](https://mjorden.github.io/fredscape/reference/plot_price_change.md) | Substitution and income effects of a price change |
-| [`expenditure()`](https://mjorden.github.io/fredscape/reference/expenditure.md) | The expenditure function: least income to reach a utility (or least outlay for an output) |
-| [`expansion_path()`](https://mjorden.github.io/fredscape/reference/producer.md) / [`conditional_demand()`](https://mjorden.github.io/fredscape/reference/producer.md) / [`cost_curves()`](https://mjorden.github.io/fredscape/reference/producer.md) | Producer theory: input demands and total / average / marginal cost |
-| [`plot_producer_choice()`](https://mjorden.github.io/fredscape/reference/plot_producer_choice.md) / [`plot_cost_curves()`](https://mjorden.github.io/fredscape/reference/plot_cost_curves.md) | Isoquants with an isocost line; the AC / MC pair |
-| [`linear_demand()`](https://mjorden.github.io/fredscape/reference/demand.md) / [`demand_fn()`](https://mjorden.github.io/fredscape/reference/demand.md) / [`quadratic_cost()`](https://mjorden.github.io/fredscape/reference/cost.md) / [`production_cost()`](https://mjorden.github.io/fredscape/reference/cost.md) | Market demand and firm cost objects, with [`price_at()`](https://mjorden.github.io/fredscape/reference/demand_curve_values.md), [`marginal_revenue()`](https://mjorden.github.io/fredscape/reference/demand_curve_values.md), [`elasticity()`](https://mjorden.github.io/fredscape/reference/demand_curve_values.md), [`marginal_cost()`](https://mjorden.github.io/fredscape/reference/cost_values.md) and friends |
-| [`monopoly()`](https://mjorden.github.io/fredscape/reference/market_structure.md) / [`cournot()`](https://mjorden.github.io/fredscape/reference/market_structure.md) / [`perfect_competition()`](https://mjorden.github.io/fredscape/reference/market_structure.md) / [`compare_structures()`](https://mjorden.github.io/fredscape/reference/compare_structures.md) | Market equilibria with surplus, deadweight loss and the Lerner index |
-| [`plot_market()`](https://mjorden.github.io/fredscape/reference/plot_market.md) | Demand, MR, MC and the shaded welfare areas |
-| [`first_degree()`](https://mjorden.github.io/fredscape/reference/price_discrimination.md) / [`third_degree()`](https://mjorden.github.io/fredscape/reference/price_discrimination.md) / [`two_part_tariff()`](https://mjorden.github.io/fredscape/reference/two_part_tariff.md) / [`aggregate_demand()`](https://mjorden.github.io/fredscape/reference/aggregate_demand.md) | Price discrimination, with the uniform-price benchmark |
-| [`plot_two_part_tariff()`](https://mjorden.github.io/fredscape/reference/plot_two_part_tariff.md) | The fee as shaded surplus above the unit price |
-| [`geom_indifference()`](https://mjorden.github.io/fredscape/reference/geom_micro.md) / [`geom_budget()`](https://mjorden.github.io/fredscape/reference/geom_micro.md) / [`geom_optimum()`](https://mjorden.github.io/fredscape/reference/geom_micro.md) / [`geom_demand()`](https://mjorden.github.io/fredscape/reference/geom_demand.md) / [`geom_engel()`](https://mjorden.github.io/fredscape/reference/geom_demand.md) / [`geom_consumption_path()`](https://mjorden.github.io/fredscape/reference/geom_consumption_path.md) | The pieces as ggplot layers |
-| [`plot_consumer_choice()`](https://mjorden.github.io/fredscape/reference/plot_consumer_choice.md) | The textbook diagram in one call |
+| [`ols()`](https://mjorden.github.io/econscape/reference/ols.md) / [`coef_table()`](https://mjorden.github.io/econscape/reference/coef_table.md) / [`plot_coefficients()`](https://mjorden.github.io/econscape/reference/plot_coefficients.md) | Regression with classical, HC1 or Newey-West standard errors |
+| [`hp_filter()`](https://mjorden.github.io/econscape/reference/trend_cycle.md) / [`hamilton_filter()`](https://mjorden.github.io/econscape/reference/trend_cycle.md) / [`plot_trend_cycle()`](https://mjorden.github.io/econscape/reference/plot_trend_cycle.md) | Trend-cycle decompositions |
+| [`adf_test()`](https://mjorden.github.io/econscape/reference/adf_test.md) | Augmented Dickey-Fuller with MacKinnon critical values |
+| [`transform_series()`](https://mjorden.github.io/econscape/reference/transform_series.md) | FRED’s `units` transformations, applied locally |
+| [`cobb_douglas()`](https://mjorden.github.io/econscape/reference/cobb_douglas.md) / [`ces()`](https://mjorden.github.io/econscape/reference/ces.md) / [`leontief()`](https://mjorden.github.io/econscape/reference/leontief.md) / [`perfect_substitutes()`](https://mjorden.github.io/econscape/reference/perfect_substitutes.md) / [`quasilinear()`](https://mjorden.github.io/econscape/reference/quasilinear.md) | Utility or production functions that carry their parameters |
+| [`budget()`](https://mjorden.github.io/econscape/reference/budget.md) | A budget or isocost constraint |
+| [`indifference_curve()`](https://mjorden.github.io/econscape/reference/indifference_curve.md) / [`optimal_bundle()`](https://mjorden.github.io/econscape/reference/optimal_bundle.md) / [`mrs()`](https://mjorden.github.io/econscape/reference/mrs.md) | Contours, the chosen bundle, marginal rate of substitution — closed form for Cobb-Douglas, numeric for anything else |
+| [`demand_curve()`](https://mjorden.github.io/econscape/reference/derived_curves.md) / [`engel_curve()`](https://mjorden.github.io/econscape/reference/derived_curves.md) / `*_consumption_path()` | Curves traced by the optimum as a price or income moves |
+| [`price_change()`](https://mjorden.github.io/econscape/reference/price_change.md) / [`hicks()`](https://mjorden.github.io/econscape/reference/price_change.md) / [`slutsky()`](https://mjorden.github.io/econscape/reference/price_change.md) / [`plot_price_change()`](https://mjorden.github.io/econscape/reference/plot_price_change.md) | Substitution and income effects of a price change |
+| [`expenditure()`](https://mjorden.github.io/econscape/reference/expenditure.md) | The expenditure function: least income to reach a utility (or least outlay for an output) |
+| [`expansion_path()`](https://mjorden.github.io/econscape/reference/producer.md) / [`conditional_demand()`](https://mjorden.github.io/econscape/reference/producer.md) / [`cost_curves()`](https://mjorden.github.io/econscape/reference/producer.md) | Producer theory: input demands and total / average / marginal cost |
+| [`plot_producer_choice()`](https://mjorden.github.io/econscape/reference/plot_producer_choice.md) / [`plot_cost_curves()`](https://mjorden.github.io/econscape/reference/plot_cost_curves.md) | Isoquants with an isocost line; the AC / MC pair |
+| [`linear_demand()`](https://mjorden.github.io/econscape/reference/demand.md) / [`demand_fn()`](https://mjorden.github.io/econscape/reference/demand.md) / [`quadratic_cost()`](https://mjorden.github.io/econscape/reference/cost.md) / [`production_cost()`](https://mjorden.github.io/econscape/reference/cost.md) | Market demand and firm cost objects, with [`price_at()`](https://mjorden.github.io/econscape/reference/demand_curve_values.md), [`marginal_revenue()`](https://mjorden.github.io/econscape/reference/demand_curve_values.md), [`elasticity()`](https://mjorden.github.io/econscape/reference/demand_curve_values.md), [`marginal_cost()`](https://mjorden.github.io/econscape/reference/cost_values.md) and friends |
+| [`monopoly()`](https://mjorden.github.io/econscape/reference/market_structure.md) / [`cournot()`](https://mjorden.github.io/econscape/reference/market_structure.md) / [`perfect_competition()`](https://mjorden.github.io/econscape/reference/market_structure.md) / [`compare_structures()`](https://mjorden.github.io/econscape/reference/compare_structures.md) | Market equilibria with surplus, deadweight loss and the Lerner index |
+| [`plot_market()`](https://mjorden.github.io/econscape/reference/plot_market.md) | Demand, MR, MC and the shaded welfare areas |
+| [`first_degree()`](https://mjorden.github.io/econscape/reference/price_discrimination.md) / [`third_degree()`](https://mjorden.github.io/econscape/reference/price_discrimination.md) / [`two_part_tariff()`](https://mjorden.github.io/econscape/reference/two_part_tariff.md) / [`aggregate_demand()`](https://mjorden.github.io/econscape/reference/aggregate_demand.md) | Price discrimination, with the uniform-price benchmark |
+| [`plot_two_part_tariff()`](https://mjorden.github.io/econscape/reference/plot_two_part_tariff.md) | The fee as shaded surplus above the unit price |
+| [`geom_indifference()`](https://mjorden.github.io/econscape/reference/geom_micro.md) / [`geom_budget()`](https://mjorden.github.io/econscape/reference/geom_micro.md) / [`geom_optimum()`](https://mjorden.github.io/econscape/reference/geom_micro.md) / [`geom_demand()`](https://mjorden.github.io/econscape/reference/geom_demand.md) / [`geom_engel()`](https://mjorden.github.io/econscape/reference/geom_demand.md) / [`geom_consumption_path()`](https://mjorden.github.io/econscape/reference/geom_consumption_path.md) | The pieces as ggplot layers |
+| [`plot_consumer_choice()`](https://mjorden.github.io/econscape/reference/plot_consumer_choice.md) | The textbook diagram in one call |
 
 ## Design notes
 
 **The masthead is not a layer.** The red block sits above the title,
 outside the plotting area, so it cannot be added with `+`.
-[`econ_masthead()`](https://mjorden.github.io/fredscape/reference/econ_masthead.md)
+[`econ_masthead()`](https://mjorden.github.io/econscape/reference/econ_masthead.md)
 converts the plot to a grob table and inserts the block as a new row
 aligned to the title’s left edge. It therefore has to come last — the
 result is a grid object, not a ggplot, and
@@ -427,9 +430,9 @@ accepts it.
 
 **Recession dates work offline.** `nber_recessions` is a bundled table
 of all 34 NBER-dated contractions from 1857 to 2020, so
-[`annotate_recessions()`](https://mjorden.github.io/fredscape/reference/annotate_recessions.md)
+[`annotate_recessions()`](https://mjorden.github.io/econscape/reference/annotate_recessions.md)
 needs no key and no network.
-[`fred_recessions()`](https://mjorden.github.io/fredscape/reference/fred_recessions.md)
+[`fred_recessions()`](https://mjorden.github.io/econscape/reference/fred_recessions.md)
 reads the same turning points live from `USREC` when currency matters
 more than convenience — it collapses runs of the 0/1 indicator back into
 peak/trough intervals.
@@ -487,204 +490,204 @@ MIT © Matthew Jorden
 
 A small client that returns tidy data frames.
 
-- [`fred_series()`](https://mjorden.github.io/fredscape/reference/fred_series.md)
+- [`fred_series()`](https://mjorden.github.io/econscape/reference/fred_series.md)
   : Download FRED series observations
-- [`fred_series_info()`](https://mjorden.github.io/fredscape/reference/fred_series_info.md)
+- [`fred_series_info()`](https://mjorden.github.io/econscape/reference/fred_series_info.md)
   : Look up FRED series metadata
-- [`fred_search()`](https://mjorden.github.io/fredscape/reference/fred_search.md)
+- [`fred_search()`](https://mjorden.github.io/econscape/reference/fred_search.md)
   : Search FRED for series matching free text
-- [`fred_recessions()`](https://mjorden.github.io/fredscape/reference/fred_recessions.md)
+- [`fred_recessions()`](https://mjorden.github.io/econscape/reference/fred_recessions.md)
   : Fetch recession dates live from FRED
-- [`fred_key()`](https://mjorden.github.io/fredscape/reference/fred_key.md)
-  [`fred_has_key()`](https://mjorden.github.io/fredscape/reference/fred_key.md)
-  [`fred_set_key()`](https://mjorden.github.io/fredscape/reference/fred_key.md)
+- [`fred_key()`](https://mjorden.github.io/econscape/reference/fred_key.md)
+  [`fred_has_key()`](https://mjorden.github.io/econscape/reference/fred_key.md)
+  [`fred_set_key()`](https://mjorden.github.io/econscape/reference/fred_key.md)
   : Manage the FRED API key
 
 ## The Economist style
 
 Theme, palettes, labels and the red masthead block.
 
-- [`set_style()`](https://mjorden.github.io/fredscape/reference/set_style.md)
-  [`get_style()`](https://mjorden.github.io/fredscape/reference/set_style.md)
-  [`style_colour()`](https://mjorden.github.io/fredscape/reference/set_style.md)
+- [`set_style()`](https://mjorden.github.io/econscape/reference/set_style.md)
+  [`get_style()`](https://mjorden.github.io/econscape/reference/set_style.md)
+  [`style_colour()`](https://mjorden.github.io/econscape/reference/set_style.md)
   : Choose the house style
-- [`theme_econ()`](https://mjorden.github.io/fredscape/reference/theme_econ.md)
+- [`theme_econ()`](https://mjorden.github.io/econscape/reference/theme_econ.md)
   : An Economist-style ggplot2 theme
-- [`scale_colour_econ()`](https://mjorden.github.io/fredscape/reference/scale_econ.md)
-  [`scale_color_econ()`](https://mjorden.github.io/fredscape/reference/scale_econ.md)
-  [`scale_fill_econ()`](https://mjorden.github.io/fredscape/reference/scale_econ.md)
-  [`scale_colour_econ_c()`](https://mjorden.github.io/fredscape/reference/scale_econ.md)
-  [`scale_color_econ_c()`](https://mjorden.github.io/fredscape/reference/scale_econ.md)
-  [`scale_fill_econ_c()`](https://mjorden.github.io/fredscape/reference/scale_econ.md)
+- [`scale_colour_econ()`](https://mjorden.github.io/econscape/reference/scale_econ.md)
+  [`scale_color_econ()`](https://mjorden.github.io/econscape/reference/scale_econ.md)
+  [`scale_fill_econ()`](https://mjorden.github.io/econscape/reference/scale_econ.md)
+  [`scale_colour_econ_c()`](https://mjorden.github.io/econscape/reference/scale_econ.md)
+  [`scale_color_econ_c()`](https://mjorden.github.io/econscape/reference/scale_econ.md)
+  [`scale_fill_econ_c()`](https://mjorden.github.io/econscape/reference/scale_econ.md)
   : Economist-style colour and fill scales
-- [`scale_y_econ()`](https://mjorden.github.io/fredscape/reference/scale_econ_axis.md)
-  [`scale_x_econ_date()`](https://mjorden.github.io/fredscape/reference/scale_econ_axis.md)
+- [`scale_y_econ()`](https://mjorden.github.io/econscape/reference/scale_econ_axis.md)
+  [`scale_x_econ_date()`](https://mjorden.github.io/econscape/reference/scale_econ_axis.md)
   : Axis scales that follow the house conventions
-- [`labs_econ()`](https://mjorden.github.io/fredscape/reference/labs_econ.md)
+- [`labs_econ()`](https://mjorden.github.io/econscape/reference/labs_econ.md)
   : Economist-style labels
-- [`econ_masthead()`](https://mjorden.github.io/fredscape/reference/econ_masthead.md)
+- [`econ_masthead()`](https://mjorden.github.io/econscape/reference/econ_masthead.md)
   : Add the red masthead block above a chart
-- [`print(`*`<econ_plot>`*`)`](https://mjorden.github.io/fredscape/reference/print.econ_plot.md)
-  [`plot(`*`<econ_plot>`*`)`](https://mjorden.github.io/fredscape/reference/print.econ_plot.md)
+- [`print(`*`<econ_plot>`*`)`](https://mjorden.github.io/econscape/reference/print.econ_plot.md)
+  [`plot(`*`<econ_plot>`*`)`](https://mjorden.github.io/econscape/reference/print.econ_plot.md)
   : Draw an econ_plot
-- [`econ_colours()`](https://mjorden.github.io/fredscape/reference/econ_colours.md)
-  [`econ_colors()`](https://mjorden.github.io/fredscape/reference/econ_colours.md)
-  : Look up fredscape colours by name
-- [`econ_pal()`](https://mjorden.github.io/fredscape/reference/econ_pal.md)
-  : Build a fredscape palette function
-- [`annotate_recessions()`](https://mjorden.github.io/fredscape/reference/annotate_recessions.md)
+- [`econ_colours()`](https://mjorden.github.io/econscape/reference/econ_colours.md)
+  [`econ_colors()`](https://mjorden.github.io/econscape/reference/econ_colours.md)
+  : Look up econscape colours by name
+- [`econ_pal()`](https://mjorden.github.io/econscape/reference/econ_pal.md)
+  : Build a econscape palette function
+- [`annotate_recessions()`](https://mjorden.github.io/econscape/reference/annotate_recessions.md)
   : Shade recession bands behind a time series
-- [`nber_recessions`](https://mjorden.github.io/fredscape/reference/nber_recessions.md)
+- [`nber_recessions`](https://mjorden.github.io/econscape/reference/nber_recessions.md)
   : US recession dates from the NBER
 
 ## Preferences and technology
 
 Utility and production functions that carry their parameters.
 
-- [`cobb_douglas()`](https://mjorden.github.io/fredscape/reference/cobb_douglas.md)
+- [`cobb_douglas()`](https://mjorden.github.io/econscape/reference/cobb_douglas.md)
   : Cobb-Douglas utility and production functions
-- [`ces()`](https://mjorden.github.io/fredscape/reference/ces.md) :
+- [`ces()`](https://mjorden.github.io/econscape/reference/ces.md) :
   Constant elasticity of substitution (CES) functions
-- [`leontief()`](https://mjorden.github.io/fredscape/reference/leontief.md)
+- [`leontief()`](https://mjorden.github.io/econscape/reference/leontief.md)
   : Perfect complements (Leontief) functions
-- [`perfect_substitutes()`](https://mjorden.github.io/fredscape/reference/perfect_substitutes.md)
+- [`perfect_substitutes()`](https://mjorden.github.io/econscape/reference/perfect_substitutes.md)
   : Perfect substitutes (linear) functions
-- [`quasilinear()`](https://mjorden.github.io/fredscape/reference/quasilinear.md)
+- [`quasilinear()`](https://mjorden.github.io/econscape/reference/quasilinear.md)
   : Quasi-linear utility
 
 ## Consumer theory
 
-- [`budget()`](https://mjorden.github.io/fredscape/reference/budget.md)
+- [`budget()`](https://mjorden.github.io/econscape/reference/budget.md)
   : A budget constraint
-- [`budget_line()`](https://mjorden.github.io/fredscape/reference/budget_line.md)
+- [`budget_line()`](https://mjorden.github.io/econscape/reference/budget_line.md)
   : Coordinates of a budget line
-- [`price_schedule()`](https://mjorden.github.io/fredscape/reference/price_schedule.md)
-  [`schedule_cost()`](https://mjorden.github.io/fredscape/reference/price_schedule.md)
-  [`schedule_quantity()`](https://mjorden.github.io/fredscape/reference/price_schedule.md)
+- [`price_schedule()`](https://mjorden.github.io/econscape/reference/price_schedule.md)
+  [`schedule_cost()`](https://mjorden.github.io/econscape/reference/price_schedule.md)
+  [`schedule_quantity()`](https://mjorden.github.io/econscape/reference/price_schedule.md)
   : A unit price that changes with the quantity bought
-- [`utility_table()`](https://mjorden.github.io/fredscape/reference/utility_table.md)
+- [`utility_table()`](https://mjorden.github.io/econscape/reference/utility_table.md)
   : Preferences given as a total-utility table
-- [`mu_per_dollar()`](https://mjorden.github.io/fredscape/reference/mu_per_dollar.md)
+- [`mu_per_dollar()`](https://mjorden.github.io/econscape/reference/mu_per_dollar.md)
   : The marginal-utility-per-dollar purchase order
-- [`indifference_curve()`](https://mjorden.github.io/fredscape/reference/indifference_curve.md)
+- [`indifference_curve()`](https://mjorden.github.io/econscape/reference/indifference_curve.md)
   : Indifference curves and isoquants
-- [`optimal_bundle()`](https://mjorden.github.io/fredscape/reference/optimal_bundle.md)
+- [`optimal_bundle()`](https://mjorden.github.io/econscape/reference/optimal_bundle.md)
   : The bundle a consumer (or producer) chooses
-- [`mrs()`](https://mjorden.github.io/fredscape/reference/mrs.md) :
+- [`mrs()`](https://mjorden.github.io/econscape/reference/mrs.md) :
   Marginal rate of substitution
-- [`expenditure()`](https://mjorden.github.io/fredscape/reference/expenditure.md)
+- [`expenditure()`](https://mjorden.github.io/econscape/reference/expenditure.md)
   : The expenditure function
-- [`demand_curve()`](https://mjorden.github.io/fredscape/reference/derived_curves.md)
-  [`engel_curve()`](https://mjorden.github.io/fredscape/reference/derived_curves.md)
-  [`price_consumption_path()`](https://mjorden.github.io/fredscape/reference/derived_curves.md)
-  [`income_consumption_path()`](https://mjorden.github.io/fredscape/reference/derived_curves.md)
+- [`demand_curve()`](https://mjorden.github.io/econscape/reference/derived_curves.md)
+  [`engel_curve()`](https://mjorden.github.io/econscape/reference/derived_curves.md)
+  [`price_consumption_path()`](https://mjorden.github.io/econscape/reference/derived_curves.md)
+  [`income_consumption_path()`](https://mjorden.github.io/econscape/reference/derived_curves.md)
   : Curves traced by the optimal bundle
-- [`price_change()`](https://mjorden.github.io/fredscape/reference/price_change.md)
-  [`slutsky()`](https://mjorden.github.io/fredscape/reference/price_change.md)
-  [`hicks()`](https://mjorden.github.io/fredscape/reference/price_change.md)
+- [`price_change()`](https://mjorden.github.io/econscape/reference/price_change.md)
+  [`slutsky()`](https://mjorden.github.io/econscape/reference/price_change.md)
+  [`hicks()`](https://mjorden.github.io/econscape/reference/price_change.md)
   : Decompose a price change into substitution and income effects
 
 ## Producer theory
 
-- [`expansion_path()`](https://mjorden.github.io/fredscape/reference/producer.md)
-  [`conditional_demand()`](https://mjorden.github.io/fredscape/reference/producer.md)
-  [`cost_curves()`](https://mjorden.github.io/fredscape/reference/producer.md)
+- [`expansion_path()`](https://mjorden.github.io/econscape/reference/producer.md)
+  [`conditional_demand()`](https://mjorden.github.io/econscape/reference/producer.md)
+  [`cost_curves()`](https://mjorden.github.io/econscape/reference/producer.md)
   : Producer theory: expansion paths and cost curves
 
 ## Markets
 
 Demand and cost objects, equilibria, and price discrimination.
 
-- [`linear_demand()`](https://mjorden.github.io/fredscape/reference/demand.md)
-  [`demand_fn()`](https://mjorden.github.io/fredscape/reference/demand.md)
+- [`linear_demand()`](https://mjorden.github.io/econscape/reference/demand.md)
+  [`demand_fn()`](https://mjorden.github.io/econscape/reference/demand.md)
   : Market demand
-- [`price_at()`](https://mjorden.github.io/fredscape/reference/demand_curve_values.md)
-  [`quantity_at()`](https://mjorden.github.io/fredscape/reference/demand_curve_values.md)
-  [`marginal_revenue()`](https://mjorden.github.io/fredscape/reference/demand_curve_values.md)
-  [`elasticity()`](https://mjorden.github.io/fredscape/reference/demand_curve_values.md)
-  [`consumer_surplus()`](https://mjorden.github.io/fredscape/reference/demand_curve_values.md)
+- [`price_at()`](https://mjorden.github.io/econscape/reference/demand_curve_values.md)
+  [`quantity_at()`](https://mjorden.github.io/econscape/reference/demand_curve_values.md)
+  [`marginal_revenue()`](https://mjorden.github.io/econscape/reference/demand_curve_values.md)
+  [`elasticity()`](https://mjorden.github.io/econscape/reference/demand_curve_values.md)
+  [`consumer_surplus()`](https://mjorden.github.io/econscape/reference/demand_curve_values.md)
   : Prices, quantities and revenue along a demand curve
-- [`aggregate_demand()`](https://mjorden.github.io/fredscape/reference/aggregate_demand.md)
+- [`aggregate_demand()`](https://mjorden.github.io/econscape/reference/aggregate_demand.md)
   : Horizontal summation of demand curves
-- [`quadratic_cost()`](https://mjorden.github.io/fredscape/reference/cost.md)
-  [`production_cost()`](https://mjorden.github.io/fredscape/reference/cost.md)
+- [`quadratic_cost()`](https://mjorden.github.io/econscape/reference/cost.md)
+  [`production_cost()`](https://mjorden.github.io/econscape/reference/cost.md)
   : A firm's cost function
-- [`total_cost()`](https://mjorden.github.io/fredscape/reference/cost_values.md)
-  [`variable_cost()`](https://mjorden.github.io/fredscape/reference/cost_values.md)
-  [`marginal_cost()`](https://mjorden.github.io/fredscape/reference/cost_values.md)
-  [`average_cost()`](https://mjorden.github.io/fredscape/reference/cost_values.md)
-  [`average_variable_cost()`](https://mjorden.github.io/fredscape/reference/cost_values.md)
-  [`min_average_cost()`](https://mjorden.github.io/fredscape/reference/cost_values.md)
+- [`total_cost()`](https://mjorden.github.io/econscape/reference/cost_values.md)
+  [`variable_cost()`](https://mjorden.github.io/econscape/reference/cost_values.md)
+  [`marginal_cost()`](https://mjorden.github.io/econscape/reference/cost_values.md)
+  [`average_cost()`](https://mjorden.github.io/econscape/reference/cost_values.md)
+  [`average_variable_cost()`](https://mjorden.github.io/econscape/reference/cost_values.md)
+  [`min_average_cost()`](https://mjorden.github.io/econscape/reference/cost_values.md)
   : Cost at a level of output
-- [`monopoly()`](https://mjorden.github.io/fredscape/reference/market_structure.md)
-  [`cournot()`](https://mjorden.github.io/fredscape/reference/market_structure.md)
-  [`perfect_competition()`](https://mjorden.github.io/fredscape/reference/market_structure.md)
+- [`monopoly()`](https://mjorden.github.io/econscape/reference/market_structure.md)
+  [`cournot()`](https://mjorden.github.io/econscape/reference/market_structure.md)
+  [`perfect_competition()`](https://mjorden.github.io/econscape/reference/market_structure.md)
   : Market equilibrium under monopoly, oligopoly and perfect competition
-- [`compare_structures()`](https://mjorden.github.io/fredscape/reference/compare_structures.md)
+- [`compare_structures()`](https://mjorden.github.io/econscape/reference/compare_structures.md)
   : Compare market structures on the same demand and cost
-- [`first_degree()`](https://mjorden.github.io/fredscape/reference/price_discrimination.md)
-  [`third_degree()`](https://mjorden.github.io/fredscape/reference/price_discrimination.md)
+- [`first_degree()`](https://mjorden.github.io/econscape/reference/price_discrimination.md)
+  [`third_degree()`](https://mjorden.github.io/econscape/reference/price_discrimination.md)
   : Price discrimination
-- [`two_part_tariff()`](https://mjorden.github.io/fredscape/reference/two_part_tariff.md)
+- [`two_part_tariff()`](https://mjorden.github.io/econscape/reference/two_part_tariff.md)
   : Two-part tariffs
 
 ## Econometrics
 
 Estimation and time-series tools for the series you fetched.
 
-- [`ols()`](https://mjorden.github.io/fredscape/reference/ols.md) :
+- [`ols()`](https://mjorden.github.io/econscape/reference/ols.md) :
   Ordinary least squares with robust standard errors
 
-- [`coef_table()`](https://mjorden.github.io/fredscape/reference/coef_table.md)
+- [`coef_table()`](https://mjorden.github.io/econscape/reference/coef_table.md)
   :
 
   Coefficient table for an `econ_fit`
 
-- [`plot_coefficients()`](https://mjorden.github.io/fredscape/reference/plot_coefficients.md)
+- [`plot_coefficients()`](https://mjorden.github.io/econscape/reference/plot_coefficients.md)
   : Draw a coefficient table
 
-- [`hp_filter()`](https://mjorden.github.io/fredscape/reference/trend_cycle.md)
-  [`hamilton_filter()`](https://mjorden.github.io/fredscape/reference/trend_cycle.md)
+- [`hp_filter()`](https://mjorden.github.io/econscape/reference/trend_cycle.md)
+  [`hamilton_filter()`](https://mjorden.github.io/econscape/reference/trend_cycle.md)
   : Trend-cycle decompositions
 
-- [`plot_trend_cycle()`](https://mjorden.github.io/fredscape/reference/plot_trend_cycle.md)
+- [`plot_trend_cycle()`](https://mjorden.github.io/econscape/reference/plot_trend_cycle.md)
   : Draw a trend-cycle decomposition
 
-- [`adf_test()`](https://mjorden.github.io/fredscape/reference/adf_test.md)
+- [`adf_test()`](https://mjorden.github.io/econscape/reference/adf_test.md)
   : Augmented Dickey-Fuller test for a unit root
 
-- [`transform_series()`](https://mjorden.github.io/fredscape/reference/transform_series.md)
+- [`transform_series()`](https://mjorden.github.io/econscape/reference/transform_series.md)
   : Transform a tidy series the way FRED does
 
 ## Diagrams
 
 Textbook figures in the house style, and the layers to build your own.
 
-- [`plot_consumer_choice()`](https://mjorden.github.io/fredscape/reference/plot_consumer_choice.md)
+- [`plot_consumer_choice()`](https://mjorden.github.io/econscape/reference/plot_consumer_choice.md)
   : Draw the consumer's choice in one call
-- [`plot_producer_choice()`](https://mjorden.github.io/fredscape/reference/plot_producer_choice.md)
+- [`plot_producer_choice()`](https://mjorden.github.io/econscape/reference/plot_producer_choice.md)
   : Draw the producer's cost-minimising choice
-- [`plot_price_change()`](https://mjorden.github.io/fredscape/reference/plot_price_change.md)
+- [`plot_price_change()`](https://mjorden.github.io/econscape/reference/plot_price_change.md)
   : Draw the substitution and income effects of a price change
-- [`plot_cost_curves()`](https://mjorden.github.io/fredscape/reference/plot_cost_curves.md)
+- [`plot_cost_curves()`](https://mjorden.github.io/econscape/reference/plot_cost_curves.md)
   : Draw average and marginal cost
-- [`plot_market()`](https://mjorden.github.io/fredscape/reference/plot_market.md)
+- [`plot_market()`](https://mjorden.github.io/econscape/reference/plot_market.md)
   : Draw a market outcome
-- [`plot_two_part_tariff()`](https://mjorden.github.io/fredscape/reference/plot_two_part_tariff.md)
+- [`plot_two_part_tariff()`](https://mjorden.github.io/econscape/reference/plot_two_part_tariff.md)
   : Draw a two-part tariff
-- [`geom_indifference()`](https://mjorden.github.io/fredscape/reference/geom_micro.md)
-  [`geom_budget()`](https://mjorden.github.io/fredscape/reference/geom_micro.md)
-  [`geom_optimum()`](https://mjorden.github.io/fredscape/reference/geom_micro.md)
+- [`geom_indifference()`](https://mjorden.github.io/econscape/reference/geom_micro.md)
+  [`geom_budget()`](https://mjorden.github.io/econscape/reference/geom_micro.md)
+  [`geom_optimum()`](https://mjorden.github.io/econscape/reference/geom_micro.md)
   : Chart layers for consumer and producer theory
-- [`geom_demand()`](https://mjorden.github.io/fredscape/reference/geom_demand.md)
-  [`geom_engel()`](https://mjorden.github.io/fredscape/reference/geom_demand.md)
+- [`geom_demand()`](https://mjorden.github.io/econscape/reference/geom_demand.md)
+  [`geom_engel()`](https://mjorden.github.io/econscape/reference/geom_demand.md)
   : Draw a demand or Engel curve
-- [`geom_consumption_path()`](https://mjorden.github.io/fredscape/reference/geom_consumption_path.md)
+- [`geom_consumption_path()`](https://mjorden.github.io/econscape/reference/geom_consumption_path.md)
   : Draw the locus of optimal bundles
 
 ## Extending
 
-- [`fredscape-extending`](https://mjorden.github.io/fredscape/reference/fredscape-extending.md)
-  [`extending`](https://mjorden.github.io/fredscape/reference/fredscape-extending.md)
-  : Extending fredscape with your own preferences, demand and cost
+- [`econscape-extending`](https://mjorden.github.io/econscape/reference/econscape-extending.md)
+  [`extending`](https://mjorden.github.io/econscape/reference/econscape-extending.md)
+  : Extending econscape with your own preferences, demand and cost
 

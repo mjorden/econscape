@@ -1,10 +1,10 @@
 # Chart layers for consumer and producer theory
 
 Layers that put
-[`indifference_curve()`](https://mjorden.github.io/fredscape/reference/indifference_curve.md),
-[`budget()`](https://mjorden.github.io/fredscape/reference/budget.md)
+[`indifference_curve()`](https://mjorden.github.io/econscape/reference/indifference_curve.md),
+[`budget()`](https://mjorden.github.io/econscape/reference/budget.md)
 and
-[`optimal_bundle()`](https://mjorden.github.io/fredscape/reference/optimal_bundle.md)
+[`optimal_bundle()`](https://mjorden.github.io/econscape/reference/optimal_bundle.md)
 onto a ggplot without constructing the data by hand. None of them
 inherit aesthetics from the plot, so they can be added to an empty
 [`ggplot()`](https://ggplot2.tidyverse.org/reference/ggplot.html) or
@@ -46,7 +46,7 @@ geom_optimum(
 - u:
 
   A function of `x` and `y`, typically from
-  [`cobb_douglas()`](https://mjorden.github.io/fredscape/reference/cobb_douglas.md).
+  [`cobb_douglas()`](https://mjorden.github.io/econscape/reference/cobb_douglas.md).
 
 - levels:
 
@@ -76,7 +76,7 @@ geom_optimum(
 - b:
 
   A
-  [`budget()`](https://mjorden.github.io/fredscape/reference/budget.md),
+  [`budget()`](https://mjorden.github.io/econscape/reference/budget.md),
   or for `geom_budget()` a list of them.
 
 - linetype:
@@ -96,11 +96,11 @@ geom_optimum(
 A ggplot2 layer, or a list of layers, that can be added to a plot with
 `+`. The convention throughout the package: a `geom_*()` returns a
 single layer when it draws one thing (`geom_budget()`,
-[`geom_demand()`](https://mjorden.github.io/fredscape/reference/geom_demand.md),
-[`geom_engel()`](https://mjorden.github.io/fredscape/reference/geom_demand.md))
+[`geom_demand()`](https://mjorden.github.io/econscape/reference/geom_demand.md),
+[`geom_engel()`](https://mjorden.github.io/econscape/reference/geom_demand.md))
 and a list when it draws several that belong together
 (`geom_optimum()`'s point and drop lines,
-[`geom_consumption_path()`](https://mjorden.github.io/fredscape/reference/geom_consumption_path.md)'s
+[`geom_consumption_path()`](https://mjorden.github.io/econscape/reference/geom_consumption_path.md)'s
 path and points, `geom_indifference()`'s path and the vertical arm of a
 Leontief L). Both add with `+` identically.
 
@@ -112,7 +112,7 @@ Leontief L). Both add with `+` identically.
   intercepts. Given a list of budgets it draws one line each, which is
   how a price or income change is shown. A kinked budget (one built with
   a
-  [`price_schedule()`](https://mjorden.github.io/fredscape/reference/price_schedule.md))
+  [`price_schedule()`](https://mjorden.github.io/econscape/reference/price_schedule.md))
   is drawn as a path through its kinks.
 
 - `geom_optimum()` marks the chosen bundle, with dashed lines dropping
@@ -120,7 +120,7 @@ Leontief L). Both add with `+` identically.
 
 ## See also
 
-[`plot_consumer_choice()`](https://mjorden.github.io/fredscape/reference/plot_consumer_choice.md)
+[`plot_consumer_choice()`](https://mjorden.github.io/econscape/reference/plot_consumer_choice.md)
 for the whole chart in one call.
 
 ## Examples

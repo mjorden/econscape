@@ -5,7 +5,7 @@ them – highest marginal utility per dollar first – with the running
 total spent, so the answer to "what do I buy with \$35?" is read off
 where the cumulative cost passes the income. This is the argument the
 introductory course makes;
-[`optimal_bundle()`](https://mjorden.github.io/fredscape/reference/optimal_bundle.md)
+[`optimal_bundle()`](https://mjorden.github.io/econscape/reference/optimal_bundle.md)
 reaches the same bundle by exhaustive search, and the two agree whenever
 marginal utility is diminishing.
 
@@ -20,14 +20,14 @@ mu_per_dollar(u, b)
 - u:
 
   A
-  [`utility_table()`](https://mjorden.github.io/fredscape/reference/utility_table.md).
+  [`utility_table()`](https://mjorden.github.io/econscape/reference/utility_table.md).
 
 - b:
 
   A
-  [`budget()`](https://mjorden.github.io/fredscape/reference/budget.md);
+  [`budget()`](https://mjorden.github.io/econscape/reference/budget.md);
   prices may be
-  [`price_schedule()`](https://mjorden.github.io/fredscape/reference/price_schedule.md)s,
+  [`price_schedule()`](https://mjorden.github.io/econscape/reference/price_schedule.md)s,
   in which case each unit is priced at its own tier.
 
 ## Value

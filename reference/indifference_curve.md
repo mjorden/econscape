@@ -2,12 +2,12 @@
 
 For each `level`, finds the `y` that gives \\u(x, y) = \\ `level` at
 every `x`, i.e. the contour of the function. Functions built by
-[`cobb_douglas()`](https://mjorden.github.io/fredscape/reference/cobb_douglas.md),
-[`ces()`](https://mjorden.github.io/fredscape/reference/ces.md),
-[`leontief()`](https://mjorden.github.io/fredscape/reference/leontief.md),
-[`perfect_substitutes()`](https://mjorden.github.io/fredscape/reference/perfect_substitutes.md)
+[`cobb_douglas()`](https://mjorden.github.io/econscape/reference/cobb_douglas.md),
+[`ces()`](https://mjorden.github.io/econscape/reference/ces.md),
+[`leontief()`](https://mjorden.github.io/econscape/reference/leontief.md),
+[`perfect_substitutes()`](https://mjorden.github.io/econscape/reference/perfect_substitutes.md)
 and
-[`quasilinear()`](https://mjorden.github.io/fredscape/reference/quasilinear.md)
+[`quasilinear()`](https://mjorden.github.io/econscape/reference/quasilinear.md)
 use their closed forms (for Cobb-Douglas, \\y = (U / (A
 x^{\alpha}))^{1/\beta}\\); any other function of two arguments is solved
 numerically by bisection, which requires it to be non-decreasing in `y`
@@ -48,7 +48,7 @@ indifference_curve(u, level, x, ...)
 - u:
 
   A function of `x` and `y`, typically from
-  [`cobb_douglas()`](https://mjorden.github.io/fredscape/reference/cobb_douglas.md).
+  [`cobb_douglas()`](https://mjorden.github.io/econscape/reference/cobb_douglas.md).
 
 - level:
 

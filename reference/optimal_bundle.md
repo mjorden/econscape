@@ -45,7 +45,7 @@ optimal_bundle(u, b, ...)
 - b:
 
   A
-  [`budget()`](https://mjorden.github.io/fredscape/reference/budget.md).
+  [`budget()`](https://mjorden.github.io/econscape/reference/budget.md).
 
 - ...:
 

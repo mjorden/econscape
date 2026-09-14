@@ -24,9 +24,9 @@ scale_fill_econ_c(palette = NULL, reverse = FALSE, ...)
 - palette:
 
   Palette name, see
-  [`econ_pal()`](https://mjorden.github.io/fredscape/reference/econ_pal.md).
+  [`econ_pal()`](https://mjorden.github.io/econscape/reference/econ_pal.md).
   `NULL` follows
-  [`set_style()`](https://mjorden.github.io/fredscape/reference/set_style.md).
+  [`set_style()`](https://mjorden.github.io/econscape/reference/set_style.md).
 
 - reverse:
 

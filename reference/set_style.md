@@ -5,9 +5,9 @@ blue-grey panel, red masthead and the newspaper's data palette.
 `"academic"` is a fork for papers and lecture notes: a parchment panel,
 a serif face, a tan-to-espresso palette and a rust masthead. Setting the
 style changes the defaults of
-[`theme_econ()`](https://mjorden.github.io/fredscape/reference/theme_econ.md),
+[`theme_econ()`](https://mjorden.github.io/econscape/reference/theme_econ.md),
 the `scale_*_econ()` colour scales,
-[`econ_masthead()`](https://mjorden.github.io/fredscape/reference/econ_masthead.md)
+[`econ_masthead()`](https://mjorden.github.io/econscape/reference/econ_masthead.md)
 and every `plot_*()` helper; any argument you pass explicitly still
 wins.
 
@@ -42,7 +42,7 @@ returns one of the current style's role colours.
 
 ## Details
 
-The style is a session option (`fredscape.style`), so put `set_style()`
+The style is a session option (`econscape.style`), so put `set_style()`
 at the top of a script or in `.Rprofile`. It is read when a plot is
 *built*: a ggplot constructed under one style keeps that style if you
 switch afterwards, so set the style first and construct the plot second.

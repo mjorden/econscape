@@ -5,7 +5,7 @@ marginal cost when `b = 0`, rising marginal cost otherwise, and a
 U-shaped average cost whenever both `fixed` and `b` are positive.
 `production_cost()` derives the cost function from a production function
 and input prices through
-[`expenditure()`](https://mjorden.github.io/fredscape/reference/expenditure.md),
+[`expenditure()`](https://mjorden.github.io/econscape/reference/expenditure.md),
 so the market module can sit directly on the producer-theory one.
 
 ## Usage
@@ -29,8 +29,8 @@ production_cost(f, w, r, fixed = 0)
 - b:
 
   Quadratic coefficient. Non-negative. (The textbook letter, not a
-  [`budget()`](https://mjorden.github.io/fredscape/reference/budget.md);
-  see `?fredscape-extending` for the naming conventions.)
+  [`budget()`](https://mjorden.github.io/econscape/reference/budget.md);
+  see `?econscape-extending` for the naming conventions.)
 
 - f:
 
@@ -46,11 +46,11 @@ An object of class `cost` (and `quadratic_cost` or `production_cost`).
 
 ## See also
 
-[`total_cost()`](https://mjorden.github.io/fredscape/reference/cost_values.md)
+[`total_cost()`](https://mjorden.github.io/econscape/reference/cost_values.md)
 and friends;
-[`monopoly()`](https://mjorden.github.io/fredscape/reference/market_structure.md),
-[`cournot()`](https://mjorden.github.io/fredscape/reference/market_structure.md),
-[`perfect_competition()`](https://mjorden.github.io/fredscape/reference/market_structure.md).
+[`monopoly()`](https://mjorden.github.io/econscape/reference/market_structure.md),
+[`cournot()`](https://mjorden.github.io/econscape/reference/market_structure.md),
+[`perfect_competition()`](https://mjorden.github.io/econscape/reference/market_structure.md).
 
 ## Examples
 

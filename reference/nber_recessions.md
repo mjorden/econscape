@@ -41,6 +41,6 @@ convention behind the shaded bands on FRED's own charts.
 
 The table is a static copy, so a newly dated recession will not appear
 until the package is updated.
-[`fred_recessions()`](https://mjorden.github.io/fredscape/reference/fred_recessions.md)
+[`fred_recessions()`](https://mjorden.github.io/econscape/reference/fred_recessions.md)
 reads the same turning points live from FRED and is the one to use if
 that matters.

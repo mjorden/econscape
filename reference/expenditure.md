@@ -8,7 +8,7 @@ method: closed forms for Cobb-Douglas, CES, Leontief and perfect
 substitutes, and for quasi-linear utility a single root-find for the
 first-order condition followed by the closed form. Any other function is
 solved by finding the income at which
-[`optimal_bundle()`](https://mjorden.github.io/fredscape/reference/optimal_bundle.md)
+[`optimal_bundle()`](https://mjorden.github.io/econscape/reference/optimal_bundle.md)
 just reaches `level`, using
 [`stats::uniroot()`](https://rdrr.io/r/stats/uniroot.html).
 

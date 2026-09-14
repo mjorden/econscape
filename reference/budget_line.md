@@ -13,7 +13,7 @@ budget_line(b, n_points = NULL)
 - b:
 
   A
-  [`budget()`](https://mjorden.github.io/fredscape/reference/budget.md).
+  [`budget()`](https://mjorden.github.io/econscape/reference/budget.md).
 
 - n_points:
 

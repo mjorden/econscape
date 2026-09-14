@@ -22,9 +22,9 @@ annotate_recessions(
 
   A data frame of recession intervals with `peak` and `trough` date
   columns. Defaults to
-  [nber_recessions](https://mjorden.github.io/fredscape/reference/nber_recessions.md);
+  [nber_recessions](https://mjorden.github.io/econscape/reference/nber_recessions.md);
   pass the result of
-  [`fred_recessions()`](https://mjorden.github.io/fredscape/reference/fred_recessions.md)
+  [`fred_recessions()`](https://mjorden.github.io/econscape/reference/fred_recessions.md)
   for a live copy.
 
 - from, to:
@@ -36,7 +36,7 @@ annotate_recessions(
 - fill:
 
   Band colour. `NULL` follows the current style
-  ([`set_style()`](https://mjorden.github.io/fredscape/reference/set_style.md)).
+  ([`set_style()`](https://mjorden.github.io/econscape/reference/set_style.md)).
 
 - alpha:
 

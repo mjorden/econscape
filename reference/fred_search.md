@@ -26,17 +26,17 @@ fred_search(text, limit = 25L, order_by = "search_rank", key = fred_key())
 - key:
 
   A FRED API key. Defaults to
-  [`fred_key()`](https://mjorden.github.io/fredscape/reference/fred_key.md).
+  [`fred_key()`](https://mjorden.github.io/econscape/reference/fred_key.md).
 
 ## Value
 
 A data frame in the same shape as
-[`fred_series_info()`](https://mjorden.github.io/fredscape/reference/fred_series_info.md).
+[`fred_series_info()`](https://mjorden.github.io/econscape/reference/fred_series_info.md).
 
 ## Examples
 
 ``` r
-if (FALSE) { # fredscape::fred_has_key()
+if (FALSE) { # econscape::fred_has_key()
 head(fred_search("unemployment rate", limit = 5)[, c("series_id", "title")])
 }
 ```

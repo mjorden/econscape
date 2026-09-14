@@ -1,12 +1,12 @@
 # Draw the locus of optimal bundles
 
 Adds a
-[`price_consumption_path()`](https://mjorden.github.io/fredscape/reference/derived_curves.md)
+[`price_consumption_path()`](https://mjorden.github.io/econscape/reference/derived_curves.md)
 or
-[`income_consumption_path()`](https://mjorden.github.io/fredscape/reference/derived_curves.md)
+[`income_consumption_path()`](https://mjorden.github.io/econscape/reference/derived_curves.md)
 to the indifference-curve diagram as a path through the bundles, with a
 point at each one. Pair it with
-[`geom_budget()`](https://mjorden.github.io/fredscape/reference/geom_micro.md)
+[`geom_budget()`](https://mjorden.github.io/econscape/reference/geom_micro.md)
 given the matching list of budgets to show the lines the bundles sit on.
 
 ## Usage

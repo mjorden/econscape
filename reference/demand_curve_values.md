@@ -21,9 +21,9 @@ consumer_surplus(d, q, ...)
 - d:
 
   A demand object from
-  [`linear_demand()`](https://mjorden.github.io/fredscape/reference/demand.md)
+  [`linear_demand()`](https://mjorden.github.io/econscape/reference/demand.md)
   or
-  [`demand_fn()`](https://mjorden.github.io/fredscape/reference/demand.md).
+  [`demand_fn()`](https://mjorden.github.io/econscape/reference/demand.md).
 
 - q:
 

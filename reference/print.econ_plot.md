@@ -17,7 +17,7 @@ plot(x, ...)
 - x:
 
   An `econ_plot` from
-  [`econ_masthead()`](https://mjorden.github.io/fredscape/reference/econ_masthead.md).
+  [`econ_masthead()`](https://mjorden.github.io/econscape/reference/econ_masthead.md).
 
 - newpage:
 

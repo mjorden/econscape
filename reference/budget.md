@@ -20,11 +20,11 @@ budget(income, px, py)
 - px, py:
 
   Prices of `x` and `y`: a positive number, or a
-  [`price_schedule()`](https://mjorden.github.io/fredscape/reference/price_schedule.md)
+  [`price_schedule()`](https://mjorden.github.io/econscape/reference/price_schedule.md)
   for a good whose unit price changes with the quantity bought (quantity
   discounts, block tariffs). A schedule makes the budget line kinked;
   see
-  [`price_schedule()`](https://mjorden.github.io/fredscape/reference/price_schedule.md)
+  [`price_schedule()`](https://mjorden.github.io/econscape/reference/price_schedule.md)
   for what that changes.
 
 ## Value
@@ -37,9 +37,9 @@ either price is a schedule) and the cost functions `cost_x` and
 
 ## See also
 
-[`budget_line()`](https://mjorden.github.io/fredscape/reference/budget_line.md)
+[`budget_line()`](https://mjorden.github.io/econscape/reference/budget_line.md)
 to get plottable coordinates,
-[`optimal_bundle()`](https://mjorden.github.io/fredscape/reference/optimal_bundle.md)
+[`optimal_bundle()`](https://mjorden.github.io/econscape/reference/optimal_bundle.md)
 to solve against a utility function.
 
 ## Examples

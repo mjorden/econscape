@@ -5,7 +5,7 @@ MRS \\a / b\\. The consumer spends everything on whichever good gives
 more utility per unit of money, so the optimum is a corner unless \\a /
 p_x = b / p_y\\ exactly, when every point on the budget line is equally
 good. In that knife-edge case
-[`optimal_bundle()`](https://mjorden.github.io/fredscape/reference/optimal_bundle.md)
+[`optimal_bundle()`](https://mjorden.github.io/econscape/reference/optimal_bundle.md)
 returns the midpoint of the budget line and flags the result with an
 `indeterminate` attribute set to `TRUE`. "Exactly" means within
 [`all.equal()`](https://rdrr.io/r/base/all.equal.html)'s default
@@ -24,7 +24,7 @@ perfect_substitutes(a = 1, b = 1, A = 1, kind = c("utility", "production"))
 
   Marginal utility of `x` and `y`. Positive. (`b` here is the textbook
   coefficient, not a
-  [`budget()`](https://mjorden.github.io/fredscape/reference/budget.md)
+  [`budget()`](https://mjorden.github.io/econscape/reference/budget.md)
   – the letter is kept because that is how the formula is written.)
 
 - A:

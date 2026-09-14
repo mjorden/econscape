@@ -27,7 +27,7 @@ theme_econ(
 
   Base font family. `""` uses the device default; `NULL` follows the
   current style
-  ([`set_style()`](https://mjorden.github.io/fredscape/reference/set_style.md)).
+  ([`set_style()`](https://mjorden.github.io/econscape/reference/set_style.md)).
 
 - panel:
 
@@ -55,8 +55,8 @@ Two conventions are left to the caller because they depend on the data
 rather than the style: put the units in the subtitle and drop the axis
 titles with `labs(x = NULL, y = NULL)`, and move the y-axis labels to
 the right with
-[`scale_y_econ()`](https://mjorden.github.io/fredscape/reference/scale_econ_axis.md).
-[`labs_econ()`](https://mjorden.github.io/fredscape/reference/labs_econ.md)
+[`scale_y_econ()`](https://mjorden.github.io/econscape/reference/scale_econ_axis.md).
+[`labs_econ()`](https://mjorden.github.io/econscape/reference/labs_econ.md)
 does the first for you.
 
 The Economist sets in a proprietary face (Officina Sans / EconSans).
@@ -66,11 +66,11 @@ get closer.
 
 ## See also
 
-[`scale_colour_econ()`](https://mjorden.github.io/fredscape/reference/scale_econ.md)
+[`scale_colour_econ()`](https://mjorden.github.io/econscape/reference/scale_econ.md)
 for matching colour scales,
-[`econ_masthead()`](https://mjorden.github.io/fredscape/reference/econ_masthead.md)
+[`econ_masthead()`](https://mjorden.github.io/econscape/reference/econ_masthead.md)
 for the red block, and
-[`annotate_recessions()`](https://mjorden.github.io/fredscape/reference/annotate_recessions.md)
+[`annotate_recessions()`](https://mjorden.github.io/econscape/reference/annotate_recessions.md)
 for recession bands.
 
 ## Examples

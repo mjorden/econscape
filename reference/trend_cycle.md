@@ -16,7 +16,7 @@ hamilton_filter(x, h = 8L, p = 4L)
 - x:
 
   A numeric vector, or a data frame from
-  [`fred_series()`](https://mjorden.github.io/fredscape/reference/fred_series.md)
+  [`fred_series()`](https://mjorden.github.io/econscape/reference/fred_series.md)
   with `date` and `value` columns (a single series).
 
 - lambda:
@@ -42,7 +42,7 @@ hamilton_filter(x, h = 8L, p = 4L)
 An object of class `trend_cycle`: a data frame with columns `date` (if
 `x` had one), `value`, `trend` and `cycle`, plus attributes `method` and
 the tuning parameters.
-[`plot_trend_cycle()`](https://mjorden.github.io/fredscape/reference/plot_trend_cycle.md)
+[`plot_trend_cycle()`](https://mjorden.github.io/econscape/reference/plot_trend_cycle.md)
 draws it.
 
 ## Details

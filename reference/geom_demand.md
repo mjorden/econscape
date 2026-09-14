@@ -1,10 +1,10 @@
 # Draw a demand or Engel curve
 
 `geom_demand()` draws the output of
-[`demand_curve()`](https://mjorden.github.io/fredscape/reference/derived_curves.md)
+[`demand_curve()`](https://mjorden.github.io/econscape/reference/derived_curves.md)
 the way every textbook does: quantity along the x-axis, price up the
 y-axis. `geom_engel()` draws
-[`engel_curve()`](https://mjorden.github.io/fredscape/reference/derived_curves.md)
+[`engel_curve()`](https://mjorden.github.io/econscape/reference/derived_curves.md)
 with income along the x-axis.
 
 ## Usage
@@ -20,9 +20,9 @@ geom_engel(data, colour = style_colour("primary"), linewidth = 0.8, ...)
 - data:
 
   A data frame from
-  [`demand_curve()`](https://mjorden.github.io/fredscape/reference/derived_curves.md)
+  [`demand_curve()`](https://mjorden.github.io/econscape/reference/derived_curves.md)
   or
-  [`engel_curve()`](https://mjorden.github.io/fredscape/reference/derived_curves.md).
+  [`engel_curve()`](https://mjorden.github.io/econscape/reference/derived_curves.md).
 
 - colour:
 

@@ -1,6 +1,6 @@
-# Build a fredscape palette function
+# Build a econscape palette function
 
-Build a fredscape palette function
+Build a econscape palette function
 
 ## Usage
 
@@ -16,7 +16,7 @@ econ_pal(palette = NULL, reverse = FALSE)
   `"academic"` (7 tans and browns), `"blues"` or `"browns"` (sequential)
   or `"redblue"` (diverging). `NULL` means the current style's
   categorical palette, see
-  [`set_style()`](https://mjorden.github.io/fredscape/reference/set_style.md).
+  [`set_style()`](https://mjorden.github.io/econscape/reference/set_style.md).
 
 - reverse:
 

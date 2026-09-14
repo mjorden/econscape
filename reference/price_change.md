@@ -25,13 +25,13 @@ hicks(u, b, new_px = NULL, new_py = NULL)
 - u:
 
   A function of `x` and `y`, typically from
-  [`cobb_douglas()`](https://mjorden.github.io/fredscape/reference/cobb_douglas.md)
+  [`cobb_douglas()`](https://mjorden.github.io/econscape/reference/cobb_douglas.md)
   or one of its siblings.
 
 - b:
 
   The original
-  [`budget()`](https://mjorden.github.io/fredscape/reference/budget.md).
+  [`budget()`](https://mjorden.github.io/econscape/reference/budget.md).
 
 - new_px, new_py:
 
@@ -53,7 +53,7 @@ An object of class `price_change`: a list with
   `total`, and columns `dx` and `dy`.
 
 - `budgets` – the three
-  [`budget()`](https://mjorden.github.io/fredscape/reference/budget.md)
+  [`budget()`](https://mjorden.github.io/econscape/reference/budget.md)
   objects, in the same order.
 
 - `method`, `good` (the good whose price changed), `old_price`,
@@ -78,7 +78,7 @@ from the compensated bundle to the final one is the *income effect*.
 
 ## See also
 
-[`plot_price_change()`](https://mjorden.github.io/fredscape/reference/plot_price_change.md)
+[`plot_price_change()`](https://mjorden.github.io/econscape/reference/plot_price_change.md)
 to draw it.
 
 ## Examples

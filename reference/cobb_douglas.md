@@ -43,15 +43,15 @@ production function over two inputs; the maths is identical, only the
 vocabulary changes (indifference curve vs isoquant, budget line vs
 isocost). `kind` records which reading is intended and drives the labels
 that
-[`plot_consumer_choice()`](https://mjorden.github.io/fredscape/reference/plot_consumer_choice.md)
+[`plot_consumer_choice()`](https://mjorden.github.io/econscape/reference/plot_consumer_choice.md)
 and [`print()`](https://rdrr.io/r/base/print.html) use.
 
 ## See also
 
-[`indifference_curve()`](https://mjorden.github.io/fredscape/reference/indifference_curve.md),
-[`optimal_bundle()`](https://mjorden.github.io/fredscape/reference/optimal_bundle.md),
-[`mrs()`](https://mjorden.github.io/fredscape/reference/mrs.md),
-[`budget()`](https://mjorden.github.io/fredscape/reference/budget.md).
+[`indifference_curve()`](https://mjorden.github.io/econscape/reference/indifference_curve.md),
+[`optimal_bundle()`](https://mjorden.github.io/econscape/reference/optimal_bundle.md),
+[`mrs()`](https://mjorden.github.io/econscape/reference/mrs.md),
+[`budget()`](https://mjorden.github.io/econscape/reference/budget.md).
 
 ## Examples
 

@@ -18,16 +18,16 @@ perfect_competition(demand, cost, n = NULL)
 - demand:
 
   A demand object from
-  [`linear_demand()`](https://mjorden.github.io/fredscape/reference/demand.md)
+  [`linear_demand()`](https://mjorden.github.io/econscape/reference/demand.md)
   or
-  [`demand_fn()`](https://mjorden.github.io/fredscape/reference/demand.md).
+  [`demand_fn()`](https://mjorden.github.io/econscape/reference/demand.md).
 
 - cost:
 
   A cost object from
-  [`quadratic_cost()`](https://mjorden.github.io/fredscape/reference/cost.md)
+  [`quadratic_cost()`](https://mjorden.github.io/econscape/reference/cost.md)
   or
-  [`production_cost()`](https://mjorden.github.io/fredscape/reference/cost.md).
+  [`production_cost()`](https://mjorden.github.io/econscape/reference/cost.md).
 
 - n:
 
@@ -61,7 +61,7 @@ fixed costs, which are sunk.
 
 Every function returns the same `market_outcome` object, so the
 structures can be compared directly;
-[`compare_structures()`](https://mjorden.github.io/fredscape/reference/compare_structures.md)
+[`compare_structures()`](https://mjorden.github.io/econscape/reference/compare_structures.md)
 does exactly that.
 
 ## Examples

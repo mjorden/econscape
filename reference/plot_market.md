@@ -25,11 +25,11 @@ plot_market(
 - outcome:
 
   A `market_outcome` from
-  [`monopoly()`](https://mjorden.github.io/fredscape/reference/market_structure.md),
-  [`cournot()`](https://mjorden.github.io/fredscape/reference/market_structure.md),
-  [`perfect_competition()`](https://mjorden.github.io/fredscape/reference/market_structure.md)
+  [`monopoly()`](https://mjorden.github.io/econscape/reference/market_structure.md),
+  [`cournot()`](https://mjorden.github.io/econscape/reference/market_structure.md),
+  [`perfect_competition()`](https://mjorden.github.io/econscape/reference/market_structure.md)
   or
-  [`first_degree()`](https://mjorden.github.io/fredscape/reference/price_discrimination.md).
+  [`first_degree()`](https://mjorden.github.io/econscape/reference/price_discrimination.md).
   For first-degree discrimination the whole area between demand and
   marginal cost is shaded as producer surplus, since that is who gets
   it.
@@ -46,18 +46,18 @@ plot_market(
 - title, subtitle, source:
 
   Passed to
-  [`labs_econ()`](https://mjorden.github.io/fredscape/reference/labs_econ.md);
+  [`labs_econ()`](https://mjorden.github.io/econscape/reference/labs_econ.md);
   sensible defaults are filled in.
 
 - panel:
 
   Passed to
-  [`theme_econ()`](https://mjorden.github.io/fredscape/reference/theme_econ.md).
+  [`theme_econ()`](https://mjorden.github.io/econscape/reference/theme_econ.md).
 
 ## Value
 
 A ggplot object. Add
-[`econ_masthead()`](https://mjorden.github.io/fredscape/reference/econ_masthead.md)
+[`econ_masthead()`](https://mjorden.github.io/econscape/reference/econ_masthead.md)
 last if you want the block.
 
 ## Examples

@@ -1,10 +1,10 @@
 # Compare market structures on the same demand and cost
 
 Runs
-[`monopoly()`](https://mjorden.github.io/fredscape/reference/market_structure.md),
-[`cournot()`](https://mjorden.github.io/fredscape/reference/market_structure.md)
+[`monopoly()`](https://mjorden.github.io/econscape/reference/market_structure.md),
+[`cournot()`](https://mjorden.github.io/econscape/reference/market_structure.md)
 for each value of `n`, and
-[`perfect_competition()`](https://mjorden.github.io/fredscape/reference/market_structure.md)
+[`perfect_competition()`](https://mjorden.github.io/econscape/reference/market_structure.md)
 with the largest `n`, and lines the outcomes up.
 
 ## Usage
@@ -18,16 +18,16 @@ compare_structures(demand, cost, n = c(2, 3, 5, 10))
 - demand:
 
   A demand object from
-  [`linear_demand()`](https://mjorden.github.io/fredscape/reference/demand.md)
+  [`linear_demand()`](https://mjorden.github.io/econscape/reference/demand.md)
   or
-  [`demand_fn()`](https://mjorden.github.io/fredscape/reference/demand.md).
+  [`demand_fn()`](https://mjorden.github.io/econscape/reference/demand.md).
 
 - cost:
 
   A cost object from
-  [`quadratic_cost()`](https://mjorden.github.io/fredscape/reference/cost.md)
+  [`quadratic_cost()`](https://mjorden.github.io/econscape/reference/cost.md)
   or
-  [`production_cost()`](https://mjorden.github.io/fredscape/reference/cost.md).
+  [`production_cost()`](https://mjorden.github.io/econscape/reference/cost.md).
 
 - n:
 

@@ -28,7 +28,7 @@ third_degree(demands, cost)
 ## Value
 
 `first_degree()` returns a `market_outcome` (see
-[market_structure](https://mjorden.github.io/fredscape/reference/market_structure.md)).
+[market_structure](https://mjorden.github.io/econscape/reference/market_structure.md)).
 `third_degree()` returns an object of class `third_degree`: a list with
 `segments` (a data frame: `segment`, `price`, `quantity`, `elasticity`,
 `lerner`, `revenue`), `quantity`, `marginal_cost`, `profit`, and
@@ -48,9 +48,9 @@ equates marginal revenue across groups to the common marginal cost,
 \\MR_i(Q_i) = MC(\sum Q_i)\\, which by the inverse-elasticity rule means
 the less elastic group pays more. The result also carries the
 uniform-price benchmark,
-[`monopoly()`](https://mjorden.github.io/fredscape/reference/market_structure.md)
+[`monopoly()`](https://mjorden.github.io/econscape/reference/market_structure.md)
 on the
-[`aggregate_demand()`](https://mjorden.github.io/fredscape/reference/aggregate_demand.md),
+[`aggregate_demand()`](https://mjorden.github.io/econscape/reference/aggregate_demand.md),
 so the gain from segmenting is explicit.
 
 ## Examples
